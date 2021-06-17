@@ -7,6 +7,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:574680884580:android:be18cac769fe1361c44671",
+        "android_client_info": {
+          "package_name": "com.example.virtual_size_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574680884580-36rv6o6uol49h8b2ccg4lcin0ekfebca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQBlKSFIcDr781pAsN1O9GNnjpUxrc_uQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574680884580-36rv6o6uol49h8b2ccg4lcin0ekfebca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:574680884580:android:6c584555a21a5e3ec44671",
         "android_client_info": {
           "package_name": "com.xinerji.ar"
