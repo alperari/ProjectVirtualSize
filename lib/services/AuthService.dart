@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:virtual_size_app/services/database.dart';
+import 'package:virtual_size_app/services/databaseServices.dart';
 
 class AuthService {
 

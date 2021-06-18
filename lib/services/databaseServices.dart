@@ -7,5 +7,6 @@ Future<void> CreateUserInFirestore(String uid, String email, String fullname)asy
     "userID" : uid,
     "email" : email,
     "fullname" : fullname,
+    "QRcodes" : <dynamic>[]
   });
 }
