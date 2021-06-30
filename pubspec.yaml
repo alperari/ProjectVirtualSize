@@ -37,6 +37,9 @@ dev_dependencies:
   firebase_auth: ^1.4.1
   provider: ^5.0.0
   email_validator: ^2.0.1
+  qr_flutter: ^4.0.0
+  uuid: ^3.0.4
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
