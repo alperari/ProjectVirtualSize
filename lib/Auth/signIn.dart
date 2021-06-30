@@ -38,15 +38,15 @@ class _SignInState extends State<SignIn> {
                       Expanded(
                         flex: 1,
                         child: TextFormField(
+                          style: TextStyle(color:Colors.black),
                           decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.email,color: Colors.grey,),
                             fillColor: Colors.white,
                             filled: true,
+                            hintStyle: TextStyle(color: Colors.black),
                             hintText: 'E-mail',
                             //labelText: 'Username',
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                              borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                            ),
+
                           ),
                           keyboardType: TextInputType.emailAddress,
 
@@ -75,15 +75,15 @@ class _SignInState extends State<SignIn> {
                       Expanded(
                         flex: 1,
                         child: TextFormField(
+                          style: TextStyle(color:Colors.black),
                           decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.vpn_key_sharp, color: Colors.grey,),
                             fillColor: Colors.white,
                             filled: true,
                             hintText: 'Password',
+                            hintStyle: TextStyle(color: Colors.black),
                             //labelText: 'Username',
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black),
-                              borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                            ),
+
                           ),
                           keyboardType: TextInputType.text,
                           obscureText: true,
@@ -121,6 +121,10 @@ class _SignInState extends State<SignIn> {
                             if(_formKey.currentState.validate()) {
                               _formKey.currentState.save();
 
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(content: Text('Logging in')));
+
+
                               dynamic result = await _auth.signInWithEmailAndPassword(mail, pass);
 
                               if(result == null) {
@@ -130,8 +134,7 @@ class _SignInState extends State<SignIn> {
                                 print('User logged in');
                               }
 
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(content: Text('Logging in')));
+
                             }
 
                           },

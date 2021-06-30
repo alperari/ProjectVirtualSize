@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:virtual_size_app/models/user.dart';
 import "package:provider/provider.dart";
 import 'package:virtual_size_app/services/AuthService.dart';
-import 'package:virtual_size_app/services/databaseServices.dart';
+
+import 'package:flutter/cupertino.dart';
+
+import "package:virtual_size_app/navigationPages/Profile.dart";
+import "package:virtual_size_app/navigationPages/myQRcodes.dart";
+import "package:virtual_size_app/navigationPages/addQRcode.dart";
+import "package:virtual_size_app/navigationPages/market.dart";
 
 class Home extends StatefulWidget {
   @override
@@ -11,43 +17,35 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  List<Widget> getQRs(){
-    final myuser = Provider.of<MyUser>(context);
-    List<Widget> QRs = [];
+  PageController pageController;
+  int pageIndex = 0;
 
-    if(myuser != null){
-      myuser.QRcodes.forEach((element) {
-        Card currentTile = Card(
-          elevation: 1,
-          child: ListTile(
-            tileColor: Colors.grey[800],
-            title: Text(element),
-            trailing: Icon(Icons.delete, color: Colors.redAccent,),
-          )
-        );
-        QRs.add(currentTile);
-      });
-      QRs.add(IconButton(
-        icon: Icon(Icons.add_circle_outlined),
-        iconSize: 35,
-        color: Colors.green,
-        onPressed: (){
-          print("tap");
-        },
-      ));
-      return QRs;
-    }
-    else{
-      List<Widget> empty = [];
-      empty.add(CircularProgressIndicator());
-      return empty;
-    }
 
+  onPageChanged(int pindex){
+    setState(() {
+      this.pageIndex = pindex;
+    });
   }
+  navigationTap(int pindex){
+    pageController.jumpToPage(pindex);
+  }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    pageController = PageController();
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
+
+    //get user by provider, guaranteed to be non-null
     final myuser = Provider.of<MyUser>(context);
+
+
     if(myuser != null) {
       return Scaffold(
         appBar: AppBar(
@@ -59,45 +57,35 @@ class _HomeState extends State<Home> {
                 child: Text("Log Out", style: TextStyle(color: Colors.black),))
           ],
         ),
-        body: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Hi ",
-                    style: TextStyle(
-                        fontSize: 50
-                    ),
-                  ),
-                  Text(
-                    myuser.fullname,
-                    style: TextStyle(
-                      color: Colors.lightBlueAccent[100],
-                      fontSize: 50
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(height: 10,),
-              Text("MY QR CODES"),
-              Divider(thickness: 2,),
-              Container(
-                height: MediaQuery.of(context).size.height-200,
-                width: MediaQuery.of(context).size.width,
-                child: ListView(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+        body: PageView(
+          children: <Widget>[
+            Profile(),
+            myQRcodes(),
+            addQRcode(),
+            Market(),
+          ],
+          controller: pageController,
+          onPageChanged: onPageChanged,
+          physics: NeverScrollableScrollPhysics(),
 
-                  children: getQRs()
-                ),
-              ),
-            ],
-          ),
         ),
+
+        bottomNavigationBar: CupertinoTabBar(
+          iconSize: 34,
+          backgroundColor: Colors.transparent,
+          currentIndex: pageIndex,
+          onTap: navigationTap,
+          activeColor: Colors.lightGreen,
+          inactiveColor: Colors.grey,
+          items: [
+            BottomNavigationBarItem(title: Text("Profile", style: TextStyle(fontSize: 14),),icon: Icon(Icons.person)),
+            BottomNavigationBarItem(title: Text("My QRs", style: TextStyle(fontSize: 14),),icon: Icon(Icons.qr_code)),
+            BottomNavigationBarItem(title: Text("Add QR", style: TextStyle(fontSize: 14),),icon: Icon(Icons.add_road_sharp,)),
+            BottomNavigationBarItem(title: Text("Marketplace", style: TextStyle(fontSize: 14),),icon: Icon(Icons.shopping_cart)),
+
+          ],
+        ),
+
       );
     }
     else{
@@ -107,5 +95,12 @@ class _HomeState extends State<Home> {
         ),
       );
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    pageController.dispose();
+    super.dispose();
   }
 }
