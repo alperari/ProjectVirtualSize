@@ -22,6 +22,7 @@ class _createQRcodeState extends State<createQRcode> {
 
   final _formKey = GlobalKey<FormState>();
   double input1, input2, input3, input4, input5;
+  String QRname;
   bool isset=false;
   String QR_id;
   File imageFile;
@@ -99,13 +100,8 @@ class _createQRcodeState extends State<createQRcode> {
     });
 
     imageFile =await Convert_QR_to_File(data.toString());
-
-
-
-
     imageFile = await compressImage(imageFile);
-
-    String mediaURL = await uploadImage(imageFile, QR_id, "testname");
+    String mediaURL = await uploadImage(imageFile, QR_id, QRname);
 
   }
 
@@ -121,6 +117,30 @@ class _createQRcodeState extends State<createQRcode> {
             key: _formKey,
             child: Column(
               children: [
+                SizedBox(
+                  width:300,
+                  height: 50,
+                  child: TextFormField(
+                    decoration: new InputDecoration(
+                      labelText: "Name Your QR",
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black),
+                      ),
+
+                    ),
+                    keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if(value.isEmpty) {
+                        return 'Enter name!';
+                      }
+                      return null;
+                    },
+                    onSaved: (String value) {
+                      QRname = value;
+                    },
+                  ),
+                ),
+                SizedBox(height: 10,),
                 SizedBox(
                   width:80,
                   height: 60,
@@ -256,8 +276,7 @@ class _createQRcodeState extends State<createQRcode> {
 
                        await createQR(data);
 
-                       print(QR_id);
-
+                       _formKey.currentState.reset();
                      }
                     }
                   },
