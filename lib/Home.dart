@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
           inactiveColor: Colors.grey,
           items: [
             BottomNavigationBarItem(title: Text("Profile", style: TextStyle(fontSize: 14),),icon: Icon(Icons.person)),
-            BottomNavigationBarItem(title: Text("Current QRs", style: TextStyle(fontSize: 14),),icon: Icon(Icons.qr_code)),
+            BottomNavigationBarItem(title: Text("Display QRs", style: TextStyle(fontSize: 14),),icon: Icon(Icons.qr_code)),
             BottomNavigationBarItem(title: Text("Create QR", style: TextStyle(fontSize: 14),),icon: Icon(Icons.add_road_sharp,)),
             BottomNavigationBarItem(title: Text("Marketplace", style: TextStyle(fontSize: 14),),icon: Icon(Icons.shopping_cart)),
 
