@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomDialogBox extends StatefulWidget {
-  final String title, descriptions, text;
+  final String title, descriptions;
   final Image img;
 
-  const CustomDialogBox({Key key, this.title, this.descriptions, this.text, this.img}) : super(key: key);
+  const CustomDialogBox({Key key, this.title, this.descriptions, this.img}) : super(key: key);
 
   @override
   _CustomDialogBoxState createState() => _CustomDialogBoxState();
@@ -15,6 +15,7 @@ class CustomDialogBox extends StatefulWidget {
 class _CustomDialogBoxState extends State<CustomDialogBox> {
   @override
   Widget build(BuildContext context) {
+
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -44,20 +45,13 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Icon(Icons.check_circle,color: Colors.green,size: 100,),
+              CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightGreen),),
               SizedBox(height: 15,),
               Text(widget.title,style: TextStyle(color:Colors.black,fontSize: 22,fontWeight: FontWeight.w600),),
               SizedBox(height: 15,),
               Text(widget.descriptions,style: TextStyle(color:Colors.black,fontSize: 14),textAlign: TextAlign.center,),
               SizedBox(height: 22,),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: FlatButton(
-                    onPressed: (){
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(widget.text,style: TextStyle(color:Colors.black,fontSize: 18),)),
-              ),
+
             ],
           ),
         ),

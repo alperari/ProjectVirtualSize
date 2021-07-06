@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.virtual_size_app">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
+
         android:label="virtual_size_app"
         android:icon="@mipmap/ic_launcher">
         <activity

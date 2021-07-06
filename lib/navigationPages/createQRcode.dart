@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as im;
@@ -9,6 +8,7 @@ import "package:flutter/material.dart";
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:virtual_size_app/services/databaseServices.dart';
 import 'package:virtual_size_app/models/customDialogBox.dart';
@@ -21,13 +21,15 @@ class createQRcode extends StatefulWidget {
 class _createQRcodeState extends State<createQRcode> {
 
   final _formKey = GlobalKey<FormState>();
-  double input1, input2, input3, input4, input5;
+  double head, neck, shoulder, chest, biceps, Tlength, waist, hip, inLeg, outLeg;
   String QRname;
   bool isset=false;
   String QR_id;
   File imageFile;
 
-  Future<void> CreateQR_Firestore({String mediaURL, String QR_id, String ownerID, String name, var time, }) async{
+  Future<bool> done;
+
+  Future<void> CreateQR_Firestore({String mediaURL, String QR_id, String ownerID, String name, DateTime time, Map<String,double> mapData}) async{
     await QRsRef.doc(auth.uid).collection("my_QRs").doc(QR_id).set(
       {
         "name" : name,
@@ -35,9 +37,24 @@ class _createQRcodeState extends State<createQRcode> {
         "ownerID": ownerID,
         "mediaURL": mediaURL,
         "time": time,
+        "measureData": mapData,
+        "favorited": false
       }
     );
   }
+
+  // Future<void> UpdateQR_Firestore({String ownerID, String QR_id, Map<String, double> mapData})async{
+  //   DocumentSnapshot snapshot = await usersRef
+  //       .doc(ownerID)
+  //       .collection("my_QRs")
+  //       .doc(QR_id)
+  //       .get();
+  //
+  //   if(snapshot.exists){
+  //     print("updated!");
+  //     snapshot.reference.update(mapData);
+  //   }
+  // }
 
   Future<File> Convert_QR_to_File(String data) async {
     try {
@@ -71,18 +88,21 @@ class _createQRcodeState extends State<createQRcode> {
     return compressedImageFile;
   }
 
-  Future<String> uploadImage(File imageFile, String QR_id, String name) async {
+  Future<bool> uploadImage(File imageFile, String QR_id, String name, Map<String, double> mapData) async {
+
     UploadTask uploadTask = storageRef.child("QRs/qr_$QR_id.jpg").putFile(imageFile);
     TaskSnapshot storageSnap = await uploadTask.whenComplete(() {});
     String downloadUrl = await storageSnap.ref.getDownloadURL();
 
 
+    //Create QRcode in QRs collection
     await CreateQR_Firestore(
       name: name,
       QR_id: QR_id,
       ownerID: auth.uid,
       mediaURL: downloadUrl,
-      time: DateTime.now().toString()
+      time: DateTime.now(),
+      mapData: mapData
     );
 
 
@@ -101,7 +121,7 @@ class _createQRcodeState extends State<createQRcode> {
 
     imageFile =await Convert_QR_to_File(data.toString());
     imageFile = await compressImage(imageFile);
-    String mediaURL = await uploadImage(imageFile, QR_id, QRname);
+    await uploadImage(imageFile, QR_id, QRname, data);
 
   }
 
@@ -141,141 +161,281 @@ class _createQRcodeState extends State<createQRcode> {
                   ),
                 ),
                 SizedBox(height: 10,),
-                SizedBox(
-                  width:80,
-                  height: 60,
-                  child: TextFormField(
-                    decoration: new InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
-                      ),
+                Column(
+                  children: [
+                    SizedBox(
+                      width:100,
+                      height: 30,
+                      child: TextFormField(
+                        decoration: new InputDecoration(
+                          labelText: "head",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
 
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if(value.isEmpty) {
-                        return 'Enter value!';
-                      }
-                      return null;
-                    },
-                    onSaved: (String value) {
-                      input1 = double.parse(value);
-                    },
-                  ),
-                ),
-                SizedBox(height: 10,),
-                SizedBox(
-                  width:80,
-                  height: 60,
-                  child: TextFormField(
-                    decoration: new InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if(value.isEmpty) {
+                            return 'Enter value!';
+                          }
+                          return null;
+                        },
+                        onSaved: (String value) {
+                          head = double.parse(value);
+                        },
                       ),
-
                     ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if(value.isEmpty) {
-                        return 'Enter value!';
-                      }
-                      return null;
-                    },
-                    onSaved: (String value) {
-                      input2 = double.parse(value);
-                    },
-                  ),
-                ),
-                SizedBox(height: 10,),
-                SizedBox(
-                  width:80,
-                  height: 60,
-                  child: TextFormField(
-                    decoration: new InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
+                    SizedBox(height: 10,),
+                    SizedBox(
+                      width:100,
+                      height: 30,
+                      child: TextFormField(
+                        decoration: new InputDecoration(
+                          labelText: "neck",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if(value.isEmpty) {
+                            return 'Enter value!';
+                          }
+                          return null;
+                        },
+                        onSaved: (String value) {
+                          neck = double.parse(value);
+                        },
                       ),
-
                     ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if(value.isEmpty) {
-                        return 'Enter value!';
-                      }
-                      return null;
-                    },
-                    onSaved: (String value) {
-                      input3 = double.parse(value);
-                    },
-                  ),
-                ),
-                SizedBox(height: 10,),
-                SizedBox(
-                  width:80,
-                  height: 60,
-                  child: TextFormField(
-                    decoration: new InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
+                    SizedBox(height: 10,),
+                    SizedBox(
+                      width:100,
+                      height: 30,
+                      child: TextFormField(
+                        decoration: new InputDecoration(
+                          labelText: "shoulder",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if(value.isEmpty) {
+                            return 'Enter value!';
+                          }
+                          return null;
+                        },
+                        onSaved: (String value) {
+                          shoulder = double.parse(value);
+                        },
                       ),
-
                     ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if(value.isEmpty) {
-                        return 'Enter value!';
-                      }
-                      return null;
-                    },
-                    onSaved: (String value) {
-                      input4 = double.parse(value);
-                    },
-                  ),
-                ),
-                SizedBox(height: 10,),
-                SizedBox(
-                  width:80,
-                  height: 60,
-                  child: TextFormField(
-                    decoration: new InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black),
+                    SizedBox(height: 10,),
+                    SizedBox(
+                      width:100,
+                      height: 30,
+                      child: TextFormField(
+                        decoration: new InputDecoration(
+                          labelText: "chest",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if(value.isEmpty) {
+                            return 'Enter value!';
+                          }
+                          return null;
+                        },
+                        onSaved: (String value) {
+                          chest = double.parse(value);
+                        },
                       ),
-
                     ),
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      if(value.isEmpty) {
-                        return 'Enter value!';
-                      }
-                      return null;
-                    },
-                    onSaved: (String value) {
-                      input5 = double.parse(value);
-                    },
-                  ),
+                    SizedBox(height: 10,),
+                    SizedBox(
+                      width:100,
+                      height: 30,
+                      child: TextFormField(
+                        decoration: new InputDecoration(
+                          labelText: "biceps",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if(value.isEmpty) {
+                            return 'Enter value!';
+                          }
+                          return null;
+                        },
+                        onSaved: (String value) {
+                          biceps = double.parse(value);
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    SizedBox(
+                      width:100,
+                      height: 30,
+                      child: TextFormField(
+                        decoration: new InputDecoration(
+                          labelText: "Tlength",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if(value.isEmpty) {
+                            return 'Enter value!';
+                          }
+                          return null;
+                        },
+                        onSaved: (String value) {
+                          Tlength = double.parse(value);
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    SizedBox(
+                      width:100,
+                      height: 30,
+                      child: TextFormField(
+                        decoration: new InputDecoration(
+                          labelText: "waist",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if(value.isEmpty) {
+                            return 'Enter value!';
+                          }
+                          return null;
+                        },
+                        onSaved: (String value) {
+                          waist = double.parse(value);
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    SizedBox(
+                      width:100,
+                      height: 30,
+                      child: TextFormField(
+                        decoration: new InputDecoration(
+                          labelText: "hip",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if(value.isEmpty) {
+                            return 'Enter value!';
+                          }
+                          return null;
+                        },
+                        onSaved: (String value) {
+                          hip = double.parse(value);
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    SizedBox(
+                      width:100,
+                      height: 30,
+                      child: TextFormField(
+                        decoration: new InputDecoration(
+                          labelText: "inLeg",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if(value.isEmpty) {
+                            return 'Enter value!';
+                          }
+                          return null;
+                        },
+                        onSaved: (String value) {
+                          inLeg = double.parse(value);
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    SizedBox(
+                      width:100,
+                      height: 30,
+                      child: TextFormField(
+                        decoration: new InputDecoration(
+                          labelText: "outLeg",
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                          ),
+
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if(value.isEmpty) {
+                            return 'Enter value!';
+                          }
+                          return null;
+                        },
+                        onSaved: (String value) {
+                          outLeg = double.parse(value);
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                  ],
                 ),
-                SizedBox(height: 10,),
                 FlatButton(
                   onPressed: ()  async {
                     if(_formKey.currentState.validate()) {
                       _formKey.currentState.save();
 
                      if(!isset){
-                       Map<String,double> data = {"input1":input1, "input2":input2,"input3":input3,"input4":input4,"input5":input5};
+                       Map<String,double> data = {
+                         "head":head,
+                         "neck":neck,
+                         "shoulder":shoulder,
+                         "chest":chest,
+                         "biceps":biceps,
+                         "Tlength":Tlength,
+                         "waist":waist,
+                         "hip":hip,
+                         "inLeg":inLeg,
+                         "outLeg":outLeg
+                       };
 
                        showDialog(context: context,
-                           builder: (BuildContext context){
-                             return CustomDialogBox(
-                               title: "Well Done!",
-                               descriptions: "You've successfully created a new QR code. You can display your all of your QR codes in Display Section.",
-                               text: "OK",
-                             );
-                           }
-                       );
+                           barrierDismissible: false,
+                           builder: (BuildContext dialogContext){
+                            return CustomDialogBox(
+                              title: "GENERATING QR CODE...",
+                              descriptions: "This process will end in seconds.",
+                            );
+                          }
+                        );
 
-                       await createQR(data);
-
+                        await createQR(data);
+                        Navigator.pop(context);
                        _formKey.currentState.reset();
                      }
                     }
