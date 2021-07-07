@@ -4,8 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:timeago/timeago.dart" as timeago;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:virtual_size_app/custom_icon_icons.dart';
+import 'package:virtual_size_app/main.dart';
+import 'package:virtual_size_app/models/customDialogBox.dart';
 
 import 'package:virtual_size_app/services/databaseServices.dart';
+import 'package:virtual_size_app/showQR.dart';
 
 
 class QRcodeTile{
@@ -48,7 +51,7 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
     }
 
     //remove from storage
-    await storageRef.child("QRs/qr_$myQRcodeTile.QR_id.jpg").delete();
+    await storageRef.child("QRs/qr_${myQRcodeTile.QR_id}.jpg").delete();
   }
 
 
@@ -63,9 +66,18 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
 
               SimpleDialogOption(
                 onPressed: () async{
+                  Navigator.pop(mainContext);
+                  showDialog(context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext dialogContext){
+                        return CustomDialogBox(
+                          title: "REMOVING QR CODE...",
+                          descriptions: "This process will end in seconds.",
+                        );
+                      }
+                  );
                   await removeQR();
-                  Navigator.pop(dialogContext);
-
+                  Navigator.pop(mainContext);
                 },
                 child: Text(
                   'Remove',
@@ -208,10 +220,32 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
               children: [
 
                 Container(
-                    width: 300,
-                    height: 150,
-                    child: Image(image: CachedNetworkImageProvider(myQRcodeTile.mediaURL))
+                  width: 300,
+                  height: 150,
+                ),
 
+                Positioned(
+                  top: 0,
+                  right: 75,
+
+                  child: GestureDetector(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.greenAccent)
+                      ),
+                        width: 150,
+                        height: 150,
+                        child: Image(image: CachedNetworkImageProvider(myQRcodeTile.mediaURL)),
+
+                    ),
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context){
+                            return showQR(mediaURL: myQRcodeTile.mediaURL,);
+                          }
+                      ));
+                    },
+                  ),
                 ),
 
 

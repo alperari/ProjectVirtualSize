@@ -64,7 +64,7 @@ class _createQRcodeState extends State<createQRcode> {
         gapless: false,
         color: Colors.black,
         emptyColor: Colors.white
-      ).toImage(300);
+      ).toImage(600);
 
       final bytedata = await image.toByteData(format: ImageByteFormat.png);
 
