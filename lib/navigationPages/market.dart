@@ -25,22 +25,27 @@ class _MarketState extends State<Market> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: snap,
-      builder: (context,snapshot){
-        if(snapshot.hasData){
-          TshirtProduct t1 = TshirtProduct.fromDoc(snapshot.data);
-          print(t1.Company + t1.Price.toString() + t1.mediaUrl + t1.measureData.toString());
-          return Center(
-            child: Text("YEAH"),
-          );
-        }
-        else
-          print("no data");
+    ListView(
+      children: [
+        
+        FutureBuilder(
+        future: snap,
+        builder: (context,snapshot){
+          if(snapshot.hasData){
+            TshirtProduct t1 = TshirtProduct.fromDoc(snapshot.data);
+            print(t1.Company + t1.Price.toString() + t1.mediaUrl + t1.measureData.toString());
+            return Center(
+              child: t1.ReturnTshirtProductWidget(context),
+            );
+          }
+          else
+            print("no data");
           return Center(
             child: Text("NOPE"),
           );
-      },
+        },
+      )
+      ],
     );
   }
 }
