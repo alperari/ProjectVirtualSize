@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:virtual_size_app/custom_icon_icons.dart';
+import 'dart:async';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:snapping_sheet/snapping_sheet.dart';
 
@@ -10,11 +13,16 @@ import "package:virtual_size_app/InputSections/necklace.dart";
 
 
 class Profile extends StatefulWidget {
+
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> with TickerProviderStateMixin {
+
+  StreamController<Map<String,double>> mystreamController = StreamController();
+
+  Stream<Map<String,double>> mystream;
   // TickerProviderStateMixin allows the fade out/fade in animation when changing the active button
 
   // this will control the button clicks and tab changing
@@ -54,6 +62,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
     CustomIcon.necklace,
   ];
 
+  List<dynamic> iconColorsSet = [0,0,0,0];
+
   // active button's foreground color
   Color _foregroundOn = Colors.white;
   Color _foregroundOff = Colors.black;
@@ -74,6 +84,8 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
+    var mystream = mystreamController.stream;
 
     for (int index = 0; index < _icons.length; index++) {
       // create a GlobalKey for each Tab
@@ -217,10 +229,19 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
         duration: new Duration(milliseconds: 150), curve: Curves.easeInOut);
   }
 
-  _getBackgroundColor(int index) {
+  _getBackgroundColor(int index) async {
     if (index == _currentIndex) {
       // if it's active button
-      return _colorTweenBackgroundOn.value;
+      mystream.first.then((value) {
+        if(value["icon1"] == 1){
+          return _colorTweenBackgroundOn.value;
+
+        }
+        else{
+          return Colors.red;
+        }
+      });
+
     } else if (index == _prevControllerIndex) {
       // if it's the previous active button
       return _colorTweenBackgroundOff.value;
@@ -290,12 +311,22 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                                             _scrollTo(index);
                                           });
                                         },
-                                        child: Icon(
-                                          // get the icon
-                                          _icons[index],
-                                          // get the color of the icon (dependent of its state)
-                                          color: _getForegroundColor(index),
-                                        )),
+                                        child: StreamBuilder(
+                                          stream: mystream,
+                                          builder: (context,snapshot){
+                                            if(snapshot.hasData){
+                                              print(snapshot.data);
+                                              return Icon(
+                                                // get the icon
+                                                _icons[index],
+                                                // get the color of the icon (dependent of its state)
+                                                color: _getForegroundColor(index),
+                                              );
+                                            }
+                                            return Text("");
+                                          },
+                                        )
+                                    ),
                                   )));
                         }
                     ),
@@ -314,7 +345,9 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                         icon: Icon(Icons.check, color: Colors.white,
                         ),
                         iconSize: 30,
-                        onPressed: (){},
+                        onPressed: (){
+                          print(QRdata.toString());
+                        },
                       ),
                     ),
                   )
@@ -329,10 +362,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                 controller: _controller,
                 children: <Widget>[
                   // our Tab Views
-                  Hat(),
-                  Tshirt(),
-                  Pants(),
-                  Necklace(),
+                  Hat(data: mystream.first),
+                  Tshirt(data: mystream),
+                  Pants(data: mystream),
+                  Necklace(data: mystream),
                 ],
               )),
         ]));

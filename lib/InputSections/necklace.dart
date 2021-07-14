@@ -1,6 +1,10 @@
 import "package:flutter/material.dart";
 
 class Necklace extends StatefulWidget {
+
+  Map<String,double> data;
+  Necklace({this.data});
+
   @override
   _NecklaceState createState() => _NecklaceState();
 }

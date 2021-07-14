@@ -1,18 +1,33 @@
 import "package:flutter/material.dart";
 import 'package:snapping_sheet/snapping_sheet.dart';
+import 'package:virtual_size_app/navigationPages/displayQRs.dart';
 
 class Tshirt extends StatefulWidget {
+
+  Map<String,double> data;
+  Tshirt({this.data});
+
+
   @override
   _TshirtState createState() => _TshirtState();
 }
 
 class _TshirtState extends State<Tshirt> {
 
+
   final ScrollController _scrollController = ScrollController();
 
   final _formKey = GlobalKey<FormState>();
   double neck, chest, shoulder, sleeve, length, biceps, waist;
-
+  Map<String,double> ownData = {
+    "neck": 0.0,
+    "chest": 0.0,
+    "shoulder": 0.0,
+    "length": 0.0,
+    "sleeve": 0.0,
+    "biceps": 0.0,
+    "waist": 0.0,
+  };
 
 
 
@@ -28,9 +43,12 @@ class _TshirtState extends State<Tshirt> {
             color: Colors.black,
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+          borderSide: BorderSide(color: Colors.blue, width: 1.0),
         ),
         enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.black, width: 1.0),
+        ),
+        disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.black, width: 1.0),
         ),
         errorBorder: OutlineInputBorder(
@@ -49,7 +67,7 @@ class _TshirtState extends State<Tshirt> {
         return null;
       },
       onSaved: (String value) {
-        myVar = double.parse(value);
+        ownData[name.toLowerCase()] = double.parse(value);
       },
     );
 
@@ -60,7 +78,7 @@ class _TshirtState extends State<Tshirt> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Center(child: Text("Hello")),
+        Image.asset("assets/imageUpperbody.jpg"),
         Positioned(
           right: 0,
           left: 0,
@@ -119,6 +137,18 @@ class _TshirtState extends State<Tshirt> {
                                 onPressed: (){
                                   if(_formKey.currentState.validate() == true){
                                     _formKey.currentState.save();
+                                    print("OWN DATA: " + ownData.toString());
+
+                                    widget.data["neck"] = ownData["neck"];
+                                    widget.data["chest"] = ownData["chest"];
+                                    widget.data["shoulder"] = ownData["shoulder"];
+                                    widget.data["length"] = ownData["length"];
+                                    widget.data["sleeve"] = ownData["sleeve"];
+                                    widget.data["biceps"] = ownData["biceps"];
+                                    widget.data["waist"] = ownData["waist"];
+
+                                    //set issetTshirt = true
+                                    widget.data["icon1"] = 1;
                                   }
                                   else{
 
@@ -138,6 +168,13 @@ class _TshirtState extends State<Tshirt> {
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _scrollController.dispose();
+    super.dispose();
   }
 }
 
@@ -174,5 +211,7 @@ class _GrabbingWidget extends StatelessWidget {
       ),
     );
   }
+
+
 }
 
