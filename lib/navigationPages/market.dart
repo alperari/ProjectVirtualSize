@@ -28,8 +28,22 @@ class _MarketState extends State<Market> {
 
   Future<DocumentSnapshot> snap;
 
+
+  String dropdownvalue = 'Apple';
+  List<String> dropdownItems = [];
+  
+
+
+
   Future<DocumentSnapshot> getDoc()async {
     snap = ProductsRef.doc("tshirt").collection("TshirtProducts").doc("tshirt_11").get();
+  }
+
+  Future<void> getDropdownItems()async{
+    QuerySnapshot snapshot = await QRsRef.doc(auth.uid).collection("my_QRs").get();
+    for(var doc in snapshot.docs){
+      dropdownItems.add(doc.get("name"));
+    }
   }
 
   void changeFilterBar(){
@@ -118,12 +132,28 @@ class _MarketState extends State<Market> {
           children: [
             SizedBox(width: 50,),
             buildFilterIconButton(CustomIcon.hat, "Hat"),
-            Icon(CustomIcon.t_shirt_1 , color: selectedTshirt ? Colors.black : Colors.white,),
-            Icon(CustomIcon.black__1_ , color:  selectedPants ? Colors.black : Colors.white,),
-            Icon(CustomIcon.necklace,  color: selectedNecklace ? Colors.black : Colors.white, size: 20,),
+            buildFilterIconButton(CustomIcon.t_shirt_1, "Tshirt"),
+            buildFilterIconButton(CustomIcon.black__1_, "Pants"),
+            buildFilterIconButton(CustomIcon.necklace, "Necklace"),
             SizedBox(width: 50,),
           ],
 
+        ),
+        DropdownButton(
+          value: dropdownvalue,
+          icon: Icon(Icons.keyboard_arrow_down),
+          items:dropdownItems.map((String items) {
+            return DropdownMenuItem(
+                value: items,
+                child: Text(items)
+            );
+          }
+          ).toList(),
+          onChanged: (String newValue){
+            setState(() {
+              dropdownvalue = newValue;
+            });
+          },
         ),
         ElevatedButton(
           style: ButtonStyle(

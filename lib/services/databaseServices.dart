@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 final usersRef = FirebaseFirestore.instance.collection("users");
 final QRsRef = FirebaseFirestore.instance.collection("QRs");
 final ProductsRef = FirebaseFirestore.instance.collection("Products");
+final virtualSizesRef = FirebaseFirestore.instance.collection("VirtualSizes");
 final auth = FirebaseAuth.instance.currentUser;
 final storageRef = FirebaseStorage.instance.ref();
 

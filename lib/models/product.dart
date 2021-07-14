@@ -119,7 +119,7 @@ class TshirtProduct extends Product{
                       Expanded(
                         flex: 2,
                         child: Container(
-                          width: 50,
+                          width: 70,
                           color: Colors.red,
                         ),
                       )
