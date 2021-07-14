@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:virtual_size_app/custom_icon_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:snapping_sheet/snapping_sheet.dart';
 
 import "package:virtual_size_app/InputSections/hat.dart";
 import "package:virtual_size_app/InputSections/tshirt.dart";
@@ -246,15 +247,6 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
 
-        floatingActionButton: FloatingActionButton(
-          child: Column(
-            children: [
-              SizedBox(height: 2,),
-              Icon(Icons.qr_code),
-              Text("CREATE", style: GoogleFonts.fjallaOne())
-            ],
-          ),
-        ),
         body: Column(children: <Widget>[
           // this is the TabBar
           Container(
@@ -332,6 +324,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
           Flexible(
             // this will host our Tab Views
               child: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
                 // and it is controlled by the controller
                 controller: _controller,
                 children: <Widget>[
