@@ -20,9 +20,13 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> with TickerProviderStateMixin {
 
-  StreamController<Map<String,double>> mystreamController = StreamController();
+  Map<String,double> QRdata = {};
 
+
+  StreamController<Map<String,double>> mystreamController = StreamController.broadcast();
   Stream<Map<String,double>> mystream;
+
+
   // TickerProviderStateMixin allows the fade out/fade in animation when changing the active button
 
   // this will control the button clicks and tab changing
@@ -70,7 +74,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
 
   // active button's background color
   Color _backgroundOn = Colors.lightGreen;
-  Color _backgroundOff = Colors.grey[300];
+  Color _backgroundOff = Colors.grey[500];
 
   // scroll controller for the TabBar
   ScrollController _scrollController = new ScrollController();
@@ -85,7 +89,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    var mystream = mystreamController.stream;
+    mystream = mystreamController.stream;
 
     for (int index = 0; index < _icons.length; index++) {
       // create a GlobalKey for each Tab
@@ -229,25 +233,31 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
         duration: new Duration(milliseconds: 150), curve: Curves.easeInOut);
   }
 
-  _getBackgroundColor(int index) async {
-    if (index == _currentIndex) {
-      // if it's active button
-      mystream.first.then((value) {
-        if(value["icon1"] == 1){
-          return _colorTweenBackgroundOn.value;
-
-        }
-        else{
-          return Colors.red;
-        }
-      });
-
-    } else if (index == _prevControllerIndex) {
-      // if it's the previous active button
-      return _colorTweenBackgroundOff.value;
-    } else {
-      // if the button is inactive
+  _getBackgroundColor(int index, snapshot) {
+    if(!snapshot.hasData){
       return _backgroundOff;
+    }
+    else{
+      if(snapshot.data["icon"+index.toString()] == 1){
+
+        if (index == _currentIndex) {
+          // if it's active button
+          return _colorTweenBackgroundOn.value;
+        }
+        else if (index == _prevControllerIndex) {
+          // if it's the previous active button
+          return _colorTweenBackgroundOff.value;
+        }
+        else {
+          // if the button is inactive
+          return Colors.lightGreenAccent;
+        }
+      }
+      else{
+        return _colorTweenBackgroundOff.value;
+      }
+
+
     }
   }
 
@@ -264,6 +274,14 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
 
 
 
+  bool checkButtonValidity(snapshot){
+    if(snapshot.data["icon0"]==1.0 || snapshot.data["icon1"]==1.0 ||snapshot.data["icon2"]==1.0  || snapshot.data["icon3"]==1.0){
+      return true;
+    }
+    return false;
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -273,85 +291,98 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
           Container(
               height: 49.0,
               // this generates our tabs buttons
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 5,
-                    child: ListView.builder(
-                      // this gives the TabBar a bounce effect when scrolling farther than it's size
-                        physics: BouncingScrollPhysics(),
-                        controller: _scrollController,
-                        // make the list horizontal
-                        scrollDirection: Axis.horizontal,
-                        // number of tabs
-                        itemCount: _icons.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            // each button's key
-                              key: _keys[index],
-                              // padding for the buttons
-                              padding: EdgeInsets.all(6.0),
-                              child: ButtonTheme(
-                                  child: AnimatedBuilder(
-                                    animation: _colorTweenBackgroundOn,
-                                    builder: (context, child) => FlatButton(
-                                      // get the color of the button's background (dependent of its state)
-                                        color: _getBackgroundColor(index),
-                                        // make the button a rectangle with round corners
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: new BorderRadius.circular(7.0)),
-                                        onPressed: () {
-                                          setState(() {
-                                            _buttonTap = true;
-                                            // trigger the controller to change between Tab Views
-                                            _controller.animateTo(index);
-                                            // set the current index
-                                            _setCurrentIndex(index);
-                                            // scroll to the tapped button (needed if we tap the active button and it's not on its position)
-                                            _scrollTo(index);
-                                          });
-                                        },
-                                        child: StreamBuilder(
-                                          stream: mystream,
-                                          builder: (context,snapshot){
-                                            if(snapshot.hasData){
-                                              print(snapshot.data);
-                                              return Icon(
-                                                // get the icon
-                                                _icons[index],
-                                                // get the color of the icon (dependent of its state)
-                                                color: _getForegroundColor(index),
-                                              );
-                                            }
-                                            return Text("");
-                                          },
-                                        )
-                                    ),
-                                  )));
-                        }
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      margin: EdgeInsets.all(3),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(7),),
-                        color: Colors.blue,
+              child: StreamBuilder(
+                stream: mystream,
+                builder: (context,snapshot){
+                  return Row(
+                    children: [
+                      Expanded(
+                        flex: 5,
+                        child: ListView.builder(
+                          // this gives the TabBar a bounce effect when scrolling farther than it's size
+                            physics: BouncingScrollPhysics(),
+                            controller: _scrollController,
+                            // make the list horizontal
+                            scrollDirection: Axis.horizontal,
+                            // number of tabs
+                            itemCount: _icons.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                // each button's key
+                                  key: _keys[index],
+                                  // padding for the buttons
+                                  padding: EdgeInsets.all(6.0),
+                                  child: ButtonTheme(
+                                      child: AnimatedBuilder(
+                                        animation: _colorTweenBackgroundOn,
+                                        builder: (context, child) =>
+                                            FlatButton(
+                                              // get the color of the button's background (dependent of its state)
+                                                color: _getBackgroundColor(index,snapshot),
+                                                // make the button a rectangle with round corners
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius: new BorderRadius.circular(7.0)),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    _buttonTap = true;
+                                                    // trigger the controller to change between Tab Views
+                                                    _controller.animateTo(index);
+                                                    // set the current index
+                                                    _setCurrentIndex(index);
+                                                    // scroll to the tapped button (needed if we tap the active button and it's not on its position)
+                                                    _scrollTo(index);
+                                                  });
+                                                },
+                                                child: Icon(
+                                                  // get the icon
+                                                  _icons[index],
+                                                  // get the color of the icon (dependent of its state)
+                                                  color: _getForegroundColor(index),
+                                                )
 
-                      ),
+                                            )
 
-                      child: IconButton(
-                        icon: Icon(Icons.check, color: Colors.white,
+
+                                      )));
+                            }
                         ),
-                        iconSize: 30,
-                        onPressed: (){
-                          print(QRdata.toString());
-                        },
                       ),
-                    ),
-                  )
-                ],
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          margin: EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(7),),
+                            color: snapshot.hasData ? (checkButtonValidity(snapshot) ? Colors.blue : Colors.grey[600]) : Colors.grey[600],
+
+                          ),
+
+                          child: IconButton(
+                            icon: Icon(Icons.check, color: Colors.white,
+                            ),
+                            iconSize: 30,
+                            onPressed: snapshot.hasData ? (checkButtonValidity(snapshot) ? (){
+
+                              QRdata["neck"] = snapshot.data["neck"];
+                              QRdata["chest"] = snapshot.data["chest"];
+                              QRdata["shoulder"] = snapshot.data["shoulder"];
+                              QRdata["length"] = snapshot.data["length"];
+                              QRdata["sleeve"] = snapshot.data["sleeve"];
+                              QRdata["biceps"] = snapshot.data["biceps"];
+                              QRdata["waist"] = snapshot.data["waist"];
+                              print("From out, stream: " +  snapshot.data.toString());
+                              print("from out, qrdata: " +  QRdata.toString());
+
+                            } : null )
+                                :
+                            null,
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                }
+
               )
           ),
           Flexible(
@@ -362,10 +393,10 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                 controller: _controller,
                 children: <Widget>[
                   // our Tab Views
-                  Hat(data: mystream.first),
-                  Tshirt(data: mystream),
-                  Pants(data: mystream),
-                  Necklace(data: mystream),
+                  Hat(data: QRdata),
+                  Tshirt(data: QRdata, stream: mystream, controller: mystreamController),
+                  Pants(data: QRdata),
+                  Necklace(data: QRdata),
                 ],
               )),
         ]));

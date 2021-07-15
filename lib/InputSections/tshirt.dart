@@ -1,18 +1,21 @@
 import "package:flutter/material.dart";
 import 'package:snapping_sheet/snapping_sheet.dart';
+import "dart:async";
 import 'package:virtual_size_app/navigationPages/displayQRs.dart';
 
 class Tshirt extends StatefulWidget {
 
   Map<String,double> data;
-  Tshirt({this.data});
+  Stream<Map<String,double>> stream;
+  StreamController<Map<String,double>> controller;
+  Tshirt({this.data,this.stream,this.controller});
 
 
   @override
   _TshirtState createState() => _TshirtState();
 }
 
-class _TshirtState extends State<Tshirt> {
+class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshirt>{
 
 
   final ScrollController _scrollController = ScrollController();
@@ -73,9 +76,11 @@ class _TshirtState extends State<Tshirt> {
 
   }
 
-
+  bool get wantKeepAlive => true;
 
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Stack(
       children: [
         Image.asset("assets/imageUpperbody.jpg"),
@@ -137,18 +142,14 @@ class _TshirtState extends State<Tshirt> {
                                 onPressed: (){
                                   if(_formKey.currentState.validate() == true){
                                     _formKey.currentState.save();
+
+                                    ownData["icon1"] = 1.0;
                                     print("OWN DATA: " + ownData.toString());
 
-                                    widget.data["neck"] = ownData["neck"];
-                                    widget.data["chest"] = ownData["chest"];
-                                    widget.data["shoulder"] = ownData["shoulder"];
-                                    widget.data["length"] = ownData["length"];
-                                    widget.data["sleeve"] = ownData["sleeve"];
-                                    widget.data["biceps"] = ownData["biceps"];
-                                    widget.data["waist"] = ownData["waist"];
 
                                     //set issetTshirt = true
-                                    widget.data["icon1"] = 1;
+
+                                    widget.controller.add(ownData);
                                   }
                                   else{
 
