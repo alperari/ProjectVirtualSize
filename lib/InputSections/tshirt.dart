@@ -144,7 +144,7 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
                                     _formKey.currentState.save();
 
                                     ownData["icon1"] = 1.0;
-                                    print("OWN DATA: " + ownData.toString());
+                                    print("OWN DATA tshirt: " + ownData.toString());
 
 
                                     //set issetTshirt = true

@@ -74,7 +74,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
 
   // active button's background color
   Color _backgroundOn = Colors.lightGreen;
-  Color _backgroundOff = Colors.grey[500];
+  Color _backgroundOff = Colors.grey[600];
 
   // scroll controller for the TabBar
   ScrollController _scrollController = new ScrollController();
@@ -235,7 +235,14 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
 
   _getBackgroundColor(int index, snapshot) {
     if(!snapshot.hasData){
-      return _backgroundOff;
+      if (index == _currentIndex) {
+        // if it's active button
+        return Colors.grey[500];
+      }
+      else {
+        // if the button is inactive
+        return _backgroundOff;
+      }
     }
     else{
       if(snapshot.data["icon"+index.toString()] == 1){
@@ -250,11 +257,18 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
         }
         else {
           // if the button is inactive
-          return Colors.lightGreenAccent;
+          return Colors.green;
         }
       }
       else{
-        return _colorTweenBackgroundOff.value;
+        if (index == _currentIndex) {
+          // if it's active button
+          return Colors.grey[500];
+        }
+        else {
+          // if the button is inactive
+          return _backgroundOff;
+        }
       }
 
 
@@ -370,6 +384,11 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                               QRdata["sleeve"] = snapshot.data["sleeve"];
                               QRdata["biceps"] = snapshot.data["biceps"];
                               QRdata["waist"] = snapshot.data["waist"];
+
+                              QRdata["hip"] = snapshot.data["hip"];
+                              QRdata["inLeg"] = snapshot.data["inLeg"];
+                              QRdata["outLeg"] = snapshot.data["outLeg"];
+
                               print("From out, stream: " +  snapshot.data.toString());
                               print("from out, qrdata: " +  QRdata.toString());
 
@@ -395,7 +414,7 @@ class _ProfileState extends State<Profile> with TickerProviderStateMixin {
                   // our Tab Views
                   Hat(data: QRdata),
                   Tshirt(data: QRdata, stream: mystream, controller: mystreamController),
-                  Pants(data: QRdata),
+                  Pants(data: QRdata, stream: mystream, controller: mystreamController),
                   Necklace(data: QRdata),
                 ],
               )),
