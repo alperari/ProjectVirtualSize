@@ -88,35 +88,24 @@ class TshirtProduct extends Product{
         PMmatches.add(doc);
       }
     }
-    // if(PMmatches.length == 1){
-    //   pmDoc = PMmatches[0];
-    // }
-    // else if(PMmatches.length == 2){
-    //   var interval1 = PMmatches[0].get("PM");
-    //   var interval2 = PMmatches[1].get("PM");
-    //
-    //   double mid1 = interval1[0] + (interval1[1]-interval1[0])/2;
-    //   double mid2 = interval2[0] + (interval2[1]-interval2[0])/2;
-    //
-    //   double diff1 = (mid1-chestValue).abs();
-    //   double diff2 = (mid2-chestValue).abs();
-    //
-    //   if(diff1 < diff2){
-    //     pmDoc = PMmatches[0];
-    //   }
-    //   else if(diff1 > diff2){
-    //     pmDoc = PMmatches[1];
-    //   }
-    //   print(interval1);
-    //
-    //   print(interval2);
-    //   print(diff1);
-    //   print(diff2);
-    // }
+    if(PMmatches.length == 1){
+      pmDoc = PMmatches[0];
+    }
+    else {
+      double minDiff = 999;
+      for(DocumentSnapshot element in PMmatches){
+        double start = element.get("PM")[0].toDouble();
+        double end = element.get("PM")[1].toDouble();
+        double mid = start+end/2;
+        double diff = (mid-chestValue).abs();
+        if(diff <= minDiff){
+          minDiff = diff;
+          pmDoc = element;
+        }
+      }
+    }
+    print("Chest: " + pmDoc.id);
 
-    PMmatches.forEach((element) {
-      print("Chest: " + element.id);
-    });
   }
 
 
@@ -135,35 +124,24 @@ class TshirtProduct extends Product{
         PMmatches.add(doc);
       }
     }
-    // if(PMmatches.length == 1){
-    //   pmDoc = PMmatches[0];
-    // }
-    // else if(PMmatches.length == 2){
-    //   var interval1 = PMmatches[0].get("PM");
-    //   var interval2 = PMmatches[1].get("PM");
-    //
-    //   double mid1 = interval1[0] + (interval1[1]-interval1[0])/2;
-    //   double mid2 = interval2[0] + (interval2[1]-interval2[0])/2;
-    //
-    //   double diff1 = (mid1-shoulderValue).abs();
-    //   double diff2 = (mid2-shoulderValue).abs();
-    //
-    //   if(diff1 < diff2){
-    //     pmDoc = PMmatches[0];
-    //   }
-    //   else if(diff1 > diff2){
-    //     pmDoc = PMmatches[1];
-    //   }
-    //   print(interval1);
-    //
-    //   print(interval2);
-    //   print(diff1);
-    //   print(diff2);
-    // }
+    if(PMmatches.length == 1){
+      pmDoc = PMmatches[0];
+    }
+    else {
+      double minDiff = 999;
+      for(DocumentSnapshot element in PMmatches){
+        double start = element.get("PM")[0].toDouble();
+        double end = element.get("PM")[1].toDouble();
+        double mid = start+end/2;
+        double diff = (mid-shoulderValue).abs();
+        if(diff <= minDiff){
+          minDiff = diff;
+          pmDoc = element;
+        }
+      }
+    }
+    print("Shoulder: " + pmDoc.id);
 
-    PMmatches.forEach((element) {
-      print("Shoulder: " + element.id);
-    });
   }
 
 
@@ -182,35 +160,24 @@ class TshirtProduct extends Product{
         PMmatches.add(doc);
       }
     }
-    // if(PMmatches.length == 1){
-    //   pmDoc = PMmatches[0];
-    // }
-    // else if(PMmatches.length == 2){
-    //   var interval1 = PMmatches[0].get("PM");
-    //   var interval2 = PMmatches[1].get("PM");
-    //
-    //   double mid1 = interval1[0] + (interval1[1]-interval1[0])/2;
-    //   double mid2 = interval2[0] + (interval2[1]-interval2[0])/2;
-    //
-    //   double diff1 = (mid1-shoulderValue).abs();
-    //   double diff2 = (mid2-shoulderValue).abs();
-    //
-    //   if(diff1 < diff2){
-    //     pmDoc = PMmatches[0];
-    //   }
-    //   else if(diff1 > diff2){
-    //     pmDoc = PMmatches[1];
-    //   }
-    //   print(interval1);
-    //
-    //   print(interval2);
-    //   print(diff1);
-    //   print(diff2);
-    // }
+    if(PMmatches.length == 1){
+      pmDoc = PMmatches[0];
+    }
+    else {
+      double minDiff = 999;
+      for(DocumentSnapshot element in PMmatches){
+        double start = element.get("PM")[0].toDouble();
+        double end = element.get("PM")[1].toDouble();
+        double mid = start+end/2;
+        double diff = (mid-lengthValue).abs();
+        if(diff <= minDiff){
+          minDiff = diff;
+          pmDoc = element;
+        }
+      }
+    }
+    print("Length: " + pmDoc.id);
 
-    PMmatches.forEach((element) {
-      print("Length: " + element.id);
-    });
   }
 
 
@@ -229,35 +196,24 @@ class TshirtProduct extends Product{
         PMmatches.add(doc);
       }
     }
-    // if(PMmatches.length == 1){
-    //   pmDoc = PMmatches[0];
-    // }
-    // else if(PMmatches.length == 2){
-    //   var interval1 = PMmatches[0].get("PM");
-    //   var interval2 = PMmatches[1].get("PM");
-    //
-    //   double mid1 = interval1[0] + (interval1[1]-interval1[0])/2;
-    //   double mid2 = interval2[0] + (interval2[1]-interval2[0])/2;
-    //
-    //   double diff1 = (mid1-shoulderValue).abs();
-    //   double diff2 = (mid2-shoulderValue).abs();
-    //
-    //   if(diff1 < diff2){
-    //     pmDoc = PMmatches[0];
-    //   }
-    //   else if(diff1 > diff2){
-    //     pmDoc = PMmatches[1];
-    //   }
-    //   print(interval1);
-    //
-    //   print(interval2);
-    //   print(diff1);
-    //   print(diff2);
-    // }
+    if(PMmatches.length == 1){
+      pmDoc = PMmatches[0];
+    }
+    else {
+      double minDiff = 999;
+      for(DocumentSnapshot element in PMmatches){
+        double start = element.get("PM")[0].toDouble();
+        double end = element.get("PM")[1].toDouble();
+        double mid = start+end/2;
+        double diff = (mid-neckValue).abs();
+        if(diff <= minDiff){
+          minDiff = diff;
+          pmDoc = element;
+        }
+      }
+    }
 
-    PMmatches.forEach((element) {
-      print("Neck: " + element.id);
-    });
+    print("Neck: " + pmDoc.id);
   }
 
 
@@ -276,35 +232,24 @@ class TshirtProduct extends Product{
         PMmatches.add(doc);
       }
     }
-    // if(PMmatches.length == 1){
-    //   pmDoc = PMmatches[0];
-    // }
-    // else if(PMmatches.length == 2){
-    //   var interval1 = PMmatches[0].get("PM");
-    //   var interval2 = PMmatches[1].get("PM");
-    //
-    //   double mid1 = interval1[0] + (interval1[1]-interval1[0])/2;
-    //   double mid2 = interval2[0] + (interval2[1]-interval2[0])/2;
-    //
-    //   double diff1 = (mid1-shoulderValue).abs();
-    //   double diff2 = (mid2-shoulderValue).abs();
-    //
-    //   if(diff1 < diff2){
-    //     pmDoc = PMmatches[0];
-    //   }
-    //   else if(diff1 > diff2){
-    //     pmDoc = PMmatches[1];
-    //   }
-    //   print(interval1);
-    //
-    //   print(interval2);
-    //   print(diff1);
-    //   print(diff2);
-    // }
+    if(PMmatches.length == 1){
+      pmDoc = PMmatches[0];
+    }
+    else {
+      double minDiff = 999;
+      for(DocumentSnapshot element in PMmatches){
+        double start = element.get("PM")[0].toDouble();
+        double end = element.get("PM")[1].toDouble();
+        double mid = start+end/2;
+        double diff = (mid-waistValue).abs();
+        if(diff <= minDiff){
+          minDiff = diff;
+          pmDoc = element;
+        }
+      }
+    }
+    print("Waist: " + pmDoc.id);
 
-    PMmatches.forEach((element) {
-      print("Waist: " + element.id);
-    });
   }
 
   

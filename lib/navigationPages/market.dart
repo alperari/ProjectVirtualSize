@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:virtual_size_app/custom_icon_icons.dart';
+import 'package:virtual_size_app/models/FilterIcon.dart';
 import 'package:virtual_size_app/models/product.dart';
 import "package:virtual_size_app/services/databaseServices.dart";
 import "package:cloud_firestore/cloud_firestore.dart";
@@ -12,26 +13,8 @@ class Market extends StatefulWidget {
 
 class _MarketState extends State<Market> {
 
-  double filterBarHeight = 0;
-  bool filterBarOpen = false;
-  Icon filterBarIcon = Icon(Icons.arrow_drop_down_rounded, size: 40,);
-
-  Color colorHat = Colors.white;
-  Color colorTshirt = Colors.white;
-  Color colorPants = Colors.white;
-  Color colorNecklace = Colors.white;
-
-  bool selectedHat = false;
-  bool selectedTshirt = false;
-  bool selectedPants = false;
-  bool selectedNecklace = false;
-
   Future<DocumentSnapshot> snap;
-
-
-  String dropdownvalue = 'Apple';
-  List<String> dropdownItems = [];
-  
+  List<bool> isSelected = List.generate(6, (index) => false);
 
 
 
@@ -39,137 +22,67 @@ class _MarketState extends State<Market> {
     snap = ProductsRef.doc("tshirt").collection("TshirtProducts").doc("tshirt_11").get();
   }
 
-  Future<void> getDropdownItems()async{
-    QuerySnapshot snapshot = await QRsRef.doc(auth.uid).collection("my_QRs").get();
-    for(var doc in snapshot.docs){
-      dropdownItems.add(doc.get("name"));
-    }
-  }
-
-  void changeFilterBar(){
-    setState(() {
-      if(!filterBarOpen){
-        filterBarHeight = 150;
-        filterBarIcon = Icon(Icons.arrow_drop_up_rounded, size: 40,);
-        filterBarOpen = true;
-      }
-      else{
-        filterBarHeight = 0;
-        filterBarIcon = Icon(Icons.arrow_drop_down_rounded, size: 40,);
-        filterBarOpen = false;
-      }
-    });
-  }
-
-  Widget buildFilterIconButton(IconData myiconData, String itemName){
-    bool selectedItem;
-    if(itemName == "Hat") selectedItem = selectedHat;
-    else if(itemName == "Tshirt") selectedItem = selectedTshirt;
-    else if(itemName == "Pants") selectedItem = selectedPants;
-    else if(itemName == "Necklace") selectedItem = selectedNecklace;
-
-    return GestureDetector(
-      child: Container(
-        child: Icon(myiconData, color: selectedItem  ? Colors.black : Colors.white),
-        width: 40,
-        height: 40,
-        decoration: new BoxDecoration(
-          color: selectedItem ? Colors.white : Colors.grey[800],
-          borderRadius: BorderRadius.circular(100),
-          border: Border.all(width: 1, color: Colors.white),
-        ),
-      ),
-      onTap: (){
-        setState(() {
-          if(itemName == "Hat") selectedHat = !selectedHat;
-          else if(itemName == "Tshirt") selectedTshirt = !selectedTshirt;
-          else if(itemName == "Pants") selectedPants = !selectedPants;
-          else if(itemName == "Necklace") selectedNecklace = !selectedNecklace;
-        });
-      },
-    );
-  }
-
-  Widget buildFilterBar(){
-    return Column(
+  Widget buildToggleButtons(){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        GestureDetector(
-          child: Container(
-            height: 30,
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 6,
-                  child: Text("FILTER PRODUCTS"),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: filterBarIcon
-                ),
-              ],
-            ),
-          ),
-          onTap: (){
-            changeFilterBar();
-          },
-        ),
-        AnimatedContainer(
-          height: filterBarHeight,
-          duration: Duration(milliseconds: 250),
-          child: filterBarHeight == 150 ? buildFilterContent() : Text(""),
-        ),
-        Divider(thickness: 1, color: Colors.white,)
-      ],
-    );
-  }
 
-  Widget buildFilterContent(){
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        ToggleButtons(
           children: [
-            SizedBox(width: 50,),
-            buildFilterIconButton(CustomIcon.hat, "Hat"),
-            buildFilterIconButton(CustomIcon.t_shirt_1, "Tshirt"),
-            buildFilterIconButton(CustomIcon.black__1_, "Pants"),
-            buildFilterIconButton(CustomIcon.necklace, "Necklace"),
-            SizedBox(width: 50,),
+            FilterIcon(
+              icon: const Icon(CustomIcon.hat,size: 28,),
+              isSelected: isSelected[0],
+              bgColor: const Color(0xfff44336),
+            ),
+            FilterIcon(
+              icon: const Icon(CustomIcon.t_shirt_1,size: 28,),
+              isSelected: isSelected[1],
+              bgColor: const Color(0xffE91E63),
+            ),
+            FilterIcon(
+              icon: const Icon(CustomIcon.black__1_,size: 28,),
+              isSelected: isSelected[2],
+              bgColor: const Color(0xff9C27B0),
+            ),
+            FilterIcon(
+              icon: const Icon(CustomIcon.necklace,size: 28,),
+              isSelected: isSelected[3],
+              bgColor: const Color(0xff673AB7),
+            ),
+            FilterIcon(
+              icon: const Icon(Icons.add),
+              isSelected: isSelected[4],
+              bgColor: const Color(0xff3F51B5),
+            ),
+            FilterIcon(
+              icon: const Icon(Icons.add),
+              isSelected: isSelected[5],
+              bgColor: const Color(0xff2196F3),
+            ),
           ],
-
-        ),
-        DropdownButton(
-          value: dropdownvalue,
-          icon: Icon(Icons.keyboard_arrow_down),
-          items:dropdownItems.map((String items) {
-            return DropdownMenuItem(
-                value: items,
-                child: Text(items)
-            );
-          }
-          ).toList(),
-          onChanged: (String newValue){
+          onPressed: (int index) {
             setState(() {
-              dropdownvalue = newValue;
+              for (int buttonIndex = 0;
+              buttonIndex < isSelected.length;
+              buttonIndex++) {
+                if (buttonIndex == index) {
+                  isSelected[buttonIndex] = !isSelected[buttonIndex];
+                } else {
+                  isSelected[buttonIndex] = false;
+                }
+              }
             });
           },
+          isSelected: isSelected,
+          selectedColor: Colors.amber,
+          renderBorder: false,
+          fillColor: Colors.transparent,
         ),
-        ElevatedButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
-          ),
-          child: Text("FILTER",style: TextStyle(color: Colors.white),),
-          onPressed: (){
-            print("filtered");
-          },
-        ),
-
-      ],
+      ]
     );
   }
 
-@override
+  @override
   void initState() {
     // TODO: implement initState
     getDoc();
@@ -181,8 +94,7 @@ class _MarketState extends State<Market> {
       padding: const EdgeInsets.all(8.0),
       child: ListView(
         children: [
-          buildFilterBar(),
-
+          buildToggleButtons(),
           FutureBuilder(
           future: snap,
           builder: (context,snapshot){
@@ -205,3 +117,4 @@ class _MarketState extends State<Market> {
     );
   }
 }
+
