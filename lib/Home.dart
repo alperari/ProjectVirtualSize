@@ -11,6 +11,7 @@ import "package:virtual_size_app/navigationPages/createQRcode.dart";
 import "package:virtual_size_app/navigationPages/market.dart";
 
 
+import 'package:cupertino_icons/cupertino_icons.dart';
 
 
 class Home extends StatefulWidget {
@@ -81,9 +82,9 @@ class _HomeState extends State<Home> {
           activeColor: Colors.lightGreen,
           inactiveColor: Colors.grey,
           items: [
-            BottomNavigationBarItem(title: Text("Profile", style: TextStyle(fontSize: 14),),icon: Icon(Icons.person)),
-            BottomNavigationBarItem(title: Text("Display QRs", style: TextStyle(fontSize: 14),),icon: Icon(Icons.qr_code)),
-            BottomNavigationBarItem(title: Text("Create QR", style: TextStyle(fontSize: 14),),icon: Icon(Icons.add_road_sharp,)),
+            BottomNavigationBarItem(title: Text("Profile", style: TextStyle(fontSize: 14),),icon: Icon(CupertinoIcons.person_solid)),
+            BottomNavigationBarItem(title: Text("Display QRs", style: TextStyle(fontSize: 14),),icon: Icon(Icons.qr_code_rounded)),
+            BottomNavigationBarItem(title: Text("Create QR", style: TextStyle(fontSize: 14),),icon: Icon(CupertinoIcons.add_circled_solid,)),
             BottomNavigationBarItem(title: Text("Marketplace", style: TextStyle(fontSize: 14),),icon: Icon(Icons.shopping_cart)),
           ],
         ),

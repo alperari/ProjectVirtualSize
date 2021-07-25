@@ -408,7 +408,12 @@ class TshirtProduct extends Product{
                               border: Border(bottom: BorderSide(width: 1)),
                               color: Colors.white,
                             ),
-                            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text("Neck", style: GoogleFonts.ptSans(color: Colors.black,fontSize: 17),),],)
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Neck", style: GoogleFonts.ptSans(color: Colors.black,fontSize: 17),)
+                                ,]
+                              ,)
                           ),
                         ),
                         Expanded(
