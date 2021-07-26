@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:virtual_size_app/services/databaseServices.dart';
 
 class AuthService {
@@ -32,6 +31,17 @@ class AuthService {
   }
 
 
+  Future<void> CreateUserInFirestore(String uid, String email, String fullname)async{
+    await usersRef.doc(uid).set({
+      "userID" : uid,
+      "email" : email,
+      "fullname" : fullname,
+    });
+
+    await cartsRef.doc(uid).set({});
+  }
+
+
 
 // register with email and password
   Future registerWithEmailAndPassword(String email, String password, String fullname) async {
@@ -42,6 +52,8 @@ class AuthService {
 
       //Add user to firestore
       await CreateUserInFirestore(_auth.currentUser.uid, email, fullname);
+
+
       return _userFromFirebaseUser(user);
     } catch (error) {
       print(error.toString());

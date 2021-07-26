@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:virtual_size_app/cart.dart';
 import 'package:virtual_size_app/models/user.dart';
 import "package:provider/provider.dart";
 import 'package:virtual_size_app/navigationPages/displayQRs.dart';
@@ -53,6 +54,18 @@ class _HomeState extends State<Home> {
     if(myuser != null) {
       return Scaffold(
         appBar: AppBar(
+          leading: pageIndex == 3 ? OutlinedButton(
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context){
+
+                    return Cart(user: myuser);
+                  }
+              ));
+            },
+            child: Icon(CupertinoIcons.cart_fill, color: Colors.black,size: 30,),
+          )
+          :null,
           actions: [
             TextButton(
                 onPressed: () async {

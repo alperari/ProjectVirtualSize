@@ -332,7 +332,7 @@ class TshirtProduct extends Product{
   Widget ReturnTshirtProductWidget(BuildContext context){
     return Container(
       margin: EdgeInsets.only(left: 30, top: 100, right: 30, bottom: 50),
-      height: 600,
+      height: 550,
       width: MediaQuery.of(context).size.width-10,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -632,6 +632,11 @@ class TshirtProduct extends Product{
             //     ),
             //   ],
             // )
+            FlatButton(
+              color: Colors.deepOrangeAccent,
+              child: Text("ADD TO CART"),
+              onPressed: (){},
+            ),
           ],
         ),
       )
