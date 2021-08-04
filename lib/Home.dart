@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:virtual_size_app/cart.dart';
 import 'package:virtual_size_app/models/user.dart';
 import "package:provider/provider.dart";
+import 'package:virtual_size_app/navigationPages/createQR/createQRcode_getName.dart';
 import 'package:virtual_size_app/navigationPages/displayQRs.dart';
 import 'package:virtual_size_app/services/AuthService.dart';
 
 import 'package:flutter/cupertino.dart';
 
+import 'file:///D:/AndoidStudio_apps/virtual_size_app/lib/navigationPages/createQR/createQRcode.dart';
 import "package:virtual_size_app/navigationPages/Profile.dart";
-import "package:virtual_size_app/navigationPages/createQRcode.dart";
 import "package:virtual_size_app/navigationPages/market.dart";
 
 
@@ -78,7 +79,7 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             Profile(),
             displayQRs(),
-            createQRcode(),
+            createQRcode_getName(),
             Market(),
           ],
           controller: pageController,

@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:snapping_sheet/snapping_sheet.dart';
 import "dart:async";
-import 'package:virtual_size_app/navigationPages/displayQRs.dart';
 
 class Tshirt extends StatefulWidget {
 
@@ -40,6 +39,7 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
           color: Colors.black
       ),
       decoration: InputDecoration(
+
         contentPadding: EdgeInsets.all(8),
         labelText: name ,
         labelStyle: TextStyle(
@@ -97,10 +97,10 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
                 grabbingContentOffset: GrabbingContentOffset.bottom,
               ),
               SnappingPosition.factor(
-                positionFactor: 0.67,
+                positionFactor: 0.60,
               ),
               SnappingPosition.factor(
-                positionFactor: 0.67
+                positionFactor: 0.60
               ),
             ],
             grabbingWidth: 40,
@@ -117,13 +117,14 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
                   scrollDirection: Axis.horizontal,
                   children: [
                     Container(
-                      width:80,
+                      width:50,
                       height: 200,
                       child: Form(
                         key: _formKey,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+
                             customTextFormField("Neck", neck),
                             SizedBox(height: 12,),
                             customTextFormField("Chest", chest),

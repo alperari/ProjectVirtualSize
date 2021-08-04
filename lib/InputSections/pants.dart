@@ -63,7 +63,7 @@ class _PantsState extends State<Pants> with AutomaticKeepAliveClientMixin<Pants>
         return null;
       },
       onSaved: (String value) {
-        ownData[name.toLowerCase()] = double.parse(value);
+        ownData[name] = double.parse(value);
       },
     );
 
@@ -119,7 +119,7 @@ class _PantsState extends State<Pants> with AutomaticKeepAliveClientMixin<Pants>
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            customTextFormField("Hip", hip),
+                            customTextFormField("hip", hip),
                             SizedBox(height: 12,),
                             customTextFormField("inLeg", inLeg),
                             SizedBox(height: 12,),
