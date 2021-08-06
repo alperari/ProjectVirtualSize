@@ -7,6 +7,7 @@ import "package:virtual_size_app/services/databaseServices.dart";
 import "package:cloud_firestore/cloud_firestore.dart";
 import 'package:google_fonts/google_fonts.dart';
 
+import "package:virtual_size_app/services/filterProducts.dart";
 
 
 
@@ -26,6 +27,7 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
   List<String> QRcodes = ['SELECT QR CODE'];
   List<DocumentSnapshot> QRcodesDocuments= [];
   String dropdownValue;
+  int selectedQRcode_index;
 
 
   //about filter
@@ -154,6 +156,8 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
               onChanged: (String newValue) {
                 setState(() {
                   dropdownValue = newValue;
+                  print(QRcodes.indexOf(dropdownValue));
+                  selectedQRcode_index = QRcodes.indexOf(dropdownValue);
                 });
               },
               items: QRcodes
@@ -170,7 +174,34 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
   }
   Widget buildSubmitFilterButton(){
     return OutlinedButton(
-      onPressed: () {},
+      onPressed: () async{
+       if(selectedIconIndex == 1){
+         print("asd");
+         Map<String,dynamic> QRdata = QRcodesDocuments[selectedQRcode_index-1].get("measureData");
+         dynamic chest = QRdata["chest"];
+         dynamic shoulder = QRdata["shoulder"];
+         dynamic waist = QRdata["waist"];
+         dynamic neck = QRdata["neck"];
+         dynamic biceps = QRdata["biceps"];
+         dynamic length = QRdata["length"];
+         dynamic sleeve = QRdata["sleeve"];
+
+         print(1);
+         Map<String,String> myMatches = await getHumanVirtualSizes(
+           chest: chest,
+           shoulder: shoulder,
+           waist: waist,
+           neck: neck,
+           biceps: biceps,
+           length: length,
+         );
+
+         myMatches.forEach((key, value) {
+           print(key +" " +  value);
+         });
+       }
+
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12.0),
         child: Text(

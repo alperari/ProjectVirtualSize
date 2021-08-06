@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import "package:flutter/material.dart";
 import 'package:snapping_sheet/snapping_sheet.dart';
 import "dart:async";
@@ -32,47 +34,112 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
   };
 
 
+  onPressShowDialog(BuildContext context,){
+    showDialog(context: context,
+        barrierDismissible: true,
 
-  TextFormField customTextFormField(String name,double myVar){
-    return TextFormField(
-      style: TextStyle(
-          color: Colors.black
-      ),
-      decoration: InputDecoration(
+        builder: (BuildContext dialogContext){
+          return BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+            child: Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              elevation: 5,
+              backgroundColor: Colors.transparent,
+              child: Container(
+                padding: EdgeInsets.only(left: 20,top: 20, right: 20,bottom: 20
+                ),
+                margin: EdgeInsets.only(top: 45),
+                decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(color: Colors.black,offset: Offset(0,10),
+                          blurRadius: 10
+                      ),
+                    ]
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    SizedBox(height: 15,),
+                    Text("test",style: TextStyle(color:Colors.black,fontSize: 22,fontWeight: FontWeight.w600),),
+                    SizedBox(height: 15,),
+                    Text("xxxxxxxxx",style: TextStyle(color:Colors.black,fontSize: 14),textAlign: TextAlign.center,),
+                    SizedBox(height: 22,),
 
-        contentPadding: EdgeInsets.all(8),
-        labelText: name ,
-        labelStyle: TextStyle(
-            color: Colors.black,
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue, width: 1.0),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 1.0),
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 1.0),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red, width: 1.0),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red, width: 1.0),
-        ),
-        errorStyle: TextStyle(height: 0),
-      ),
-      keyboardType: TextInputType.number,
-      validator: (value) {
-        if(value.isEmpty) {
-          return "";
+                  ],
+                ),
+              ),
+            ),
+          );
         }
-        return null;
-      },
-      onSaved: (String value) {
-        ownData[name.toLowerCase()] = double.parse(value);
-      },
     );
+  }
+
+  Widget customTextFormField(String name,double myVar){
+
+    return Row(
+      children: [
+        GestureDetector(
+          child: Icon(Icons.info_sharp, color: Colors.white,),
+          onTapDown: (_){
+            print("start");
+            onPressShowDialog(context);
+          },
+          onTapUp: (_){
+            print("UP");
+            Navigator.pop(context);
+          }
+        ),
+        SizedBox(width: 8,),
+        Expanded(
+            child:TextFormField(
+              style: TextStyle(
+                  color: Colors.black
+              ),
+              decoration: InputDecoration(
+
+                contentPadding: EdgeInsets.all(8),
+                labelText: name ,
+                labelStyle: TextStyle(
+                  color: Colors.white,
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blue, width: 1.0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 1.0),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 1.0),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red, width: 1.0),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.red, width: 1.0),
+                ),
+                errorStyle: TextStyle(height: 0, color: Colors.white),
+              ),
+              keyboardType: TextInputType.number,
+              validator: (value) {
+                if(value.isEmpty) {
+                  return "";
+                }
+                return null;
+              },
+              onSaved: (String value) {
+                ownData[name.toLowerCase()] = double.parse(value);
+              },
+            )
+
+        ),
+      ],
+    );
+
 
   }
 
@@ -109,7 +176,7 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
               draggable: true,
               childScrollController: _scrollController,
               child: Container(
-                color: Colors.white,
+                color: Colors.grey[700],
                 child: ListView(
                   physics: NeverScrollableScrollPhysics(),
                   controller: _scrollController,
@@ -117,13 +184,14 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
                   scrollDirection: Axis.horizontal,
                   children: [
                     Container(
-                      width:50,
+                      width:110,
                       height: 200,
                       child: Form(
                         key: _formKey,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+
 
                             customTextFormField("Neck", neck),
                             SizedBox(height: 12,),
@@ -185,7 +253,7 @@ class _GrabbingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.grey[700],
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(10),
           bottomLeft: Radius.circular(10),
@@ -200,7 +268,7 @@ class _GrabbingWidget extends StatelessWidget {
             width: 7,
             height: 30,
             decoration: BoxDecoration(
-              color: Colors.grey,
+              color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
           ),

@@ -54,22 +54,22 @@ class TshirtProduct extends Product{
 
   ///TODO: finish biceps
   Future<void> getVirtualSize_Biceps(double bicepsValue)async{
-    // List<String> valuesArray = [];
-    // DocumentSnapshot pmDoc;
-    // QuerySnapshot snapshot = await virtualSizesRef.doc("Tshirt").collection("Biceps").get();
-    //
-    //
-    // for(DocumentSnapshot doc in snapshot.docs){
-    //   print(doc.id);
-    //
-    //   if(doc.get("PM")[0] <= bicepsValue && doc.get("PM")[1] >= bicepsValue ){
-    //     //this is the document that matches PM interval.
-    //     pmDoc = doc;
-    //     break;
-    //   }
-    // }
-    //
-    // print("PM found in: " + pmDoc?.id.toString());
+    List<String> valuesArray = [];
+    DocumentSnapshot pmDoc;
+    QuerySnapshot snapshot = await virtualSizesRef.doc("Tshirt").collection("Biceps").get();
+
+
+    for(DocumentSnapshot doc in snapshot.docs){
+      print(doc.id);
+
+      if(doc.get("PM")[0] <= bicepsValue && doc.get("PM")[1] >= bicepsValue ){
+        //this is the document that matches PM interval.
+        pmDoc = doc;
+        break;
+      }
+    }
+
+    print("Biceps: " + pmDoc?.id.toString());
   }
 
 
@@ -265,14 +265,16 @@ class TshirtProduct extends Product{
     double neck = (neck_x+neck_y)*pi/2;
     double waist = double.parse(this.measureData["waist"]);
     double sleeve = double.parse(this.measureData["sleeve"]);
-
-    print( biceps);
+    
+    print( neck);
     print( chest);
     print( shoulder);
-    print( length);
-    print( neck);
-    print( waist);
+
+    print( biceps);
     print( sleeve);
+    print( waist);
+
+    print( length);
 
     await getVirtualSize_Biceps(biceps);
     await getVirtualSize_Chest(chest);
@@ -295,12 +297,12 @@ class TshirtProduct extends Product{
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
-              elevation: 5,
+              elevation: 0,
               backgroundColor: Colors.transparent,
               child: Container(
                 padding: EdgeInsets.only(left: 20,top: 20, right: 20,bottom: 20
                 ),
-                margin: EdgeInsets.only(top: 45),
+                margin: EdgeInsets.only(top: 20),
                 decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     color: Colors.white,
@@ -329,19 +331,60 @@ class TshirtProduct extends Product{
     );
   }
 
+  Future<List<Color>> getColors()async{
+    
+  }
+
+  Widget DetailedButton({BuildContext context, String name, Color color}){
+    return GestureDetector(
+      onTap: (){
+        onPressShowDialog(context);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: color,
+          border: Border.all(width: 2),
+          borderRadius: BorderRadius.all(Radius.circular(5)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.7),
+              spreadRadius: 2,
+              blurRadius: 2,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+
+        width: 90,
+        height: 41,
+
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(name.substring(0,2), style: GoogleFonts.ptSans(color: Colors.black,fontSize: 13),),
+            Icon(
+              Icons.info,
+              size: 20,
+            ),
+          ]
+          ,)
+      ),
+    );
+  }
+
   Widget ReturnTshirtProductWidget(BuildContext context){
     return Container(
       margin: EdgeInsets.only(left: 30, top: 100, right: 30, bottom: 50),
-      height: 550,
+      height: 570,
       width: MediaQuery.of(context).size.width-10,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.grey,
         borderRadius: BorderRadius.all(
             Radius.circular(10)
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
+            color: Colors.grey[700].withOpacity(0.5),
             spreadRadius: 5,
             blurRadius: 7,
             offset: Offset(0, 3), // changes position of shadow
@@ -355,14 +398,14 @@ class TshirtProduct extends Product{
 
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(this.Company.toUpperCase(),style: GoogleFonts.bebasNeue(color: Colors.black,fontSize: 25)),
                 ElevatedButton(
-                  child: Text("GET"),
-                  onPressed: ()async{
+                  onPressed: ()async {
                     await getVirtualSizes();
                   },
+                  child: Text("get"),
                 ),
               ],
             ),
@@ -377,116 +420,31 @@ class TshirtProduct extends Product{
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                GestureDetector(
-                  onTap: (){
-                    onPressShowDialog(context);
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.7),
-                          spreadRadius: 2,
-                          blurRadius: 2,
-                          offset: Offset(0, 2), // changes position of shadow
-                          ),
-                      ],
-                    ),
+                DetailedButton(context:context, name: "Neck", color: Colors.red),
+                DetailedButton(context:context, name: "Chest", color: Colors.lightGreen),
+                DetailedButton(context:context, name: "Shoulder", color: Colors.red),
 
-                    width: 100,
-                    height: 40,
-
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          flex: 4,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border(bottom: BorderSide(width: 1)),
-                              color: Colors.white,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Neck", style: GoogleFonts.ptSans(color: Colors.black,fontSize: 17),)
-                                ,]
-                              ,)
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Container(
-                            width: 70,
-                            color: Colors.red,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                    color: Colors.blue,
-                    width: 100,
-                    height: 30,
-                    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text("Shoulder"),],)
-                ),
-                Container(
-                    color: Colors.green,
-                    width: 100,
-                    height: 30,
-                    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text("Chest"),],)
-                ),
               ],
             ),
             SizedBox(height: 5,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                    color: Colors.red,
-                    width: 100,
-                    height: 30,
-                    child: Row( mainAxisAlignment: MainAxisAlignment.center, children: [Text("Biceps"),],)
-                ),
-                Container(
-                    color: Colors.blue,
-                    width: 100,
-                    height: 30,
-                    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text("Sleeve"),],)
-                ),
-                Container(
-                    color: Colors.green,
-                    width: 100,
-                    height: 30,
-                    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text("Length"),],)
-                ),
+                DetailedButton(context:context, name: "Biceps", color: Colors.red),
+                DetailedButton(context:context, name: "Sleeve", color: Colors.red),
+                DetailedButton(context:context, name: "Waist", color: Colors.red),
+
               ],
             ),
             SizedBox(height: 5,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                    color: Colors.red,
-                    width: 100,
-                    height: 30,
-                    child: Row( mainAxisAlignment: MainAxisAlignment.center, children: [Text("Waist"),],)
-                ),
-                Container(
-                    color: Colors.white,
-                    width: 100,
-                    height: 30,
-                    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text("Neck"),],)
-                ),
-                Container(
-                    color: Colors.white,
-                    width: 100,
-                    height: 30,
-                    child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [Text("Neck"),],)
-                ),
+                DetailedButton(context:context, name: "Length", color: Colors.red),
+
+                DetailedButton(context:context, name: "Length", color: Colors.grey),
+                DetailedButton(context:context, name: "Length", color: Colors.grey),
+
               ],
             ),
             // Row(
