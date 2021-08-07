@@ -34,7 +34,7 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
   };
 
 
-  onPressShowDialog(BuildContext context,){
+  onPressShowDialog(BuildContext context, String inputName,  int min, int max){
     showDialog(context: context,
         barrierDismissible: true,
 
@@ -45,7 +45,7 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
-              elevation: 5,
+              elevation: 0,
               backgroundColor: Colors.transparent,
               child: Container(
                 padding: EdgeInsets.only(left: 20,top: 20, right: 20,bottom: 20
@@ -65,9 +65,9 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     SizedBox(height: 15,),
-                    Text("test",style: TextStyle(color:Colors.black,fontSize: 22,fontWeight: FontWeight.w600),),
+                    Text(inputName,style: TextStyle(color:Colors.black,fontSize: 22,fontWeight: FontWeight.w600),),
                     SizedBox(height: 15,),
-                    Text("xxxxxxxxx",style: TextStyle(color:Colors.black,fontSize: 14),textAlign: TextAlign.center,),
+                    Text("The value should be between: ${min} - ${max}",style: TextStyle(color:Colors.black,fontSize: 20),textAlign: TextAlign.center,),
                     SizedBox(height: 22,),
 
                   ],
@@ -79,26 +79,23 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
     );
   }
 
-  Widget customTextFormField(String name,double myVar){
+  Widget customTextFormField(String name, int min, int max){
 
     return Row(
       children: [
         GestureDetector(
           child: Icon(Icons.info_sharp, color: Colors.white,),
           onTapDown: (_){
-            print("start");
-            onPressShowDialog(context);
+            onPressShowDialog(context, name, min, max);
           },
           onTapUp: (_){
-            print("UP");
-            Navigator.pop(context);
           }
         ),
         SizedBox(width: 8,),
         Expanded(
             child:TextFormField(
               style: TextStyle(
-                  color: Colors.black
+                  color: Colors.white
               ),
               decoration: InputDecoration(
 
@@ -117,16 +114,16 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
                   borderSide: BorderSide(color: Colors.black, width: 1.0),
                 ),
                 errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red, width: 1.0),
+                  borderSide: BorderSide(color: Colors.orangeAccent, width: 1.0),
                 ),
                 focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.red, width: 1.0),
+                  borderSide: BorderSide(color: Colors.orangeAccent, width: 1.0),
                 ),
                 errorStyle: TextStyle(height: 0, color: Colors.white),
               ),
               keyboardType: TextInputType.number,
               validator: (value) {
-                if(value.isEmpty) {
+                if(value.isEmpty || double.parse(value) < min || double.parse(value) > max ) {
                   return "";
                 }
                 return null;
@@ -193,19 +190,19 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
                           children: [
 
 
-                            customTextFormField("Neck", neck),
+                            customTextFormField("Neck", 30, 87),
                             SizedBox(height: 12,),
-                            customTextFormField("Chest", chest),
+                            customTextFormField("Chest", 55,155),
                             SizedBox(height: 12,),
-                            customTextFormField("Shoulder", shoulder),
+                            customTextFormField("Shoulder", 21,72),
                             SizedBox(height: 12,),
-                            customTextFormField("Length", length),
+                            customTextFormField("Length", 45,110),
                             SizedBox(height: 12,),
-                            customTextFormField("Sleeve", sleeve),
+                            customTextFormField("Sleeve", 0,70),
                             SizedBox(height: 12,),
-                            customTextFormField("Biceps", biceps),
+                            customTextFormField("Biceps", 12,63),
                             SizedBox(height: 12,),
-                            customTextFormField("Waist", waist),
+                            customTextFormField("Waist", 55,161),
 
                             FlatButton(
                                 onPressed: (){

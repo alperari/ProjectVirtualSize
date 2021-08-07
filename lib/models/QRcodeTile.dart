@@ -107,12 +107,11 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
     DocumentSnapshot snapshot = await QRsRef.doc(auth.uid).collection("my_QRs").doc(myQRcodeTile.QR_id).get();
 
 
-    var neck = snapshot.get("measureData")["neck"];
-    var head = snapshot.get("measureData")["head"] ?? 0;
+    var neck = snapshot.get("measureData")["neck"]??0;
     var shoulder = snapshot.get("measureData")["shoulder"] ?? 0;
     var chest = snapshot.get("measureData")["chest"] ?? 0;
     var biceps = snapshot.get("measureData")["biceps"] ?? 0;
-    var Tlength = snapshot.get("measureData")["Tlength"] ?? 0;
+    var Tlength = snapshot.get("measureData")["length"] ?? 0;
     var waist = snapshot.get("measureData")["waist"] ?? 0;
     var hip = snapshot.get("measureData")["hip"] ?? 0;
     var inLeg = snapshot.get("measureData")["inLeg"] ?? 0;
@@ -120,12 +119,12 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
 
 
     //For tshirt
-    if(    (35<=neck && neck<=48) &&
-        (80<=shoulder && shoulder<=180) &&
-        (60<=chest && chest<=180) &&
-        (20<=biceps && biceps<=55) &&
-        (45<=Tlength && Tlength<=100) &&
-        (50<=waist && waist<=200)) {
+    if(    (30<=neck && neck<=87) &&
+        (21<=shoulder && shoulder<=72) &&
+        (55<=chest && chest<=155) &&
+        (12<=biceps && biceps<=63) &&
+        (45<=Tlength && Tlength<=110) &&
+        (55<=waist && waist<=161)) {
       icons["Tshirt"] = 1;
     }
     ///TODO continue adding 4 icon constraints

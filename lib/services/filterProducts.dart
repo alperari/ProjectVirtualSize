@@ -165,7 +165,13 @@ Future<Map> getHumanVirtualSizes(
 
 Map<String,List<String>> dictionary = {};
 
-Future<void> getTshirts()async{
+Future<void> getTshirts(
+    {@required String chest,
+    @required String waist,
+    @required String neck,
+    @required String shoulder,
+    @required String biceps,
+    @required String length})async{
   var chestTshirts = await product_VirtualSize_Matches.doc("Tshirt").collection("Chest").doc(chest).get();
 
   var waistTshirts = await product_VirtualSize_Matches.doc("Tshirt").collection("Waist").doc(waist).get();
@@ -196,7 +202,6 @@ Future<void> getTshirts()async{
     chestDict[tshirt] = "XLM";
   }
 
-  print(chestDict);
 
   //construct matrix, get tshirt names at the first column, get corresponding CHEST, add it to second column
   for(int i=0; i<chestDict.keys.length; i++){
@@ -206,9 +211,12 @@ Future<void> getTshirts()async{
     virtualSizesList.add(chestDict[tshirtName]);
     dictionary[tshirtName] = virtualSizesList;
   }
-  print("matrix: " + dictionary.toString());
+  //print("matrix: " + dictionary.toString());
 
 
+  print("");
+  print("chest:");
+  dictionary.forEach((key, value) {print(key + " " + value.toString());});
 
   //WAIST TSHIRTS
   FM = waistTshirts.get("FM");
@@ -231,7 +239,7 @@ Future<void> getTshirts()async{
     waistDict[tshirt] = "XLM";
   }
 
-  print(waistDict);
+  //print(waistDict);
 
 
   List<String> toDelete = [];
@@ -249,8 +257,10 @@ Future<void> getTshirts()async{
   }
   );
   dictionary.removeWhere((key, value) => toDelete.contains(key)); //delete some
-  print("LAST: " + dictionary.toString());
 
+  print("");
+  print("chest + waist:");
+  dictionary.forEach((key, value) {print(key + " " + value.toString());});
 
 
   //NECK TSHIRTS
@@ -271,7 +281,7 @@ Future<void> getTshirts()async{
   }
 
 
-  print(neckDict);
+  //print(neckDict);
 
   toDelete.clear();
   dictionary.forEach((tshirtName, value) async {
@@ -284,8 +294,11 @@ Future<void> getTshirts()async{
   });
 
   dictionary.removeWhere((key, value) => toDelete.contains(key));
-  print("LAST: " + dictionary.toString());
+  //print("LAST: " + dictionary.toString());
 
+  print("");
+  print("chest + waist + neck:");
+  dictionary.forEach((key, value) {print(key + " " + value.toString());});
 
   //SHOULDER  + BICEPS TSHIRTS
   //var SHOULDER_XUM = shoulderTshirts.get("XUM");
@@ -324,8 +337,11 @@ Future<void> getTshirts()async{
     }
   }
   dictionary.removeWhere((key, value) => toDelete.contains(key));
-  print("LAST: " + dictionary.toString());
+  //print("LAST: " + dictionary.toString());
 
+  print("");
+  print("chest + waist + neck + shoulder :");
+  dictionary.forEach((key, value) {print(key + " " + value.toString());});
 
 
   //BICEPS TSHIRTS
@@ -362,7 +378,13 @@ Future<void> getTshirts()async{
     }
   }
   dictionary.removeWhere((key, value) => toDelete.contains(key));
-  print("LAST: " + dictionary.toString());
+  //print("LAST: " + dictionary.toString());
+
+
+  print("");
+  print("chest + waist + neck + shoulder + biceps:");
+  dictionary.forEach((key, value) {print(key + " " + value.toString());});
+
 
 
   //NOW CHECK IF SHOULDER-BICEPS is XLM-XLM    or   XUM-FM
@@ -378,6 +400,9 @@ Future<void> getTshirts()async{
   //remove those 2 cases if exists
   dictionary.removeWhere((key, value) => toDelete.contains(key));
 
+
+  print("");
+  print("after deletion shoulder-biceps XLM:XLM and  XUM:FM");
   dictionary.forEach((key, value) {
     print(key + "   " + value.toString());
   });

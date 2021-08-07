@@ -138,68 +138,83 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
   }
   Widget buildDropdownMenu(){
     return
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.qr_code,size: 35,),
-            SizedBox(width: 8,),
-            DropdownButton<String>(
-              value: dropdownValue,
-              icon: const Icon(Icons.arrow_downward),
-              iconSize: 24,
-              elevation: 16,
-              style: const TextStyle(color: Colors.deepPurple),
-              underline: Container(
-                height: 2,
-                color: Colors.deepPurpleAccent,
-              ),
-              onChanged: (String newValue) {
-                setState(() {
-                  dropdownValue = newValue;
-                  print(QRcodes.indexOf(dropdownValue));
-                  selectedQRcode_index = QRcodes.indexOf(dropdownValue);
-                });
-              },
-              items: QRcodes
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value, style: GoogleFonts.titilliumWeb(fontSize: 20, color: value == 'SELECT QR CODE' ? Colors.deepOrangeAccent : Colors.orangeAccent),),
-                );
-              }).toList(),
-            )
-          ],
+        FutureBuilder(
+          future: getQRcodes(),
+          builder: (context,snapshot){
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.qr_code,size: 35,),
+                SizedBox(width: 8,),
+                DropdownButton<String>(
+                  value: dropdownValue,
+                  icon: const Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      dropdownValue = newValue;
+                      print(QRcodes.indexOf(dropdownValue));
+                      selectedQRcode_index = QRcodes.indexOf(dropdownValue);
+                    });
+                  },
+                  items: QRcodes
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value, style: GoogleFonts.titilliumWeb(fontSize: 20, color: value == 'SELECT QR CODE' ? Colors.deepOrangeAccent : Colors.orangeAccent),),
+                    );
+                  }).toList(),
+                )
+              ],
+            );
+          },
         );
 
   }
   Widget buildSubmitFilterButton(){
     return OutlinedButton(
       onPressed: () async{
-       if(selectedIconIndex == 1){
-         print("asd");
-         Map<String,dynamic> QRdata = QRcodesDocuments[selectedQRcode_index-1].get("measureData");
-         dynamic chest = QRdata["chest"];
-         dynamic shoulder = QRdata["shoulder"];
-         dynamic waist = QRdata["waist"];
-         dynamic neck = QRdata["neck"];
-         dynamic biceps = QRdata["biceps"];
-         dynamic length = QRdata["length"];
-         dynamic sleeve = QRdata["sleeve"];
+        if(selectedIconIndex == 1 && dropdownValue != "SELECT QR CODE"){
+          Map<String,dynamic> QRdata = QRcodesDocuments[selectedQRcode_index-1].get("measureData");
+          dynamic chest = QRdata["chest"];
+          dynamic shoulder = QRdata["shoulder"];
+          dynamic waist = QRdata["waist"];
+          dynamic neck = QRdata["neck"];
+          dynamic biceps = QRdata["biceps"];
+          dynamic length = QRdata["length"];
+          dynamic sleeve = QRdata["sleeve"];
 
-         print(1);
-         Map<String,String> myMatches = await getHumanVirtualSizes(
-           chest: chest,
-           shoulder: shoulder,
-           waist: waist,
-           neck: neck,
-           biceps: biceps,
-           length: length,
-         );
+          Map<String,String> myMatches = await getHumanVirtualSizes(
+            chest: chest,
+            shoulder: shoulder,
+            waist: waist,
+            neck: neck,
+            biceps: biceps,
+            length: length,
+          );
 
-         myMatches.forEach((key, value) {
-           print(key +" " +  value);
-         });
-       }
+          print("MY VIRTUAL SIZE:");
+          myMatches.forEach((key, value) {
+            print(key +" " +  value);
+          });
+
+          print("");
+          print("TSHIRTS I CAN WEAR:");
+          getTshirts(
+            chest: myMatches["chest"],
+            shoulder: myMatches["shoulder"],
+            waist: myMatches["waist"],
+            neck: myMatches["neck"],
+            biceps: myMatches["biceps"],
+            length: myMatches["length"],
+          );
+        }
 
       },
       child: Padding(
