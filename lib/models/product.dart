@@ -41,7 +41,7 @@ class TshirtProduct extends Product{
     var mediaUrl = doc.get("mediaUrl");
     var size = doc.get("Size");
 
-    print(company.toString() + price.toString() + measures.toString() + mediaUrl.toString());
+    //print(company.toString() + price.toString() + measures.toString() + mediaUrl.toString());
     return TshirtProduct(
       Company: company,
       Price: price,
@@ -60,7 +60,7 @@ class TshirtProduct extends Product{
 
 
     for(DocumentSnapshot doc in snapshot.docs){
-      print(doc.id);
+      //print(doc.id);
 
       if(doc.get("PM")[0] <= bicepsValue && doc.get("PM")[1] >= bicepsValue ){
         //this is the document that matches PM interval.
@@ -401,12 +401,7 @@ class TshirtProduct extends Product{
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(this.Company.toUpperCase(),style: GoogleFonts.bebasNeue(color: Colors.black,fontSize: 25)),
-                ElevatedButton(
-                  onPressed: ()async {
-                    await getVirtualSizes();
-                  },
-                  child: Text("get"),
-                ),
+
               ],
             ),
             ClipRRect(

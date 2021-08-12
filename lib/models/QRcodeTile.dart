@@ -230,7 +230,7 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
                   child: GestureDetector(
                     child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.greenAccent)
+                        border: Border.all(color: Colors.white)
                       ),
                         width: 150,
                         height: 150,

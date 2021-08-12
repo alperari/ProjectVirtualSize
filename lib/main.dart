@@ -14,7 +14,7 @@ void main() {
       theme: ThemeData(
         // Define the default brightness and colors.
         brightness: Brightness.dark,
-        primaryColor: Colors.lightGreen[600],
+        primaryColor: Colors.deepOrangeAccent,
         accentColor: Colors.cyan[600],
 
         // Define the default font family.

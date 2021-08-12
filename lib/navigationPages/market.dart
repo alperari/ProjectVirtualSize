@@ -38,10 +38,17 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
 
   Future<void> getQRcodes()async{
     final snapshot = await QRsRef.doc(auth.uid).collection("my_QRs").get();
+    //print(QRcodes);
+    //print(QRcodesDocuments);
     for(var doc in snapshot.docs){
-      QRcodes.add(doc.get("name"));
-      QRcodesDocuments.add(doc);
+     if(!QRcodes.contains(doc.get("name")))
+       QRcodes.add(doc.get("name"));
+
+     if(!QRcodesDocuments.contains(doc))
+       QRcodesDocuments.add(doc);
     }
+
+
   }
 
   Future<DocumentSnapshot> getDoc()async {
@@ -306,7 +313,7 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
                               builder: (context,snapshot){
                                 if(snapshot.hasData){
                                   TshirtProduct t1 = TshirtProduct.fromDoc(snapshot.data);
-                                  print(t1.Company + t1.Price.toString() + t1.mediaUrl + t1.measureData.toString());
+                                  //print(t1.Company + t1.Price.toString() + t1.mediaUrl + t1.measureData.toString());
                                   return Center(
                                     child: t1.ReturnTshirtProductWidget(context),
                                   );
@@ -347,7 +354,7 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    print(isPanelVisible);
+    //print(isPanelVisible);
     return new LayoutBuilder(
       builder: bothPanels,
     );

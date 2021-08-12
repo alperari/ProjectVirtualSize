@@ -215,7 +215,7 @@ Future<void> getTshirts(
 
 
   print("");
-  print("chest:");
+  print("---------AFTER CHEST FILTER-----------");
   dictionary.forEach((key, value) {print(key + " " + value.toString());});
 
   //WAIST TSHIRTS
@@ -259,7 +259,7 @@ Future<void> getTshirts(
   dictionary.removeWhere((key, value) => toDelete.contains(key)); //delete some
 
   print("");
-  print("chest + waist:");
+  print("---------AFTER CHEST + WAIST FILTER----------");
   dictionary.forEach((key, value) {print(key + " " + value.toString());});
 
 
@@ -297,7 +297,7 @@ Future<void> getTshirts(
   //print("LAST: " + dictionary.toString());
 
   print("");
-  print("chest + waist + neck:");
+  print("---------AFTER CHEST + WAIST + NECK FILTER-----------");
   dictionary.forEach((key, value) {print(key + " " + value.toString());});
 
   //SHOULDER  + BICEPS TSHIRTS
@@ -340,7 +340,7 @@ Future<void> getTshirts(
   //print("LAST: " + dictionary.toString());
 
   print("");
-  print("chest + waist + neck + shoulder :");
+  print("---------AFTER CHEST + WAIST + NECK + SHOULDER FILTER-----------");
   dictionary.forEach((key, value) {print(key + " " + value.toString());});
 
 
@@ -382,7 +382,7 @@ Future<void> getTshirts(
 
 
   print("");
-  print("chest + waist + neck + shoulder + biceps:");
+  print("---------AFTER CHEST + WAIST + NECK + SHOULDER + BICEPS FILTER-----------");
   dictionary.forEach((key, value) {print(key + " " + value.toString());});
 
 
@@ -402,10 +402,12 @@ Future<void> getTshirts(
 
 
   print("");
-  print("after deletion shoulder-biceps XLM:XLM and  XUM:FM");
+  print("---------AFTER DELETION OF (SHOULDER-BICEPS) XLM:XLM and  XUM:FM-----------");
   dictionary.forEach((key, value) {
     print(key + "   " + value.toString());
   });
+
+
 
   //ADD SLEEVE INFO
   for(String tshirtName in dictionary.keys){
@@ -426,6 +428,7 @@ Future<void> getTshirts(
   }
 
   print("");
+  print("---------ADDING SLEEVE INFO-----------");
   dictionary.forEach((key, value) {
     print(key + "   " + value.toString());
   });
