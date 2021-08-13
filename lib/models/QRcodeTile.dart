@@ -9,9 +9,12 @@ import 'package:virtual_size_app/models/customDialogBox.dart';
 
 import 'package:virtual_size_app/services/databaseServices.dart';
 import 'package:virtual_size_app/showQR.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class QRcodeTile{
+  GlobalKey key;
+
   final String name;
   final String QR_id;
   final String ownerID;
@@ -20,6 +23,7 @@ class QRcodeTile{
 
   //Constuctor
   QRcodeTile({
+    this.key,
     this.name,
     this.QR_id,
     this.ownerID,
@@ -27,8 +31,9 @@ class QRcodeTile{
     this.time
   });
 
-  factory QRcodeTile.fromDoc(DocumentSnapshot doc){
+  factory QRcodeTile.fromDoc(DocumentSnapshot doc, GlobalKey key){
     return QRcodeTile(
+      key: key,
       name: doc.get("name"),
       QR_id: doc.get("QR_id"),
       ownerID: doc.get("ownerID"),
@@ -55,7 +60,7 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
   }
 
 
-  ShowOptions(BuildContext mainContext) {
+  RemoveDialog(BuildContext mainContext) {
     return showDialog(
         context: mainContext,
         builder: (dialogContext) {
@@ -132,48 +137,121 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
   }
 
 
-  Future<bool> isFavorited()async{
-    DocumentSnapshot snapshot = await QRsRef.doc(auth.uid).collection("my_QRs").doc(myQRcodeTile.QR_id).get();
-    if(snapshot.exists){
-      return snapshot.get("favorited");
-    }
-    return false;
-  }
-
-  Future<void> Favorite()async{
-    DocumentSnapshot snapshot = await QRsRef.doc(auth.uid).collection("my_QRs").doc(myQRcodeTile.QR_id).get();
-    if(snapshot.exists){
-      if(snapshot.get("favorited") == true){
-        await snapshot.reference.update({"favorited":false});
-      }
-      else{
-        await snapshot.reference.update({"favorited":true});
-      }
-    }
-  }
-
   buildIcons(){
     return FutureBuilder(
       future: getIconColors(),
       builder: ( context,  snapshot){
-        if(snapshot.hasData){
+        if(snapshot.hasData) {
           Map<String, int> iconColors = snapshot.data;
-          return Container(
-
-              padding: EdgeInsets.symmetric(horizontal: 100,vertical: 0),
-              child: Container(
-                //color: Colors.grey[500],
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-
-                    Icon(CustomIcon.hat, color: iconColors["Hat"] == 1 ? Colors.lightGreenAccent : Colors.redAccent,),
-                    Icon(CustomIcon.t_shirt_1 , color: iconColors["Tshirt"] == 1 ? Colors.lightGreenAccent : Colors.redAccent,),
-                    Icon(CustomIcon.black__1_ , color: iconColors["Pants"] == 1 ? Colors.lightGreenAccent : Colors.redAccent,),
-                    Icon(CustomIcon.necklace,  color: iconColors["Necklace"] == 1 ? Colors.lightGreenAccent : Colors.redAccent, size: 20,)
+          return Column(
+            children: [
+              SizedBox(height: 15,),
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(100),
+                      topRight: Radius.circular(100),
+                      bottomLeft: Radius.circular(100),
+                      bottomRight: Radius.circular(100)
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
                   ],
                 ),
-              )
+                child: Icon(CustomIcon.hat, color: iconColors["Hat"] == 1
+                    ? Colors.deepPurple[500]
+                    : Colors.grey[800]),
+              ),
+              SizedBox(height: 15,),
+
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(100),
+                      topRight: Radius.circular(100),
+                      bottomLeft: Radius.circular(100),
+                      bottomRight: Radius.circular(100)
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Icon(CustomIcon.t_shirt_1, color: iconColors["Tshirt"] == 1
+                    ? Colors.deepPurple[500]
+                    : Colors.grey[800]),
+              ),
+              SizedBox(height: 15,),
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(100),
+                      topRight: Radius.circular(100),
+                      bottomLeft: Radius.circular(100),
+                      bottomRight: Radius.circular(100)
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child:  Icon(CustomIcon.black__1_, color: iconColors["Pants"] == 1
+                    ? Colors.deepPurple[500]
+                    : Colors.grey[800]),
+              ),
+              SizedBox(height: 15,),
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(100),
+                      topRight: Radius.circular(100),
+                      bottomLeft: Radius.circular(100),
+                      bottomRight: Radius.circular(100)
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child:Icon(CustomIcon.necklace, color: iconColors["Necklace"] == 1
+                    ? Colors.deepPurple[500]
+                    : Colors.grey[800],
+                  size: 20,)
+              ),
+              SizedBox(height: 15,),
+
+
+
+            ],
           );
         }
         else{
@@ -187,8 +265,6 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
     );
   }
 
-
-
   buildUpper(){
     return Column(
       children: [
@@ -200,11 +276,12 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
             Text(
               myQRcodeTile.name,
               style: TextStyle(
-                  fontSize: 25
+                  fontSize: 30,
+                fontWeight: FontWeight.bold
               ),
             ),
 
-            Text("Created " + timeago.format(myQRcodeTile.time.toDate()), style: TextStyle(color: Colors.greenAccent),),
+            Text("Created " + timeago.format(myQRcodeTile.time.toDate()), style: TextStyle(fontSize:15 ,color: Colors.deepPurple, fontWeight: FontWeight.bold),),
           ],
         ),
         SizedBox(
@@ -214,83 +291,24 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            Stack(
-              overflow: Overflow.visible,
-              children: [
-
-                Container(
-                  width: 300,
-                  height: 150,
+            GestureDetector(
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white)
                 ),
+                width: 180,
+                height: 180,
+                child: Image(image: CachedNetworkImageProvider(myQRcodeTile.mediaURL)),
 
-                Positioned(
-                  top: 0,
-                  right: 75,
-
-                  child: GestureDetector(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white)
-                      ),
-                        width: 150,
-                        height: 150,
-                        child: Image(image: CachedNetworkImageProvider(myQRcodeTile.mediaURL)),
-
-                    ),
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context){
-                            return showQR(mediaURL: myQRcodeTile.mediaURL,);
-                          }
-                      ));
-                    },
-                  ),
-                ),
-
-
-
-                Positioned(
-                  top: 20,
-                  right: 20,
-
-                  child: Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          FutureBuilder(
-                            future: isFavorited(),
-                            builder: (BuildContext context, AsyncSnapshot snapshot){
-                              if(snapshot.hasData){
-                                bool favorited = snapshot.data;
-                                return IconButton(
-                                    icon: favorited == true ? Icon(Icons.star, color: Colors.yellow,) : Icon(Icons.star_border),
-                                    onPressed: ()async{
-                                      await Favorite();
-
-                                    });
-                              }
-                              else{
-                                return  Container(
-                                    height: 20,
-                                    width: 20,
-                                    child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightGreen,),)
-                                );
-                              }
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.delete,color: Colors.redAccent),
-                            onPressed: (){
-                              return ShowOptions(context);
-                            },
-                          )
-                        ],
-
-                      )
-                  ),
-                )
-              ],
-            )
+              ),
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context){
+                      return showQR(mediaURL: myQRcodeTile.mediaURL,);
+                    }
+                ));
+              },
+            ),
           ],
         ),
 
@@ -298,309 +316,121 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
     );
   }
 
-
-
   return Column(
     children: [
-      buildUpper(),
-      SizedBox(height:10),
-      buildIcons(),
-      SizedBox(height: 10,),
-      Divider(thickness: 1,)
+
+      Stack(
+        overflow: Overflow.clip,
+        children: [
+
+          Container(
+            margin: EdgeInsets.only(left: 30, top: 30, right: 30, bottom: 30),
+            height: 280,
+            width: 250,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10)
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(0, 3), // changes position of shadow
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                buildUpper(),
+              ],
+            ),
+          ),
+          Positioned(
+            top: 30,
+            left: 30,
+            child: Container(
+              width: 250,
+              height: 250,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PopupMenuButton(
+                    icon: Icon(Icons.more_vert, color: Colors.grey,),
+                      key: myQRcodeTile.key,
+                      itemBuilder: (_) => <PopupMenuItem<String>>[
+                        new PopupMenuItem<String>(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    buildIcons(),
+                                  ],
+                                ),
+                              ],
+                            ),
+                        ),
+
+                      ],
+                      onSelected: (_) {}
+                      ),
+
+                  // Material(
+                  //     borderRadius: BorderRadius.circular(100),
+                  //     color: Colors.white,
+                  //     child: InkWell(
+                  //       borderRadius: BorderRadius.circular(100),
+                  //       radius: 25,
+                  //       onTap: (){
+                  //
+                  //
+                  //       },
+                  //       splashColor: Colors.grey.withOpacity(.5),
+                  //       child: Container(
+                  //         padding: EdgeInsets.all(8),
+                  //         child: Icon(
+                  //           Icons.more_vert,
+                  //           color: Colors.grey,
+                  //           size: 25,
+                  //         ),
+                  //       ),
+                  //     )
+                  // ),
+
+                  Material(
+                      borderRadius: BorderRadius.circular(100),
+                      color: Colors.white,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(100),
+                        radius: 25,
+                        onTap: ()async{
+                          return RemoveDialog(context);
+
+                        },
+                        splashColor: Colors.grey.withOpacity(.5),
+                        child: Container(
+                          padding: EdgeInsets.all(8),
+                          child: Icon(
+                            Icons.clear,
+                            color: Colors.grey,
+                            size: 25,
+                          ),
+                        ),
+                      )
+                  ),
+
+                ],
+              ),
+            ),
+          ),
+        ]
+      )
     ],
   );
 }
-//
-// class QRcodeTilexxx extends StatefulWidget {
-//
-//   final String name;
-//   final String QR_id;
-//   final String ownerID;
-//   final String mediaURL;
-//   final Timestamp time;
-//
-//   //Constuctor
-//   QRcodeTilexxx({
-//     this.name,
-//     this.QR_id,
-//     this.ownerID,
-//     this.mediaURL,
-//     this.time
-//   });
-//
-//   factory QRcodeTilexxx.fromDoc(DocumentSnapshot doc){
-//     return QRcodeTilexxx(
-//       name: doc.get("name"),
-//       QR_id: doc.get("QR_id"),
-//       ownerID: doc.get("ownerID"),
-//       mediaURL: doc.get("mediaURL"),
-//       time: doc.get("time"),
-//     );
-//   }
-//   @override
-//   _QRcodeTilexxxState createState() => _QRcodeTilexxxState(
-//     name: this.name,
-//     QR_id: this.QR_id,
-//     ownerID: this.ownerID,
-//     mediaURL: this.mediaURL,
-//     time: this.time
-//   );
-// }
-//
-// class _QRcodeTilexxxState extends State<QRcodeTilexxx> {
-//
-//   final String name;
-//   final String QR_id;
-//   final String ownerID;
-//   final String mediaURL;
-//   final Timestamp time;
-//
-//   //Constuctor
-//   _QRcodeTilexxxState({
-//     this.name,
-//     this.QR_id,
-//     this.ownerID,
-//     this.mediaURL,
-//     this.time
-//   });
-//
-//
-//   ShowOptions(BuildContext mainContext) {
-//     return showDialog(
-//         context: mainContext,
-//         builder: (dialogContext) {
-//           print("You will remove " + this.QR_id + "    " + this.name);
-//           return SimpleDialog(
-//             title: Text("Do you want to remove QR?", style: TextStyle(fontSize: 20),),
-//             children: <Widget>[
-//
-//               SimpleDialogOption(
-//                 onPressed: () async{
-//                   await removeQR();
-//                   Navigator.pop(mainContext);
-//
-//                 },
-//                 child: Text(
-//                   'Remove',
-//                   style: TextStyle(color: Colors.redAccent),
-//                 ),
-//               ),
-//               SimpleDialogOption(
-//                 onPressed: () => Navigator.pop(dialogContext),
-//                 child: Text('Cancel'),
-//               )
-//             ],
-//           );
-//         });
-//   }
-//
-//
-//   Future<void> removeQR()async{
-//     DocumentSnapshot snapshot = await QRsRef.doc(auth.uid).collection("my_QRs").doc(QR_id).get();
-//
-//     //remove from db
-//     if(snapshot.exists){
-//       snapshot.reference.delete();
-//     }
-//
-//     //remove from storage
-//     await storageRef.child("QRs/qr_$QR_id.jpg").delete();
-//   }
-//
-//
-//   Future<Map<String,int>> getIconColors()async{
-//     // 35-48 neck
-//     // 80-180 shoulder
-//     // 60-180 chest
-//     // 20-55 biceps
-//     // 45-100 Tlength
-//     // 50-200 waist
-//     Map<String,int> icons = {"Hat": 0, "Tshirt": 0 , "Pants": 0, "Necklace": 0};
-//     DocumentSnapshot snapshot = await QRsRef.doc(auth.uid).collection("my_QRs").doc(QR_id).get();
-//
-//
-//     var neck = snapshot.get("measureData")["neck"];
-//     var head = snapshot.get("measureData")["head"] ?? 0;
-//     var shoulder = snapshot.get("measureData")["shoulder"] ?? 0;
-//     var chest = snapshot.get("measureData")["chest"] ?? 0;
-//     var biceps = snapshot.get("measureData")["biceps"] ?? 0;
-//     var Tlength = snapshot.get("measureData")["Tlength"] ?? 0;
-//     var waist = snapshot.get("measureData")["waist"] ?? 0;
-//     var hip = snapshot.get("measureData")["hip"] ?? 0;
-//     var inLeg = snapshot.get("measureData")["inLeg"] ?? 0;
-//     var outLeg = snapshot.get("measureData")["outLeg"] ?? 0;
-//
-//
-//     //For tshirt
-//     if(    (35<=neck && neck<=48) &&
-//         (80<=shoulder && shoulder<=180) &&
-//         (60<=chest && chest<=180) &&
-//         (20<=biceps && biceps<=55) &&
-//         (45<=Tlength && Tlength<=100) &&
-//         (50<=waist && waist<=200)) {
-//       icons["Tshirt"] = 1;
-//     }
-//     ///TODO continue adding 4 icon constraints
-//     return icons;
-//   }
-//
-//   Future<bool> isFavorited()async{
-//     DocumentSnapshot snapshot = await QRsRef.doc(auth.uid).collection("my_QRs").doc(QR_id).get();
-//     if(snapshot.exists){
-//       return snapshot.get("favorited");
-//     }
-//     return false;
-//   }
-//
-//   Future<void> Favorite()async{
-//     DocumentSnapshot snapshot = await QRsRef.doc(auth.uid).collection("my_QRs").doc(QR_id).get();
-//     if(snapshot.exists){
-//       if(snapshot.get("favorited") == true){
-//         await snapshot.reference.update({"favorited":false});
-//       }
-//       else{
-//         await snapshot.reference.update({"favorited":true});
-//       }
-//     }
-//   }
-//
-//   buildIcons(){
-//     return FutureBuilder(
-//       future: getIconColors(),
-//       builder: ( context,  snapshot){
-//         if(snapshot.hasData){
-//           Map<String, int> iconColors = snapshot.data;
-//           return Container(
-//
-//               padding: EdgeInsets.symmetric(horizontal: 100,vertical: 0),
-//               child: Container(
-//                 //color: Colors.grey[500],
-//                 child: Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                   children: [
-//
-//                     Icon(CustomIcon.hat, color: iconColors["Hat"] == 1 ? Colors.lightGreenAccent : Colors.redAccent,),
-//                     Icon(CustomIcon.t_shirt_1 , color: iconColors["Tshirt"] == 1 ? Colors.lightGreenAccent : Colors.redAccent,),
-//                     Icon(CustomIcon.black__1_ , color: iconColors["Pants"] == 1 ? Colors.lightGreenAccent : Colors.redAccent,),
-//                     Icon(CustomIcon.necklace,  color: iconColors["Necklace"] == 1 ? Colors.lightGreenAccent : Colors.redAccent, size: 20,)
-//                   ],
-//                 ),
-//               )
-//           );
-//         }
-//         else{
-//           return  Container(
-//               height: 20,
-//               width: 20,
-//               child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightGreen,),)
-//           );
-//         }
-//       },
-//     );
-//   }
-//
-//
-//
-//   buildUpper(){
-//     return Column(
-//       children: [
-//         Column(
-//           mainAxisAlignment: MainAxisAlignment.start,
-//
-//           children: [
-//             SizedBox(height: 10,),
-//             Text(
-//               name,
-//               style: TextStyle(
-//                   fontSize: 25
-//               ),
-//             ),
-//
-//             Text("Created " + timeago.format(time.toDate()), style: TextStyle(color: Colors.greenAccent),),
-//           ],
-//         ),
-//         SizedBox(
-//           height: 10,
-//         ),
-//         Row(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//
-//             Stack(
-//               overflow: Overflow.visible,
-//               children: [
-//
-//                 Container(
-//                     width: 300,
-//                     height: 150,
-//                     child: Image(image: CachedNetworkImageProvider(mediaURL))
-//
-//                 ),
-//
-//
-//
-//                 Positioned(
-//                   top: 20,
-//                   right: 20,
-//
-//                   child: Container(
-//                       child: Column(
-//                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                         children: [
-//                           FutureBuilder(
-//                             future: isFavorited(),
-//                             builder: (BuildContext context, AsyncSnapshot snapshot){
-//                               if(snapshot.hasData){
-//                                 bool favorited = snapshot.data;
-//                                 return IconButton(
-//                                     icon: favorited == true ? Icon(Icons.star, color: Colors.yellow,) : Icon(Icons.star_border),
-//                                     onPressed: ()async{
-//                                       await Favorite();
-//
-//                                     });
-//                               }
-//                               else{
-//                                 return  Container(
-//                                     height: 20,
-//                                     width: 20,
-//                                     child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.lightGreen,),)
-//                                 );
-//                               }
-//                             },
-//                           ),
-//                           IconButton(
-//                             icon: Icon(Icons.delete,color: Colors.redAccent),
-//                             onPressed: (){
-//                               return ShowOptions(context);
-//                             },
-//                           )
-//                         ],
-//
-//                       )
-//                   ),
-//                 )
-//               ],
-//             )
-//           ],
-//         ),
-//
-//       ],
-//     );
-//   }
-//
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     print("idxx: " + this.QR_id + " name: " + this.name);
-//     return Column(
-//       children: [
-//         buildUpper(),
-//         SizedBox(height:10),
-//         buildIcons(),
-//         SizedBox(height: 10,),
-//         Divider(thickness: 1,)
-//       ],
-//     );
-//   }
-// }
-

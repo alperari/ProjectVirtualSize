@@ -13,10 +13,8 @@ void main() {
       home: MyApp(),
       theme: ThemeData(
         // Define the default brightness and colors.
-        brightness: Brightness.dark,
         primaryColor: Colors.deepOrangeAccent,
         accentColor: Colors.cyan[600],
-
         // Define the default font family.
         fontFamily: 'Arial',
 

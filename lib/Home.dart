@@ -54,27 +54,7 @@ class _HomeState extends State<Home> {
 
     if(myuser != null) {
       return Scaffold(
-        appBar: AppBar(
-          leading: pageIndex == 3 ? OutlinedButton(
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(
-                  builder: (context){
-
-                    return Cart(user: myuser);
-                  }
-              ));
-            },
-            child: Icon(CupertinoIcons.cart_fill, color: Colors.black,size: 30,),
-          )
-          :null,
-          actions: [
-            TextButton(
-                onPressed: () async {
-                  AuthService().signOut();
-                },
-                child: Text("Log Out", style: TextStyle(color: Colors.black),))
-          ],
-        ),
+        backgroundColor: Colors.grey[300],
         body: PageView(
           children: <Widget>[
             Profile(),
@@ -88,13 +68,14 @@ class _HomeState extends State<Home> {
 
         ),
 
-        bottomNavigationBar: CupertinoTabBar(
+        bottomNavigationBar: BottomNavigationBar(
           iconSize: 34,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.grey[500],
           currentIndex: pageIndex,
           onTap: navigationTap,
-          activeColor: Colors.lightGreen,
-          inactiveColor: Colors.grey,
+          selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+          selectedItemColor: Colors.deepPurple,
+          unselectedItemColor: Colors.grey,
           items: [
             BottomNavigationBarItem(title: Text("Profile", style: TextStyle(fontSize: 14),),icon: Icon(CupertinoIcons.person_solid)),
             BottomNavigationBarItem(title: Text("Display QRs", style: TextStyle(fontSize: 14),),icon: Icon(Icons.qr_code_rounded)),

@@ -8,7 +8,7 @@ import "package:cloud_firestore/cloud_firestore.dart";
 import 'package:google_fonts/google_fonts.dart';
 
 import "package:virtual_size_app/services/filterProducts.dart";
-
+import "package:virtual_size_app/models/QRcodeTile.dart";
 
 
 class Market extends StatefulWidget {
@@ -62,6 +62,40 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
   }
 
 
+  Future<Map<String,int>> getIconColors(DocumentSnapshot doc)async{
+    // 35-48 neck
+    // 80-180 shoulder
+    // 60-180 chest
+    // 20-55 biceps
+    // 45-100 Tlength
+    // 50-200 waist
+    Map<String,int> icons = {"Hat": 0, "Tshirt": 0 , "Pants": 0, "Necklace": 0};
+
+
+    var neck = doc.get("measureData")["neck"]??0;
+    var shoulder = doc.get("measureData")["shoulder"] ?? 0;
+    var chest = doc.get("measureData")["chest"] ?? 0;
+    var biceps = doc.get("measureData")["biceps"] ?? 0;
+    var Tlength = doc.get("measureData")["length"] ?? 0;
+    var waist = doc.get("measureData")["waist"] ?? 0;
+    var hip = doc.get("measureData")["hip"] ?? 0;
+    var inLeg = doc.get("measureData")["inLeg"] ?? 0;
+    var outLeg = doc.get("measureData")["outLeg"] ?? 0;
+
+
+    //For tshirt
+    if(    (30<=neck && neck<=87) &&
+        (21<=shoulder && shoulder<=72) &&
+        (55<=chest && chest<=155) &&
+        (12<=biceps && biceps<=63) &&
+        (45<=Tlength && Tlength<=110) &&
+        (55<=waist && waist<=161)) {
+      icons["Tshirt"] = 1;
+    }
+    ///TODO continue adding 4 icon constraints
+    return icons;
+  }
+
   Animation<RelativeRect> getPanelAnimation(BoxConstraints constraints) {
     final height = constraints.biggest.height;
     final backPanelHeight = MediaQuery.of(context).size.height/4;
@@ -75,7 +109,9 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
         parent: controller, curve: Curves.bounceInOut));
   }
 
-  Widget buildToggleButtons(){
+
+  Widget buildToggleButtons(context, Map<String,int> data, bool enabled){
+
     return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -84,37 +120,37 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
 
             children: [
               FilterIcon(
-                icon: const Icon(CustomIcon.hat,size: 28,),
+                icon: const Icon(CustomIcon.hat ,size: 28, ),
                 isSelected: isSelected[0],
-                bgColor: const Color(0xfff44336),
+                bgColor: data["Hat"] == 1 ? Colors.deepPurple[400] : Colors.grey,
               ),
               FilterIcon(
                 icon: const Icon(CustomIcon.t_shirt_1,size: 28,),
                 isSelected: isSelected[1],
-                bgColor: const Color(0xffE91E63),
+                bgColor: data["Tshirt"] == 1 ? Colors.deepPurple[400] : Colors.grey,
               ),
               FilterIcon(
                 icon: const Icon(CustomIcon.black__1_,size: 28,),
                 isSelected: isSelected[2],
-                bgColor: const Color(0xff9C27B0),
+                bgColor: data["Pants"] == 1 ? Colors.deepPurple[400] : Colors.grey,
               ),
               FilterIcon(
                 icon: const Icon(CustomIcon.necklace,size: 28,),
                 isSelected: isSelected[3],
-                bgColor: const Color(0xff673AB7),
+                bgColor: data["Necklace"] == 1 ? Colors.deepPurple[400] : Colors.grey,
               ),
               FilterIcon(
                 icon: const Icon(Icons.add),
                 isSelected: isSelected[4],
-                bgColor: const Color(0xff3F51B5),
+                bgColor: Colors.grey,
               ),
               FilterIcon(
                 icon: const Icon(Icons.add),
                 isSelected: isSelected[5],
-                bgColor: const Color(0xff2196F3),
+                bgColor: Colors.grey,
               ),
             ],
-            onPressed: dropdownValue=="SELECT QR CODE" ? null :
+            onPressed: dropdownValue=="SELECT QR CODE" || enabled == false? null :
                 (int index) {
 
               setState(() {
@@ -136,12 +172,13 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
               });
             },
             isSelected: isSelected,
-            selectedColor: Colors.amber,
+            selectedColor: Colors.purple[100],
             renderBorder: false,
             fillColor: Colors.transparent,
           ),
         ]
     );
+
   }
   Widget buildDropdownMenu(){
     return
@@ -174,7 +211,7 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value, style: GoogleFonts.titilliumWeb(fontSize: 20, color: value == 'SELECT QR CODE' ? Colors.deepOrangeAccent : Colors.orangeAccent),),
+                      child: Text(value, style: GoogleFonts.titilliumWeb(fontSize: 20, color: value == 'SELECT QR CODE' ? Colors.grey[700] : Colors.black),),
                     );
                   }).toList(),
                 )
@@ -234,13 +271,12 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
         ),
       ),
       style: OutlinedButton.styleFrom(
-        backgroundColor: selectedIconIndex==null? Colors.grey: Colors.lightGreen[400],
+        backgroundColor: selectedIconIndex==null? Colors.grey: Colors.deepPurple[400],
       ),
     );
   }
 
   Widget bothPanels(BuildContext context, BoxConstraints constraints) {
-    final ThemeData theme = Theme.of(context);
 
     return Column(
       children: [
@@ -249,7 +285,7 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
           children: [
             Text(
               "FILTER",
-              style: GoogleFonts.staatliches(fontSize: 30, color: Colors.grey),
+              style: GoogleFonts.staatliches(fontSize: 30, color: Colors.black),
             ),
             IconButton(
               onPressed: () {
@@ -274,14 +310,27 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
             children: <Widget>[
 
               new Container(
-
                 child: Container(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       buildDropdownMenu(),
-                      buildToggleButtons(),
+
+                      (selectedQRcode_index != null && selectedQRcode_index != 0) ?
+                        FutureBuilder(
+                          future: getIconColors(QRcodesDocuments[selectedQRcode_index-1]),
+                          builder: (context,snapshot){
+                            if(snapshot.hasData){
+                              return buildToggleButtons(context, snapshot.data, true);
+                            }else{
+                              return buildToggleButtons(context, {}, false);
+                            }
+                          },
+                        )
+                          :
+                      buildToggleButtons(context, {}, false),
+
                       buildSubmitFilterButton()
                     ],
                   ),
@@ -293,10 +342,8 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
               new PositionedTransition(
                 rect: getPanelAnimation(constraints),
                 child: new Material(
+                  color: Colors.grey[300],
                   elevation: 12.0,
-                  borderRadius: new BorderRadius.only(
-                      topLeft: new Radius.circular(16.0),
-                      topRight: new Radius.circular(16.0)),
                   child: new Column(
                     children: <Widget>[
                       new Container(
@@ -347,7 +394,6 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
     getDoc();
     controller = new AnimationController(vsync: this, duration: new Duration(milliseconds: 100), value: 1.0);
 
-
     dropdownValue = QRcodes[0];
     getQRcodes();
   }
@@ -355,8 +401,10 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     //print(isPanelVisible);
-    return new LayoutBuilder(
-      builder: bothPanels,
+    return SafeArea(
+      child: new LayoutBuilder(
+        builder: bothPanels,
+      ),
     );
   }
 }

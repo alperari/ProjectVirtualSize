@@ -9,6 +9,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:uuid/uuid.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:virtual_size_app/services/AuthService.dart';
 
 import 'package:virtual_size_app/services/databaseServices.dart';
 import 'package:virtual_size_app/models/customDialogBox.dart';
@@ -27,7 +28,11 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
-      child: Center(child: Text("Profile"),)
+      child: Center(child:TextButton(
+          onPressed: () async {
+            AuthService().signOut();
+          },
+          child: Text("Log Out", style: TextStyle(color: Colors.black),)))
     );
   }
 }

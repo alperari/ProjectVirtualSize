@@ -9,8 +9,6 @@ class displayQRs extends StatefulWidget {
 
 class _displayQRsState extends State<displayQRs> {
 
-
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -24,7 +22,9 @@ class _displayQRsState extends State<displayQRs> {
 
         return ListView(
             children: snapshot.data.docs.map<Widget>((doc){
-              return ReturnQRcodeTileWidget(QRcodeTile.fromDoc(doc), context);
+              GlobalKey myKey = GlobalKey();
+
+              return ReturnQRcodeTileWidget(QRcodeTile.fromDoc(doc, myKey), context);
             }).toList()
         );
 

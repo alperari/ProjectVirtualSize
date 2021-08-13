@@ -405,6 +405,7 @@ class _createQRcodeState extends State<createQRcode> with TickerProviderStateMix
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.purple,
           title: Text(widget.name),
         ),
         body: Column(children: <Widget>[

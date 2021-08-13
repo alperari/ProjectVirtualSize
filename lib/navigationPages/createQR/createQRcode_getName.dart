@@ -17,12 +17,35 @@ class _createQRcode_getNameState extends State<createQRcode_getName> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
+          width: 300,
+          height: 300,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10)
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Image.asset("assets/qr_sample.png"),
+        ),
+        SizedBox(height: 10,),
+        Container(
 
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20),),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
+                  color: Colors.deepPurple[700].withOpacity(0.5),
                   spreadRadius: 3,
                   blurRadius: 9,
                   offset: Offset(0, 4), // changes position of shadow
@@ -35,6 +58,7 @@ class _createQRcode_getNameState extends State<createQRcode_getName> {
           ),
           width: MediaQuery.of(context).size.width*3/4,
           child: TextField(
+            style: TextStyle(color: Colors.white, fontSize: 20),
             controller: _nameController,
             cursorColor: Colors.white,
             decoration: InputDecoration(
@@ -59,26 +83,28 @@ class _createQRcode_getNameState extends State<createQRcode_getName> {
           decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                  color: Colors.orange.withOpacity(0.5),
+                  color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 3,
                   blurRadius: 9,
                   offset: Offset(0, 4), // changes position of shadow
                 ),
               ],
               borderRadius: BorderRadius.all(Radius.circular(7),),
-              color: Colors.orangeAccent
+              color: Colors.grey
           ),
 
           child: IconButton(
-            icon: Icon(Icons.check, color: Colors.white,
+            icon: Icon(Icons.double_arrow, color: Colors.white,
             ),
             iconSize: 30,
             onPressed: (){
-              setState(() {
-                name = _nameController.text;
-              });
-              Navigator.push(context, MaterialPageRoute(builder: (context) => createQRcode(name)));
+              if(_nameController.text != ""){
+                setState(() {
+                  name = _nameController.text;
+                });
+                Navigator.push(context, MaterialPageRoute(builder: (context) => createQRcode(name)));
 
+              }
             },
           ),
         ),

@@ -286,14 +286,14 @@ Future<void> getTshirts(
   toDelete.clear();
   dictionary.forEach((tshirtName, value) async {
 
-    dictionary[tshirtName].add(neckDict[tshirtName]); ///
+    //dictionary[tshirtName].add(neckDict[tshirtName]); ///
 
-    // if(neckDict.keys.contains(tshirtName)){
-    //   dictionary[tshirtName].add(neckDict[tshirtName]);
-    // }
-    // else{
-    //   toDelete.add(tshirtName);
-    // }
+    if(neckDict.keys.contains(tshirtName)){
+      dictionary[tshirtName].add(neckDict[tshirtName]);
+    }
+    else{
+      dictionary[tshirtName].add("XFM");
+    }
   });
 
   //dictionary.removeWhere((key, value) => toDelete.contains(key));
