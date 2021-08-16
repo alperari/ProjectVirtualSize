@@ -20,7 +20,7 @@ class Market extends StatefulWidget {
 class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
 
   AnimationController controller;
-  Future<DocumentSnapshot> snap;
+  Future<QuerySnapshot> snap;
 
   //About Dropdown menu
   List<bool> isSelected = List.generate(6, (index) => false);
@@ -34,6 +34,10 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
   int selectedIconIndex;
 
   static const header_height = 32.0;
+
+  bool isFiltered = false;
+  Map<String,List<String>> my_matched_tshirts = {};
+  bool loading_filter_results = false;
 
 
   Future<void> getQRcodes()async{
@@ -51,8 +55,8 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
 
   }
 
-  Future<DocumentSnapshot> getDoc()async {
-    snap = ProductsRef.doc("tshirt").collection("TshirtProducts").doc("tshirt_11").get();
+  Future<DocumentSnapshot> getProducts()async {
+    snap = ProductsRef.doc("tshirt").collection("TshirtProducts").get();
   }
 
   bool get isPanelVisible {
@@ -222,57 +226,101 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
 
   }
   Widget buildSubmitFilterButton(){
-    return OutlinedButton(
-      onPressed: () async{
-        if(selectedIconIndex == 1 && dropdownValue != "SELECT QR CODE"){
-          Map<String,dynamic> QRdata = QRcodesDocuments[selectedQRcode_index-1].get("measureData");
-          dynamic chest = QRdata["chest"];
-          dynamic shoulder = QRdata["shoulder"];
-          dynamic waist = QRdata["waist"];
-          dynamic neck = QRdata["neck"];
-          dynamic biceps = QRdata["biceps"];
-          dynamic length = QRdata["length"];
-          dynamic sleeve = QRdata["sleeve"];
-
-          Map<String,String> myMatches = await getHumanVirtualSizes(
-            chest: chest,
-            shoulder: shoulder,
-            waist: waist,
-            neck: neck,
-            biceps: biceps,
-            length: length,
-          );
-
-          print("MY VIRTUAL SIZE:");
-          myMatches.forEach((key, value) {
-            print(key +" " +  value);
-          });
-
-          print("");
-          print("TSHIRTS I CAN WEAR:");
-          getTshirts(
-            chest: myMatches["chest"],
-            shoulder: myMatches["shoulder"],
-            waist: myMatches["waist"],
-            neck: myMatches["neck"],
-            biceps: myMatches["biceps"],
-            length: myMatches["length"],
-          );
-        }
-
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0),
-        child: Text(
-          'SUBMIT',
-          style: TextStyle(
-              color: Colors.black
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        OutlinedButton(
+            onPressed: (){
+              //reset filter
+              setState(() {
+                isFiltered = false;
+                loading_filter_results = false;
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12.0),
+              child: Text(
+                'RESET',
+                style: TextStyle(
+                    color: Colors.black
+                ),
+              ),
+            ),
+          style: OutlinedButton.styleFrom(
+            backgroundColor: Colors.grey,
           ),
         ),
-      ),
-      style: OutlinedButton.styleFrom(
-        backgroundColor: selectedIconIndex==null? Colors.grey: Colors.deepPurple[400],
-      ),
+        SizedBox(
+          width: 20,
+        ),
+        OutlinedButton(
+          onPressed: () async{
+
+            setState(() {
+              loading_filter_results=true;
+            });
+
+            if(selectedIconIndex == 1 && dropdownValue != "SELECT QR CODE"){
+              Map<String,dynamic> QRdata = QRcodesDocuments[selectedQRcode_index-1].get("measureData");
+              dynamic chest = QRdata["chest"];
+              dynamic shoulder = QRdata["shoulder"];
+              dynamic waist = QRdata["waist"];
+              dynamic neck = QRdata["neck"];
+              dynamic biceps = QRdata["biceps"];
+              dynamic length = QRdata["length"];
+              dynamic sleeve = QRdata["sleeve"];
+
+              Map<String,String> myMatches = await getHumanVirtualSizes(
+                chest: chest,
+                shoulder: shoulder,
+                waist: waist,
+                neck: neck,
+                biceps: biceps,
+                length: length,
+              );
+
+              print("MY VIRTUAL SIZE:");
+              myMatches.forEach((key, value) {
+                print(key +" " +  value);
+              });
+
+              print("");
+              print("TSHIRTS I CAN WEAR:");
+
+              Map<String,List<String>> matches = await getTshirts(
+                chest: myMatches["chest"],
+                shoulder: myMatches["shoulder"],
+                waist: myMatches["waist"],
+                neck: myMatches["neck"],
+                biceps: myMatches["biceps"],
+                length: myMatches["length"],
+              );
+
+
+              setState(() {
+                my_matched_tshirts = matches;
+                isFiltered = true;
+                loading_filter_results= false;
+              });
+            }
+
+
+
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12.0),
+            child: Text(
+              'SUBMIT',
+              style: TextStyle(
+                  color: Colors.black
+              ),
+            ),
+          ),
+          style: OutlinedButton.styleFrom(
+            backgroundColor: selectedIconIndex==null? Colors.grey: Colors.deepPurple[400],
+          ),
+        ),
+      ],
     );
   }
 
@@ -351,30 +399,68 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
                         color: Colors.grey[800],
 
                       ),
-                      Expanded(
-                        child: ListView(
-                          shrinkWrap: true,
-                          children: [
-                            FutureBuilder(
-                              future: snap,
-                              builder: (context,snapshot){
-                                if(snapshot.hasData){
-                                  TshirtProduct t1 = TshirtProduct.fromDoc(snapshot.data);
-                                  //print(t1.Company + t1.Price.toString() + t1.mediaUrl + t1.measureData.toString());
-                                  return Center(
-                                    child: t1.ReturnTshirtProductWidget(context),
-                                  );
-                                }
-                                else
-                                  print("no data");
-                                return Center(
-                                  child: Text("NOPE"),
+                      Container(
+                        child: FutureBuilder(
+                          future: snap,
+                          builder: (context,snapshot){
+
+                            if(snapshot.hasData){
+                              List<Widget> ProductsList = [];
+
+
+                              if(loading_filter_results){
+                                return Expanded(
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
                                 );
-                              },
-                            )
-                          ],
+                              }
+                              else{
+                                //FILTER OFF
+                                if(isFiltered == false){
+                                  ProductsList.clear();
+
+                                  ProductsList = snapshot.data.docs.map<Widget>((DocumentSnapshot doc){
+                                    TshirtProduct tshirt = TshirtProduct.fromDoc(doc);
+                                    return tshirt.ReturnTshirtProductWidget_UnFiltered(context);
+                                  }).toList();
+                                }
+
+                                //FILTER ON
+                                else{
+                                  snapshot.data.docs.forEach((DocumentSnapshot doc) {   //if any document that exists in our matched tshirts list, add it to ProductsList
+                                    if(my_matched_tshirts.keys.contains(doc.id)){
+
+                                      List<String> matchData = my_matched_tshirts[doc.id];
+
+                                      TshirtProduct tshirt = TshirtProduct.fromDoc(doc);
+
+                                      ProductsList.add( tshirt.ReturnTshirtProductWidget_Filtered(context, matchData) );
+
+                                    }
+                                  });
+                                }
+                              }
+
+
+                              return  Expanded(
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  children: ProductsList
+                                ),
+                              );
+                            }
+                            else{
+                              return Expanded(
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
+                            }
+                          },
                         ),
-                      )
+                      ),
+
                     ],
                   ),
                 ),
@@ -391,7 +477,7 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getDoc();
+    getProducts();
     controller = new AnimationController(vsync: this, duration: new Duration(milliseconds: 100), value: 1.0);
 
     dropdownValue = QRcodes[0];
@@ -400,7 +486,6 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    //print(isPanelVisible);
     return SafeArea(
       child: new LayoutBuilder(
         builder: bothPanels,

@@ -269,19 +269,23 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
     return Column(
       children: [
         Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 10,),
-            Text(
-              myQRcodeTile.name,
-              style: TextStyle(
-                  fontSize: 30,
-                fontWeight: FontWeight.bold
+            Container(
+              width: 180,
+              child: Text(
+                myQRcodeTile.name,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold
+                ),
               ),
             ),
-
-            Text("Created " + timeago.format(myQRcodeTile.time.toDate()), style: TextStyle(fontSize:15 ,color: Colors.deepPurple, fontWeight: FontWeight.bold),),
+            Text("Created " + timeago.format(myQRcodeTile.time.toDate()), style: TextStyle(fontSize:15 ,color: Colors.deepPurple, fontWeight: FontWeight.bold),
+            ),
           ],
         ),
         SizedBox(

@@ -165,7 +165,7 @@ Future<Map> getHumanVirtualSizes(
 
 Map<String,List<String>> dictionary = {};
 
-Future<void> getTshirts(
+Future<Map<String,List<String>>> getTshirts(
     {@required String chest,
     @required String waist,
     @required String neck,
@@ -303,8 +303,8 @@ Future<void> getTshirts(
   print("---------AFTER CHEST + WAIST + NECK FILTER-----------");
   dictionary.forEach((key, value) {print(key + " " + value.toString());});
 
-  //SHOULDER  + BICEPS TSHIRTS
-  //var SHOULDER_XUM = shoulderTshirts.get("XUM");
+  //SHOULDER  TSHIRTS
+  var SHOULDER_XUM = shoulderTshirts.get("XUM");
   var SHOULDER_UM = shoulderTshirts.get("UM");
   var SHOULDER_PM = shoulderTshirts.get("PM");
   var SHOULDER_LM = shoulderTshirts.get("LM");
@@ -313,9 +313,9 @@ Future<void> getTshirts(
 
   Map<String,String> shoulderDict = {};
 
-  // for(String tshirt in SHOULDER_XUM){
-  //   shoulderDict[tshirt] = "XUM";
-  // }
+  for(String tshirt in SHOULDER_XUM){
+    shoulderDict[tshirt] = "XUM";
+  }
   for(String tshirt in SHOULDER_UM){
     shoulderDict[tshirt] = "UM";
   }
@@ -435,6 +435,9 @@ Future<void> getTshirts(
   dictionary.forEach((key, value) {
     print(key + "   " + value.toString());
   });
+
+
+  return dictionary;
   //
   // //LENGTH TSHIRTS
   // FM = lengthTshirts.get("FM");

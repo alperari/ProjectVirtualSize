@@ -372,7 +372,805 @@ class TshirtProduct extends Product{
     );
   }
 
-  Widget ReturnTshirtProductWidget(BuildContext context){
+  Widget buildtBottom_Filtered({List<String> matchData}){
+
+    String info_chest = matchData[0];
+    String info_waist = matchData[1];
+    String info_neck = matchData[2];
+    String info_shoulder = matchData[3];
+    String info_biceps = matchData[4];
+    String info_sleeve = matchData[5];
+
+
+    TextStyle inactiveTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]);
+    TextStyle activeTextStyle = TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white);
+
+
+    BoxShadow inactiveBoxShadow = BoxShadow();
+    BoxShadow activeBowShadow = BoxShadow(
+      color: Colors.deepPurple.withOpacity(0.4),
+      spreadRadius: 4,
+      blurRadius: 8,
+      offset: Offset(0, 0), // changes position of shadow
+    );
+
+    Color inactiveColor = Colors.grey[400];
+    Color activeColor =  Colors.deepPurple[400];
+
+    return Expanded(
+      child: ListView(
+        children: [
+          //NECK
+          Column(
+            children: [
+              Text("Neck", style: GoogleFonts.righteous(fontSize: 20),),
+              Container(
+
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                        ),
+                        color: inactiveColor,
+                        boxShadow: [inactiveBoxShadow],
+                      ),
+                      width: 59,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("NM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+                    Container(
+                      width: 59,
+                      height: 25,
+                      decoration: BoxDecoration(
+                        boxShadow: [activeBowShadow],
+                        color: activeColor,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("FM",style: activeTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [inactiveBoxShadow],
+                        color: inactiveColor,
+                      ),
+                      width: 59,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("PM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [inactiveBoxShadow],
+                        color: inactiveColor,
+                      ),
+                      width: 59,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("LM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+
+                        ),
+                        color: inactiveColor,
+                        boxShadow: [inactiveBoxShadow],
+
+                      ),
+                      width: 59,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("XLM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12,),
+
+          //CHEST
+          Column(
+            children: [
+              Text("Chest", style: GoogleFonts.righteous(fontSize: 20),),
+              Container(
+
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                        ),
+                        color: inactiveColor,
+                        boxShadow: [inactiveBoxShadow],
+
+                      ),
+                      width: 74,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("FM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+
+                    Container(
+                      width: 74,
+                      height: 25,
+                      decoration: BoxDecoration(
+                        boxShadow: [activeBowShadow],
+                        color: activeColor,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("PM",style: activeTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+
+                    Container(
+                      width: 74,
+                      height: 25,
+                      decoration: BoxDecoration(
+                        color: inactiveColor,
+                        boxShadow: [inactiveBoxShadow],
+
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("LM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+
+                        ),
+                        color: inactiveColor,
+                        boxShadow: [inactiveBoxShadow],
+
+                      ),
+                      width: 74,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("XLM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12,),
+
+          //SHOULDER
+          Column(
+            children: [
+              Text("Shoulder", style: GoogleFonts.righteous(fontSize: 20),),
+              Container(
+
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                        ),
+                        color: inactiveColor,
+
+                      ),
+                      width: 59,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("XUM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+
+                    Container(
+                      width: 59,
+                      height: 25,
+                      decoration: BoxDecoration(
+                        color: inactiveColor,
+                        boxShadow: [inactiveBoxShadow]
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("UM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+                    Container(
+                      width: 59,
+                      height: 25,
+                      decoration: BoxDecoration(
+                          color: inactiveColor,
+                          boxShadow: [inactiveBoxShadow]
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("PM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+                    Container(
+                      width: 59,
+                      height: 25,
+                      decoration: BoxDecoration(
+                        boxShadow: [activeBowShadow],
+                        color: activeColor,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("LM",style: activeTextStyle,),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+
+                        ),
+                        color: inactiveColor,
+                        boxShadow: [inactiveBoxShadow]
+                      ),
+                      width: 59,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("XLM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12,),
+
+          //WAIST
+          Column(
+            children: [
+              Text("Waist", style: GoogleFonts.righteous(fontSize: 20),),
+              Container(
+
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                        ),
+                        color: inactiveColor,
+                        boxShadow: [inactiveBoxShadow]
+
+                      ),
+                      width: 74,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("FM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+
+                    Container(
+                      width: 74,
+                      height: 25,
+                      decoration: BoxDecoration(
+                        boxShadow: [activeBowShadow],
+                        color: activeColor
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("PM",style: activeTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+
+                    Container(
+                      width: 74,
+                      height: 25,
+                      decoration: BoxDecoration(
+                          color: inactiveColor,
+                          boxShadow: [inactiveBoxShadow]
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("LM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+
+                        ),
+                        color: inactiveColor,
+                        boxShadow: [inactiveBoxShadow]
+
+                      ),
+                      width: 74,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("XLM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12,),
+
+          //BICEPS
+          Column(
+            children: [
+              Text("Biceps", style: GoogleFonts.righteous(fontSize: 20),),
+              Container(
+
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                        ),
+                        color: inactiveColor,
+                        boxShadow: [inactiveBoxShadow]
+
+                      ),
+                      width: 74,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("FM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        color: activeColor,
+                        boxShadow: [activeBowShadow],
+                      ),
+                      width: 74,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("PM",style: activeTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+
+                    Container(
+                      width: 74,
+                      height: 25,
+                      decoration: BoxDecoration(
+                          color: inactiveColor,
+                          boxShadow: [inactiveBoxShadow]
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("LM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+
+                        ),
+                        color: inactiveColor,
+                        boxShadow: [inactiveBoxShadow]
+
+                      ),
+                      width: 74,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("XLM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12,),
+
+          //LENGTH
+          Column(
+            children: [
+              Text("Length", style: GoogleFonts.righteous(fontSize: 20),),
+              Container(
+
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                        ),
+                        color: inactiveColor,
+                        boxShadow: [inactiveBoxShadow]
+
+                      ),
+                      width: 59,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("AH",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        color: activeColor,
+                        boxShadow: [activeBowShadow],
+                      ),
+                      width: 59,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("H",style: activeTextStyle,),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+                    Container(
+                      width: 59,
+                      height: 25,
+                      decoration: BoxDecoration(
+                          color: inactiveColor,
+                          boxShadow: [inactiveBoxShadow]
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("PM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+                    Container(
+                      width: 59,
+                      height: 25,
+                      decoration: BoxDecoration(
+                          color: inactiveColor,
+                          boxShadow: [inactiveBoxShadow]
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("LM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+
+                        ),
+                        color: inactiveColor,
+                        boxShadow: [inactiveBoxShadow]
+
+                      ),
+                      width: 59,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("XLM",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12,),
+
+          //SLEEVE
+          Column(
+            children: [
+              Text("Sleeve", style: GoogleFonts.righteous(fontSize: 20),),
+              Container(
+
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                        ),
+                        color: inactiveColor,
+                        boxShadow: [inactiveBoxShadow]
+
+                      ),
+                      width: 99,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("SHORT",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+
+
+                    Container(
+                      width: 99,
+                      height: 25,
+                      decoration: BoxDecoration(
+                          color: inactiveColor,
+                          boxShadow: [inactiveBoxShadow]
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("PERFECT",style: inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        color: activeColor,
+                        boxShadow: [activeBowShadow],
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                        ),
+
+                      ),
+                      width: 99,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("LONG",style: activeTextStyle,),
+                        ],
+                      ),
+                    ),
+
+
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12,),
+
+        ],
+      ),
+    );
+  }
+
+  Widget ReturnTshirtProductWidget_Filtered(BuildContext context, List<String> matchData){
     return Container(
       margin: EdgeInsets.only(left: 30, top: 30, right: 30, bottom: 30),
       height: 570,
@@ -412,7 +1210,7 @@ class TshirtProduct extends Product{
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("\$ " + this.Price.toString(), style: TextStyle(color: Colors.red[800],fontSize: 18),),
+                    Text("\$ " + this.Price.toString(), style: GoogleFonts.ruda(color: Colors.deepPurple, fontSize: 20)),
                   ],
                 ),
               ],
@@ -428,720 +1226,204 @@ class TshirtProduct extends Product{
               ),
             ),
             SizedBox(height: 15,),
-            Expanded(
-              child: ListView(
-                children: [
-                  //NECK
-                  Column(
-                    children: [
-                      Text("Neck", style: GoogleFonts.righteous(fontSize: 20),),
-                      Container(
-
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
-                                ),
-                                color: Colors.grey[400],
-
-                              ),
-                              width: 59,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("NM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-                            Container(
-                              color: Colors.deepPurple[400],
-                              width: 59,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("FM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-                            Container(
-                              color: Colors.grey[400],
-                              width: 59,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("PM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-                            Container(
-                              color: Colors.grey[400],
-                              width: 59,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("LM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-
-                                ),
-                                color: Colors.grey[400],
-
-                              ),
-                              width: 59,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("XLM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 12,),
-
-                  //CHEST
-                  Column(
-                    children: [
-                      Text("Chest", style: GoogleFonts.righteous(fontSize: 20),),
-                      Container(
-
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
-                                ),
-                                color: Colors.grey[400],
-
-                              ),
-                              width: 74,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("FM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-
-                            Container(
-                              width: 74,
-                              height: 25,
-                              color: Colors.deepPurple[400],
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("PM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-
-                            Container(
-                              width: 74,
-                              height: 25,
-                              color: Colors.grey[400],
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("LM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-
-                                ),
-                                color: Colors.grey[400],
-
-                              ),
-                              width: 74,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("XLM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 12,),
-
-                  //SHOULDER
-                  Column(
-                    children: [
-                      Text("Shoulder", style: GoogleFonts.righteous(fontSize: 20),),
-                      Container(
-
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
-                                ),
-                                color: Colors.grey[400],
-
-                              ),
-                              width: 59,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("XUM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-
-                            Container(
-                              color: Colors.grey[400],
-                              width: 59,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("UM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-                            Container(
-                              color: Colors.grey[400],
-                              width: 59,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("PM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-                            Container(
-                              color: Colors.deepPurple[400],
-                              width: 59,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("LM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-
-                                ),
-                                color: Colors.grey[400],
-
-                              ),
-                              width: 59,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("XLM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 12,),
-
-                  //WAIST
-                  Column(
-                    children: [
-                      Text("Waist", style: GoogleFonts.righteous(fontSize: 20),),
-                      Container(
-
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
-                                ),
-                                color: Colors.grey[400],
-
-                              ),
-                              width: 74,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("FM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-
-                            Container(
-                              width: 74,
-                              height: 25,
-                              color: Colors.deepPurple[400],
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("PM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-
-                            Container(
-                              width: 74,
-                              height: 25,
-                              color: Colors.grey[400],
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("LM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-
-                                ),
-                                color: Colors.grey[400],
-
-                              ),
-                              width: 74,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("XLM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 12,),
-
-                  //BICEPS
-                  Column(
-                    children: [
-                      Text("Biceps", style: GoogleFonts.righteous(fontSize: 20),),
-                      Container(
-
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
-                                ),
-                                color: Colors.grey[400],
-
-                              ),
-                              width: 74,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("FM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-
-                            Container(
-                              width: 74,
-                              height: 25,
-                              color: Colors.deepPurple[400],
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("PM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-
-                            Container(
-                              width: 74,
-                              height: 25,
-                              color: Colors.grey[400],
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("LM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-
-                                ),
-                                color: Colors.grey[400],
-
-                              ),
-                              width: 74,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("XLM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 12,),
-
-                  //LENGTH
-                  Column(
-                    children: [
-                      Text("Length", style: GoogleFonts.righteous(fontSize: 20),),
-                      Container(
-
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
-                                ),
-                                color: Colors.grey[400],
-
-                              ),
-                              width: 59,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("AH",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-
-                            Container(
-                              color: Colors.deepPurple[400],
-                              width: 59,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("H",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: Colors.white),),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-                            Container(
-                              color: Colors.grey[400],
-                              width: 59,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("PM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-                            Container(
-                              color: Colors.grey[400],
-                              width: 59,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("LM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-
-                                ),
-                                color: Colors.grey[400],
-
-                              ),
-                              width: 59,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("XLM",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 12,),
-
-                  //SLEEVE
-                  Column(
-                    children: [
-                      Text("Sleeve", style: GoogleFonts.righteous(fontSize: 20),),
-                      Container(
-
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10),
-                                ),
-                                color: Colors.grey[400],
-
-                              ),
-                              width: 99,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("SHORT",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-
-
-                            Container(
-                              color: Colors.grey[400],
-                              width: 99,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("PERFECT",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.grey[600]),),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              color: Colors.black,
-                              width: 1,
-                              height: 25,
-                            ),
-
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-                                ),
-                                color: Colors.deepPurple[400],
-
-                              ),
-                              width: 99,
-                              height: 25,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("LONG",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),),
-                                ],
-                              ),
-                            ),
-
-
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 12,),
-
-                ],
-              ),
-            ),
+            buildtBottom_Filtered(matchData: matchData),
           ],
         ),
       )
+    );
+  }
+
+
+
+
+  PageController _pageController = PageController();
+
+  Widget buildSecondPage_Unfiltered(){
+    return Stack(
+      children: [
+        Container(
+          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+          width: 400,
+          height: 300,
+          child: Row(
+            children: [
+              Icon(Icons.arrow_back_ios,color: Colors.grey,),
+            ],
+          )
+        ),
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 12,horizontal: 50),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10)
+            ),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Neck_x: ", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                  Text(this.measureData["neck_x"] + " cm", style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400])),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Neck_y: ", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                  Text(this.measureData["neck_y"] + " cm", style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400])),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Chest: ", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                  Text(this.measureData["chest"] + " cm", style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400])),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Shoulder: ", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                  Text(this.measureData["shoulder"] + " cm", style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400])),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Waist: ", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                  Text(this.measureData["waist"] + " cm", style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400])),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Length: ", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                  Text(this.measureData["length"] + " cm", style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400])),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Biceps: ", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                  Text(this.measureData["arm"] + " cm", style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400])),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Sleeve: ", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                  Text(this.measureData["sleeve"] + " cm", style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400])),
+                ],
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget ReturnTshirtProductWidget_UnFiltered(BuildContext context){
+    return Container(
+        margin: EdgeInsets.only(left: 30, top: 30, right: 30, bottom: 30),
+        height: 400,
+        width: 400,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10),
+              topRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10)
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.8),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+          child: Column(
+
+            children: [
+              Stack(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(this.Company.toUpperCase(),style: GoogleFonts.bebasNeue(color: Colors.black,fontSize: 25)),
+
+                    ],
+                  ),
+                ],
+              ),
+              Expanded(
+                child: PageView.builder(
+                  itemCount: 2,
+                    itemBuilder: (context,index){
+                      if(index == 0){
+                        return Container(
+                          child: Column(
+                            children: [
+                              Stack(
+                                overflow: Overflow.clip,
+                                children: [
+                                  Container(
+                                    width: 400,
+                                    height: 300,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Icon(Icons.arrow_forward_ios_rounded, color: Colors.grey,)
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 400,
+                                    height: 280,
+                                    child: ClipRRect(
+                                      child: Image.network(this.mediaUrl),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10)
+                                      ),
+                                    ),
+                                  ),
+
+
+
+                                ],
+                              ),
+                              SizedBox(height: 8,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(this.Size.toString(), style: TextStyle(color: Colors.grey[700], fontSize: 22)),
+                                  Text("\$ " + this.Price.toString(), style: GoogleFonts.ruda(color: Colors.deepPurple, fontSize: 22)),
+
+                                ],
+                              ),
+
+                            ],
+                          ),
+                        );
+                      }
+                      return buildSecondPage_Unfiltered();
+                    }
+
+                )
+              ),
+            ],
+          ),
+        )
     );
   }
 }
