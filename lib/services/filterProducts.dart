@@ -348,10 +348,10 @@ Future<Map<String,List<String>>> getTshirts(
 
 
   //BICEPS TSHIRTS
-  var BICEPS_FM = bicepsTshirts.get("FM");
-  var BICEPS_PM = bicepsTshirts.get("PM");
-  var BICEPS_LM = bicepsTshirts.get("LM");
-  var BICEPS_XLM = bicepsTshirts.get("XLM");
+  FM = bicepsTshirts.get("FM");
+  PM = bicepsTshirts.get("PM");
+  LM = bicepsTshirts.get("LM");
+  XLM = bicepsTshirts.get("XLM");
 
   Map<String,String> bicepsDict = {};
 
@@ -411,6 +411,55 @@ Future<Map<String,List<String>>> getTshirts(
   });
 
 
+//LENGTH TSHIRTS
+  var AH = lengthTshirts.get("AH");
+  var H = lengthTshirts.get("H");
+  PM = lengthTshirts.get("PM");
+  LM = lengthTshirts.get("LM");
+  XLM = lengthTshirts.get("XLM");
+
+  Map<String,String> lengthDict = {};
+
+  for(String tshirt in AH){
+    lengthDict[tshirt] = "AH";
+  }
+  for(String tshirt in H){
+    lengthDict[tshirt] = "H";
+  }
+  for(String tshirt in PM){
+    lengthDict[tshirt] = "PM";
+  }
+  for(String tshirt in LM){
+    lengthDict[tshirt] = "LM";
+  }
+  for(String tshirt in XLM){
+    lengthDict[tshirt] = "XLM";
+  }
+
+  toDelete.clear();
+  dictionary.forEach((tshirtName, value) {
+    if(lengthDict.keys.contains(tshirtName)){
+      //if that tshirt in dictionary also is in waist, add corresponding WAIST VIRTUAL SIZE to the list
+      dictionary[tshirtName].add(lengthDict[tshirtName]);
+
+    }
+    else{
+      //if its not found in waist, delete it
+      //you can delete it by key
+      toDelete.add(tshirtName);
+    }
+  }
+  );
+  //dictionary.removeWhere((key, value) => toDelete.contains(key)); //delete some
+
+
+  print("");
+  print("--------- ADDING LENGTH INFO -----------");
+  dictionary.forEach((key, value) {
+    print(key + "   " + value.toString());
+  });
+
+
 
   //ADD SLEEVE INFO
   for(String tshirtName in dictionary.keys){
@@ -438,45 +487,6 @@ Future<Map<String,List<String>>> getTshirts(
 
 
   return dictionary;
-  //
-  // //LENGTH TSHIRTS
-  // FM = lengthTshirts.get("FM");
-  // PM = lengthTshirts.get("PM");
-  // LM = lengthTshirts.get("LM");
-  // XLM = lengthTshirts.get("XLM");
-  //
-  // Map<String,String> lengthDict = {};
-  //
-  // for(String tshirt in FM){
-  //   lengthDict[tshirt] = "FM";
-  // }
-  // for(String tshirt in PM){
-  //   lengthDict[tshirt] = "PM";
-  // }
-  // for(String tshirt in LM){
-  //   lengthDict[tshirt] = "LM";
-  // }
-  // for(String tshirt in XLM){
-  //   lengthDict[tshirt] = "XLM";
-  // }
-  //
-  // print(lengthDict);
-  //
-  // toDelete.clear();
-  // dictionary.forEach((tshirtName, value) {
-  //   if(lengthDict.keys.contains(tshirtName)){
-  //     //if that tshirt in dictionary also is in waist, add corresponding WAIST VIRTUAL SIZE to the list
-  //     dictionary[tshirtName].add(lengthDict[tshirtName]);
-  //
-  //   }
-  //   else{
-  //     //if its not found in waist, delete it
-  //     //you can delete it by key
-  //     toDelete.add(tshirtName);
-  //   }
-  // }
-  // );
-  // dictionary.removeWhere((key, value) => toDelete.contains(key)); //delete some
-  // print("LAST: " + dictionary.toString());
+
 
 }
