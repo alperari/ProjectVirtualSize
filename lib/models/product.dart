@@ -415,55 +415,53 @@ class TshirtProduct extends Product{
                           topLeft: Radius.circular(10),
                           bottomLeft: Radius.circular(10),
                         ),
-                        color: inactiveColor,
-                        boxShadow: [inactiveBoxShadow],
+                        color: info_neck == "NM" ? activeColor : inactiveColor,
+                        boxShadow: info_neck == "NM" ? [activeBowShadow] : [inactiveBoxShadow],
                       ),
-                      width: 59,
+                      width: 49,
                       height: 25,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("NM",style: inactiveTextStyle,),
+                          Text("NM",style: info_neck == "NM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
-
                     Container(
                       color: Colors.black,
                       width: 1,
                       height: 25,
                     ),
                     Container(
-                      width: 59,
+                      width: 49,
                       height: 25,
                       decoration: BoxDecoration(
-                        boxShadow: [activeBowShadow],
-                        color: activeColor,
+                        color: info_neck == "XFM" ? activeColor : inactiveColor,
+                        boxShadow: info_neck == "XFM" ? [activeBowShadow] : [inactiveBoxShadow],
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("FM",style: activeTextStyle,),
+                          Text("XFM",style: info_neck == "XFM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
-
                     Container(
                       color: Colors.black,
                       width: 1,
                       height: 25,
                     ),
                     Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [inactiveBoxShadow],
-                        color: inactiveColor,
-                      ),
-                      width: 59,
+                      width: 49,
                       height: 25,
+                      decoration: BoxDecoration(
+                        color: info_neck == "FM" ? activeColor : inactiveColor,
+                        boxShadow: info_neck == "FM" ? [activeBowShadow] : [inactiveBoxShadow],
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("PM",style: inactiveTextStyle,),
+                          Text("FM",style: info_neck == "FM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -475,15 +473,35 @@ class TshirtProduct extends Product{
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        boxShadow: [inactiveBoxShadow],
-                        color: inactiveColor,
+                        color: info_neck == "PM" ? activeColor : inactiveColor,
+                        boxShadow: info_neck == "PM" ? [activeBowShadow] : [inactiveBoxShadow],
                       ),
-                      width: 59,
+                      width: 49,
                       height: 25,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("LM",style: inactiveTextStyle,),
+                          Text("PM",style: info_neck == "PM" ? activeTextStyle : inactiveTextStyle,),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      color: Colors.black,
+                      width: 1,
+                      height: 25,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: info_neck == "LM" ? activeColor : inactiveColor,
+                        boxShadow: info_neck == "LM" ? [activeBowShadow] : [inactiveBoxShadow],
+                      ),
+                      width: 49,
+                      height: 25,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("LM",style: info_neck == "LM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -500,16 +518,16 @@ class TshirtProduct extends Product{
                           bottomRight: Radius.circular(10),
 
                         ),
-                        color: inactiveColor,
-                        boxShadow: [inactiveBoxShadow],
+                        color: info_neck == "XLM" ? activeColor : inactiveColor,
+                        boxShadow: info_neck == "XLM" ? [activeBowShadow] : [inactiveBoxShadow],
 
                       ),
-                      width: 59,
+                      width: 49,
                       height: 25,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("XLM",style: inactiveTextStyle,),
+                          Text("XLM",style: info_neck == "XLM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -537,8 +555,8 @@ class TshirtProduct extends Product{
                           topLeft: Radius.circular(10),
                           bottomLeft: Radius.circular(10),
                         ),
-                        color: inactiveColor,
-                        boxShadow: [inactiveBoxShadow],
+                        color: info_chest == "FM" ? activeColor : inactiveColor,
+                        boxShadow: info_chest == "FM" ? [activeBowShadow] : [inactiveBoxShadow],
 
                       ),
                       width: 74,
@@ -546,7 +564,7 @@ class TshirtProduct extends Product{
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("FM",style: inactiveTextStyle,),
+                          Text("FM",style: info_chest == "FM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -561,13 +579,14 @@ class TshirtProduct extends Product{
                       width: 74,
                       height: 25,
                       decoration: BoxDecoration(
-                        boxShadow: [activeBowShadow],
-                        color: activeColor,
+                        color: info_chest == "PM" ? activeColor : inactiveColor,
+                        boxShadow: info_chest == "PM" ? [activeBowShadow] : [inactiveBoxShadow],
+
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("PM",style: activeTextStyle,),
+                          Text("PM",style: info_chest == "PM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -582,14 +601,15 @@ class TshirtProduct extends Product{
                       width: 74,
                       height: 25,
                       decoration: BoxDecoration(
-                        color: inactiveColor,
-                        boxShadow: [inactiveBoxShadow],
+                        color: info_chest == "LM" ? activeColor : inactiveColor,
+                        boxShadow: info_chest == "LM" ? [activeBowShadow] : [inactiveBoxShadow],
+
 
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("LM",style: inactiveTextStyle,),
+                          Text("LM",style: info_chest == "LM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -607,8 +627,9 @@ class TshirtProduct extends Product{
                           bottomRight: Radius.circular(10),
 
                         ),
-                        color: inactiveColor,
-                        boxShadow: [inactiveBoxShadow],
+                        color: info_chest == "XLM" ? activeColor : inactiveColor,
+                        boxShadow: info_chest == "XLM" ? [activeBowShadow] : [inactiveBoxShadow],
+
 
                       ),
                       width: 74,
@@ -616,7 +637,7 @@ class TshirtProduct extends Product{
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("XLM",style: inactiveTextStyle,),
+                          Text("XLM",style: info_chest == "XLM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -643,7 +664,8 @@ class TshirtProduct extends Product{
                           topLeft: Radius.circular(10),
                           bottomLeft: Radius.circular(10),
                         ),
-                        color: inactiveColor,
+                        color: info_shoulder == "XUM" ? activeColor : inactiveColor,
+                        boxShadow: info_shoulder == "XUM" ? [activeBowShadow] : [inactiveBoxShadow],
 
                       ),
                       width: 59,
@@ -651,7 +673,7 @@ class TshirtProduct extends Product{
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("XUM",style: inactiveTextStyle,),
+                          Text("XUM",style: info_shoulder == "XUM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -666,13 +688,14 @@ class TshirtProduct extends Product{
                       width: 59,
                       height: 25,
                       decoration: BoxDecoration(
-                        color: inactiveColor,
-                        boxShadow: [inactiveBoxShadow]
+                        color: info_shoulder == "UM" ? activeColor : inactiveColor,
+                        boxShadow: info_shoulder == "UM" ? [activeBowShadow] : [inactiveBoxShadow],
+
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("UM",style: inactiveTextStyle,),
+                          Text("UM",style: info_shoulder == "UM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -685,13 +708,14 @@ class TshirtProduct extends Product{
                       width: 59,
                       height: 25,
                       decoration: BoxDecoration(
-                          color: inactiveColor,
-                          boxShadow: [inactiveBoxShadow]
+                        color: info_shoulder == "PM" ? activeColor : inactiveColor,
+                        boxShadow: info_shoulder == "PM" ? [activeBowShadow] : [inactiveBoxShadow],
+
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("PM",style: inactiveTextStyle,),
+                          Text("PM",style: info_shoulder == "PM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -705,13 +729,14 @@ class TshirtProduct extends Product{
                       width: 59,
                       height: 25,
                       decoration: BoxDecoration(
-                        boxShadow: [activeBowShadow],
-                        color: activeColor,
+                        color: info_shoulder == "LM" ? activeColor : inactiveColor,
+                        boxShadow: info_shoulder == "LM" ? [activeBowShadow] : [inactiveBoxShadow],
+
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("LM",style: activeTextStyle,),
+                          Text("LM",style: info_shoulder == "LM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -727,15 +752,16 @@ class TshirtProduct extends Product{
                           bottomRight: Radius.circular(10),
 
                         ),
-                        color: inactiveColor,
-                        boxShadow: [inactiveBoxShadow]
+                        color: info_shoulder == "XLM" ? activeColor : inactiveColor,
+                        boxShadow: info_shoulder == "XLM" ? [activeBowShadow] : [inactiveBoxShadow],
+
                       ),
                       width: 59,
                       height: 25,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("XLM",style: inactiveTextStyle,),
+                          Text("XLM",style: info_shoulder == "XLM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -763,8 +789,8 @@ class TshirtProduct extends Product{
                           topLeft: Radius.circular(10),
                           bottomLeft: Radius.circular(10),
                         ),
-                        color: inactiveColor,
-                        boxShadow: [inactiveBoxShadow]
+                        color: info_waist == "FM" ? activeColor : inactiveColor,
+                        boxShadow: info_waist == "FM" ? [activeBowShadow] : [inactiveBoxShadow],
 
                       ),
                       width: 74,
@@ -772,7 +798,7 @@ class TshirtProduct extends Product{
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("FM",style: inactiveTextStyle,),
+                          Text("FM",style: info_waist == "FM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -787,13 +813,14 @@ class TshirtProduct extends Product{
                       width: 74,
                       height: 25,
                       decoration: BoxDecoration(
-                        boxShadow: [activeBowShadow],
-                        color: activeColor
+                        color: info_waist == "PM" ? activeColor : inactiveColor,
+                        boxShadow: info_waist == "PM" ? [activeBowShadow] : [inactiveBoxShadow],
+
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("PM",style: activeTextStyle,),
+                          Text("PM",style: info_waist == "PM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -808,13 +835,14 @@ class TshirtProduct extends Product{
                       width: 74,
                       height: 25,
                       decoration: BoxDecoration(
-                          color: inactiveColor,
-                          boxShadow: [inactiveBoxShadow]
+                        color: info_waist == "LM" ? activeColor : inactiveColor,
+                        boxShadow: info_waist == "LM" ? [activeBowShadow] : [inactiveBoxShadow],
+
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("LM",style: inactiveTextStyle,),
+                          Text("LM",style: info_waist == "LM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -832,8 +860,9 @@ class TshirtProduct extends Product{
                           bottomRight: Radius.circular(10),
 
                         ),
-                        color: inactiveColor,
-                        boxShadow: [inactiveBoxShadow]
+                        color: info_waist == "XLM" ? activeColor : inactiveColor,
+                        boxShadow: info_waist == "XLM" ? [activeBowShadow] : [inactiveBoxShadow],
+
 
                       ),
                       width: 74,
@@ -841,7 +870,7 @@ class TshirtProduct extends Product{
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("XLM",style: inactiveTextStyle,),
+                          Text("XLM",style: info_waist == "XLM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -868,8 +897,8 @@ class TshirtProduct extends Product{
                           topLeft: Radius.circular(10),
                           bottomLeft: Radius.circular(10),
                         ),
-                        color: inactiveColor,
-                        boxShadow: [inactiveBoxShadow]
+                        color: info_biceps == "FM" ? activeColor : inactiveColor,
+                        boxShadow: info_biceps == "FM" ? [activeBowShadow] : [inactiveBoxShadow],
 
                       ),
                       width: 74,
@@ -877,7 +906,7 @@ class TshirtProduct extends Product{
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("FM",style: inactiveTextStyle,),
+                          Text("FM",style: info_biceps == "FM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -890,15 +919,16 @@ class TshirtProduct extends Product{
 
                     Container(
                       decoration: BoxDecoration(
-                        color: activeColor,
-                        boxShadow: [activeBowShadow],
+                        color: info_biceps == "PM" ? activeColor : inactiveColor,
+                        boxShadow: info_biceps == "PM" ? [activeBowShadow] : [inactiveBoxShadow],
+
                       ),
                       width: 74,
                       height: 25,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("PM",style: activeTextStyle,),
+                          Text("PM",style: info_biceps == "PM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -913,13 +943,14 @@ class TshirtProduct extends Product{
                       width: 74,
                       height: 25,
                       decoration: BoxDecoration(
-                          color: inactiveColor,
-                          boxShadow: [inactiveBoxShadow]
+                        color: info_biceps == "LM" ? activeColor : inactiveColor,
+                        boxShadow: info_biceps == "LM" ? [activeBowShadow] : [inactiveBoxShadow],
+
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("LM",style: inactiveTextStyle,),
+                          Text("LM",style: info_biceps == "LM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -937,8 +968,8 @@ class TshirtProduct extends Product{
                           bottomRight: Radius.circular(10),
 
                         ),
-                        color: inactiveColor,
-                        boxShadow: [inactiveBoxShadow]
+                        color: info_biceps == "XLM" ? activeColor : inactiveColor,
+                        boxShadow: info_biceps == "XLM" ? [activeBowShadow] : [inactiveBoxShadow],
 
                       ),
                       width: 74,
@@ -946,7 +977,7 @@ class TshirtProduct extends Product{
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("XLM",style: inactiveTextStyle,),
+                          Text("XLM",style: info_biceps == "XLM" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -1095,8 +1126,8 @@ class TshirtProduct extends Product{
                           topLeft: Radius.circular(10),
                           bottomLeft: Radius.circular(10),
                         ),
-                        color: inactiveColor,
-                        boxShadow: [inactiveBoxShadow]
+                        color: info_sleeve == "SHORT SLEEVE" ? activeColor : inactiveColor,
+                        boxShadow: info_sleeve == "SHORT SLEEVE" ? [activeBowShadow] : [inactiveBoxShadow],
 
                       ),
                       width: 99,
@@ -1104,7 +1135,7 @@ class TshirtProduct extends Product{
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("SHORT",style: inactiveTextStyle,),
+                          Text("SHORT",style: info_sleeve == "SHORT SLEEVE" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -1120,13 +1151,14 @@ class TshirtProduct extends Product{
                       width: 99,
                       height: 25,
                       decoration: BoxDecoration(
-                          color: inactiveColor,
-                          boxShadow: [inactiveBoxShadow]
+                        color: info_sleeve == "PERFECT SLEEVE" ? activeColor : inactiveColor,
+                        boxShadow: info_sleeve == "PERFECT SLEEVE" ? [activeBowShadow] : [inactiveBoxShadow],
+
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("PERFECT",style: inactiveTextStyle,),
+                          Text("PERFECT",style: info_sleeve == "PERFECT SLEEVE" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
@@ -1139,12 +1171,12 @@ class TshirtProduct extends Product{
 
                     Container(
                       decoration: BoxDecoration(
-                        color: activeColor,
-                        boxShadow: [activeBowShadow],
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(10),
                           bottomRight: Radius.circular(10),
                         ),
+                        color: info_sleeve == "LONG SLEEVE" ? activeColor : inactiveColor,
+                        boxShadow: info_sleeve == "LONG SLEEVE" ? [activeBowShadow] : [inactiveBoxShadow],
 
                       ),
                       width: 99,
@@ -1152,7 +1184,7 @@ class TshirtProduct extends Product{
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("LONG",style: activeTextStyle,),
+                          Text("LONG",style: info_sleeve == "LONG" ? activeTextStyle : inactiveTextStyle,),
                         ],
                       ),
                     ),
