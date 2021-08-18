@@ -66,7 +66,7 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
         builder: (dialogContext) {
           print("You will remove " + myQRcodeTile.QR_id + "    " + myQRcodeTile.name);
           return SimpleDialog(
-            title: Text("Do you want to remove QR?", style: TextStyle(fontSize: 20),),
+            title: Text("Do you want to remove QR?", style: GoogleFonts.ptSans(fontSize: 22),),
             children: <Widget>[
 
               SimpleDialogOption(
@@ -86,12 +86,15 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
                 },
                 child: Text(
                   'Remove',
-                  style: TextStyle(color: Colors.redAccent),
+                  style: GoogleFonts.ptSans(color: Colors.deepPurpleAccent,fontSize: 20),
                 ),
               ),
               SimpleDialogOption(
                 onPressed: () => Navigator.pop(dialogContext),
-                child: Text('Cancel'),
+                child: Text(
+                  'Cancel',
+                  style: GoogleFonts.ptSans(color:Colors.grey[700], fontSize: 20),
+                ),
               )
             ],
           );
@@ -271,7 +274,7 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 10,),
+            SizedBox(height: 18,),
             Container(
               width: 180,
               child: Text(
@@ -298,7 +301,14 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
             GestureDetector(
               child: Container(
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white)
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
                 ),
                 width: 180,
                 height: 180,

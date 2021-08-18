@@ -144,12 +144,12 @@ class _SignInState extends State<SignIn> {
                             child: Text(
                               'Login',
                               style: TextStyle(
-                                color: Colors.black
+                                color: Colors.white
                               ),
                             ),
                           ),
                           style: OutlinedButton.styleFrom(
-                            backgroundColor: Colors.lightBlueAccent[400],
+                            backgroundColor: Colors.deepPurple,
                           ),
                         ),
                       ),
@@ -174,7 +174,7 @@ class _SignInState extends State<SignIn> {
                       'Don\'t have an account yet? Register now! -->',
                       style: TextStyle(
                         decoration: TextDecoration.underline,
-                        color: Colors.grey[300]
+                        color: Colors.grey[700]
                       ),
                     ),
                     onPressed: () {

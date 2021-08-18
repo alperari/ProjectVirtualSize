@@ -61,6 +61,7 @@ class _RegisterState extends State<Register> {
                       onSaved: (String value) {
                         fullname = value;
                       },
+                    style: TextStyle(color: Colors.white),
                     ),
 
                   SizedBox(height: 16.0,),
@@ -91,6 +92,8 @@ class _RegisterState extends State<Register> {
                     onSaved: (String value) {
                       mail = value;
                     },
+                    style: TextStyle(color: Colors.white),
+
                   ),
 
 
@@ -136,6 +139,8 @@ class _RegisterState extends State<Register> {
                           onSaved: (String value) {
                             pass = value;
                           },
+                          style: TextStyle(color: Colors.white),
+
                         ),
                       ),
 
@@ -179,6 +184,8 @@ class _RegisterState extends State<Register> {
                           onSaved: (String value) {
                             pass = value;
                           },
+                          style: TextStyle(color: Colors.white),
+
                         ),
                       ),
                     ],

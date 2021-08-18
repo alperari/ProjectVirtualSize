@@ -83,7 +83,7 @@ class _createQRcodeState extends State<createQRcode> with TickerProviderStateMix
   Color _foregroundOff = Colors.black;
 
   // active button's background color
-  Color _backgroundOn = Colors.lightGreen;
+  Color _backgroundOn = Colors.deepPurple;
   Color _backgroundOff = Colors.grey[600];
 
   // scroll controller for the TabBar
@@ -257,7 +257,7 @@ class _createQRcodeState extends State<createQRcode> with TickerProviderStateMix
       }
       else {
         // if the button is inactive
-        return Colors.green;
+        return Colors.deepPurple[700];
       }
     }
     else{
@@ -405,8 +405,13 @@ class _createQRcodeState extends State<createQRcode> with TickerProviderStateMix
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.purple,
-          title: Text(widget.name),
+          backgroundColor: Colors.deepPurple,
+          title: Row(
+            children: [
+              Text("Generating QR:  ", style:TextStyle(color: Colors.grey[300]),),
+              Text(widget.name, style: TextStyle(fontSize: 25),),
+            ],
+          ),
         ),
         body: Column(children: <Widget>[
           // this is the TabBar
@@ -476,7 +481,7 @@ class _createQRcodeState extends State<createQRcode> with TickerProviderStateMix
                           margin: EdgeInsets.all(3),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(7),),
-                            color: snapshot.hasData ? (checkButtonValidity(snapshot) ? Colors.blue : Colors.grey[600]) : Colors.grey[600],
+                            color: snapshot.hasData ? (checkButtonValidity(snapshot) ? Colors.orange : Colors.grey[600]) : Colors.grey[600],
 
                           ),
 

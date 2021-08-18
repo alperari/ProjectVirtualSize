@@ -1392,7 +1392,7 @@ class TshirtProduct extends Product{
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.8),
+              color: Colors.grey.withOpacity(1),
               spreadRadius: 5,
               blurRadius: 7,
               offset: Offset(0, 3), // changes position of shadow

@@ -390,25 +390,102 @@ Future<Map<String,List<String>>> getTshirts(
 
 
 
-  //NOW CHECK IF SHOULDER-BICEPS is XLM-XLM    or   XUM-FM
-  toDelete.clear();
-  dictionary.forEach((key, value) {
-    if(value[3] == "XUM" && value[4] == "FM"){
-      toDelete.add(key);
-    }
-    else if(value[3] == "XLM" && value[4] == "XLM"){
-      toDelete.add(key);
-    }
-  });
-  //remove those 2 cases if exists
-  dictionary.removeWhere((key, value) => toDelete.contains(key));
+
+  // toDelete.clear();
+  // for(String tshirt_id in dictionary.keys){
+  //   var shoulder_in_array = dictionary[tshirt_id][3];
+  //
+  //
+  //   //IF SHOULDER = XLM,   ADD BICEPS +1 ,     this might change biceps match for a tshirt
+  //   if(shoulder_in_array == "XLM"){
+  //     //get the arm value of that tshirt, add it to 1
+  //     var armSnapshot = await ProductsRef.doc("tshirt").collection("TshirtProducts").doc(tshirt_id).get();
+  //     var new_arm = double.parse(armSnapshot.get("measureData")["arm"])*2 + 1;
+  //
+  //
+  //     DocumentSnapshot bicepsSnaphsot = await virtualSizesRef.doc("Tshirt").collection("Biceps").doc(biceps).get();
+  //
+  //     if(bicepsSnaphsot.get("FM")[0] <= new_arm &&   new_arm <= bicepsSnaphsot.get("FM")[1]) {
+  //       dictionary[tshirt_id][4] = "FM";
+  //       //BICEPS VALUE STANDS IN 4th index in the array
+  //     }
+  //     if(bicepsSnaphsot.get("PM")[0] <= new_arm &&   new_arm <= bicepsSnaphsot.get("PM")[1]) {
+  //       dictionary[tshirt_id][4] = "PM";
+  //
+  //     }
+  //     if(bicepsSnaphsot.get("LM")[0] <= new_arm &&   new_arm <= bicepsSnaphsot.get("LM")[1]) {
+  //       dictionary[tshirt_id][4] = "LM";
+  //
+  //     }
+  //     if(bicepsSnaphsot.get("XLM")[0] <= new_arm &&   new_arm <= bicepsSnaphsot.get("XLM")[1]) {
+  //       dictionary[tshirt_id][4] = "XLM";
+  //
+  //     }
+  //     else{
+  //       //out of range
+  //       toDelete.add(tshirt_id);
+  //     }
+  //
+  //   }
+  //
+  //   //IF SHOULDER = XUM,   DECREASE BICEPS -1 ,     this might change biceps match for a tshirt
+  //   else if(shoulder_in_array == "XUM"){
+  //     var armSnapshot = await ProductsRef.doc("tshirt").collection("TshirtProducts").doc(tshirt_id).get();
+  //     var new_arm = double.parse(armSnapshot.get("measureData")["arm"])*2 - 1;
+  //
+  //     DocumentSnapshot bicepsSnaphsot = await virtualSizesRef.doc("Tshirt").collection("Biceps").doc(biceps).get();
+  //
+  //     if(bicepsSnaphsot.get("FM")[0] <= new_arm &&   new_arm <= bicepsSnaphsot.get("FM")[1]) {
+  //       dictionary[tshirt_id][4] = "FM";
+  //       //BICEPS VALUE STANDS IN 4th index in the array
+  //     }
+  //     if(bicepsSnaphsot.get("PM")[0] <= new_arm &&   new_arm <= bicepsSnaphsot.get("PM")[1]) {
+  //       dictionary[tshirt_id][4] = "PM";
+  //
+  //     }
+  //     if(bicepsSnaphsot.get("LM")[0] <= new_arm &&   new_arm <= bicepsSnaphsot.get("LM")[1]) {
+  //       dictionary[tshirt_id][4] = "LM";
+  //
+  //     }
+  //     if(bicepsSnaphsot.get("XLM")[0] <= new_arm &&   new_arm <= bicepsSnaphsot.get("XLM")[1]) {
+  //       dictionary[tshirt_id][4] = "XLM";
+  //
+  //     }
+  //     else{
+  //       //out of range
+  //       toDelete.add(tshirt_id);
+  //     }
+  //
+  //   }
+  //
+  //
+  // }
+  // dictionary.forEach((key, value) {print(key + " " + value.toString());});
+  //
+  // print("");
+  // print("---------AFTER SHOULDER XLM - XUM CHECKS -----------");
+  // dictionary.forEach((key, value) {
+  //   print(key + "   " + value.toString());
+  // });
+  //
 
 
-  print("");
-  print("---------AFTER DELETION OF (SHOULDER-BICEPS) XLM:XLM and  XUM:FM-----------");
-  dictionary.forEach((key, value) {
-    print(key + "   " + value.toString());
-  });
+  //
+  // //NOW CHECK IF SHOULDER-BICEPS is XLM-XLM    or   XUM-FM
+  // toDelete.clear();
+  // dictionary.forEach((key, value) {
+  //   if(value[3] == "XUM" && value[4] == "FM"){
+  //     toDelete.add(key);
+  //   }
+  //   else if(value[3] == "XLM" && value[4] == "XLM"){
+  //     toDelete.add(key);
+  //   }
+  // });
+  // //remove those 2 cases if exists
+  // dictionary.removeWhere((key, value) => toDelete.contains(key));
+  //
+  //
+
 
 
 //LENGTH TSHIRTS
@@ -450,7 +527,7 @@ Future<Map<String,List<String>>> getTshirts(
     }
   }
   );
-  //dictionary.removeWhere((key, value) => toDelete.contains(key)); //delete some
+  dictionary.removeWhere((key, value) => toDelete.contains(key)); //delete some
 
 
   print("");

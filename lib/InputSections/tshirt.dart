@@ -147,7 +147,10 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
 
     return Stack(
       children: [
-        Image.asset("assets/imageUpperbody.jpg"),
+        FittedBox(
+          child: Image.asset("assets/imageUpperbody.jpg"),
+          fit: BoxFit.fill,
+        ),
         Positioned(
           right: 0,
           left: 0,
@@ -221,7 +224,7 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
 
                                   }
                                 },
-                                color: Colors.blue,
+                                color: Colors.grey[300],
                                 child: Text("SAVE"))
                           ],
                         ),
