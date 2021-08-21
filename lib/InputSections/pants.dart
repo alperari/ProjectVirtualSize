@@ -30,19 +30,19 @@ class _PantsState extends State<Pants> with AutomaticKeepAliveClientMixin<Pants>
   TextFormField customTextFormField(String name,double myVar){
     return TextFormField(
       style: TextStyle(
-          color: Colors.black
+          color: Colors.white
       ),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(8),
         labelText: name ,
         labelStyle: TextStyle(
-          color: Colors.black,
+          color: Colors.white,
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blue, width: 1.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 1.0),
+          borderSide: BorderSide(color: Colors.white, width: 1.0),
         ),
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.black, width: 1.0),
@@ -76,85 +76,92 @@ class _PantsState extends State<Pants> with AutomaticKeepAliveClientMixin<Pants>
   Widget build(BuildContext context) {
     super.build(context);
 
-    return Stack(
-      children: [
-        Image.asset("assets/imageLowerbody.jpg"),
-        Positioned(
-          right: 0,
-          left: 0,
-          top: 50,
-          height: 500,
-          child: SnappingSheet.horizontal(
-            lockOverflowDrag: true,
-            snappingPositions: [
-              SnappingPosition.factor(
-                positionFactor: 1.0,
-                grabbingContentOffset: GrabbingContentOffset.bottom,
-              ),
-              SnappingPosition.factor(
-                positionFactor: 0.67,
-              ),
-              SnappingPosition.factor(
-                  positionFactor: 0.67
-              ),
-            ],
-            grabbingWidth: 40,
-            grabbing: _GrabbingWidget(),
-            sheetRight: SnappingSheetContent(
-              draggable: true,
-              childScrollController: _scrollController,
-              child: Container(
-                color: Colors.white,
-                child: ListView(
-                  physics: NeverScrollableScrollPhysics(),
-                  controller: _scrollController,
-                  padding: EdgeInsets.all(15),
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    Container(
-                      width:80,
-                      height: 200,
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            customTextFormField("hip", hip),
-                            SizedBox(height: 12,),
-                            customTextFormField("inLeg", inLeg),
-                            SizedBox(height: 12,),
-                            customTextFormField("outLeg", outLeg),
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/imageLowerbody.jpg"),
+              fit: BoxFit.cover
+          )
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            right: 0,
+            left: 0,
+            top: 50,
+            height: 500,
+            child: SnappingSheet.horizontal(
+              lockOverflowDrag: true,
+              snappingPositions: [
+                SnappingPosition.factor(
+                  positionFactor: 1.0,
+                  grabbingContentOffset: GrabbingContentOffset.bottom,
+                ),
+                SnappingPosition.factor(
+                  positionFactor: 0.67,
+                ),
+                SnappingPosition.factor(
+                    positionFactor: 0.67
+                ),
+              ],
+              grabbingWidth: 40,
+              grabbing: _GrabbingWidget(),
+              sheetRight: SnappingSheetContent(
+                draggable: true,
+                childScrollController: _scrollController,
+                child: Container(
+                  color: Colors.grey[700],
+                  child: ListView(
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: _scrollController,
+                    padding: EdgeInsets.all(15),
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      Container(
+                        width:80,
+                        height: 200,
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              customTextFormField("hip", hip),
+                              SizedBox(height: 12,),
+                              customTextFormField("inLeg", inLeg),
+                              SizedBox(height: 12,),
+                              customTextFormField("outLeg", outLeg),
+                              SizedBox(height: 10,),
+                              FlatButton(
+                                  onPressed: (){
+                                    if(_formKey.currentState.validate() == true){
+                                      _formKey.currentState.save();
 
-                            FlatButton(
-                                onPressed: (){
-                                  if(_formKey.currentState.validate() == true){
-                                    _formKey.currentState.save();
-
-                                    ownData["icon2"] = 1.0;
-                                    print("OWN DATA pants: " + ownData.toString());
+                                      ownData["icon2"] = 1.0;
+                                      print("OWN DATA pants: " + ownData.toString());
 
 
-                                    //set issetTshirt = true
+                                      //set issetTshirt = true
 
-                                    widget.controller.add(ownData);
-                                  }
-                                  else{
+                                      widget.controller.add(ownData);
+                                    }
+                                    else{
 
-                                  }
-                                },
-                                color: Colors.blue,
-                                child: Text("SAVE"))
-                          ],
+                                    }
+                                  },
+                                  color: Colors.grey[300],
+                                  child: Text("SAVE"))
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -173,7 +180,7 @@ class _GrabbingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.grey[700],
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(10),
           bottomLeft: Radius.circular(10),
@@ -188,7 +195,7 @@ class _GrabbingWidget extends StatelessWidget {
             width: 7,
             height: 30,
             decoration: BoxDecoration(
-              color: Colors.grey,
+              color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(5)),
             ),
           ),

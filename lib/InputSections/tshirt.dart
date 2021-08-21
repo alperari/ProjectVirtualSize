@@ -145,98 +145,102 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
   Widget build(BuildContext context) {
     super.build(context);
 
-    return Stack(
-      children: [
-        FittedBox(
-          child: Image.asset("assets/imageUpperbody.jpg"),
-          fit: BoxFit.fill,
-        ),
-        Positioned(
-          right: 0,
-          left: 0,
-          top: 50,
-          height: 500,
-          child: SnappingSheet.horizontal(
-            lockOverflowDrag: true,
-            snappingPositions: [
-              SnappingPosition.factor(
-                positionFactor: 1.0,
-                grabbingContentOffset: GrabbingContentOffset.bottom,
-              ),
-              SnappingPosition.factor(
-                positionFactor: 0.60,
-              ),
-              SnappingPosition.factor(
-                positionFactor: 0.60
-              ),
-            ],
-            grabbingWidth: 40,
-            grabbing: _GrabbingWidget(),
-            sheetRight: SnappingSheetContent(
-              draggable: true,
-              childScrollController: _scrollController,
-              child: Container(
-                color: Colors.grey[700],
-                child: ListView(
-                  physics: NeverScrollableScrollPhysics(),
-                  controller: _scrollController,
-                  padding: EdgeInsets.all(15),
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    Container(
-                      width:110,
-                      height: 200,
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/imageUpperbody.jpg"),
+              fit: BoxFit.cover
+          )
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            right: 0,
+            left: 0,
+            top: 50,
+            height: 500,
+            child: SnappingSheet.horizontal(
+              lockOverflowDrag: true,
+              snappingPositions: [
+                SnappingPosition.factor(
+                  positionFactor: 1.0,
+                  grabbingContentOffset: GrabbingContentOffset.bottom,
+                ),
+                SnappingPosition.factor(
+                  positionFactor: 0.60,
+                ),
+                SnappingPosition.factor(
+                  positionFactor: 0.60
+                ),
+              ],
+              grabbingWidth: 40,
+              grabbing: _GrabbingWidget(),
+              sheetRight: SnappingSheetContent(
+                draggable: true,
+                childScrollController: _scrollController,
+                child: Container(
+                  color: Colors.grey[700],
+                  child: ListView(
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: _scrollController,
+                    padding: EdgeInsets.all(15),
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      Container(
+                        width:110,
+                        height: 200,
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
 
 
-                            customTextFormField("Neck", 30, 87),
-                            SizedBox(height: 12,),
-                            customTextFormField("Chest", 55,155),
-                            SizedBox(height: 12,),
-                            customTextFormField("Shoulder", 21,72),
-                            SizedBox(height: 12,),
-                            customTextFormField("Length", 45,110),
-                            SizedBox(height: 12,),
-                            customTextFormField("Sleeve", 0,70),
-                            SizedBox(height: 12,),
-                            customTextFormField("Biceps", 12,63),
-                            SizedBox(height: 12,),
-                            customTextFormField("Waist", 55,161),
+                              customTextFormField("Neck", 30, 87),
+                              SizedBox(height: 12,),
+                              customTextFormField("Chest", 55,155),
+                              SizedBox(height: 12,),
+                              customTextFormField("Shoulder", 21,72),
+                              SizedBox(height: 12,),
+                              customTextFormField("Length", 45,110),
+                              SizedBox(height: 12,),
+                              customTextFormField("Sleeve", 0,70),
+                              SizedBox(height: 12,),
+                              customTextFormField("Biceps", 12,63),
+                              SizedBox(height: 12,),
+                              customTextFormField("Waist", 55,161),
 
-                            FlatButton(
-                                onPressed: (){
-                                  if(_formKey.currentState.validate() == true){
-                                    _formKey.currentState.save();
+                              FlatButton(
+                                  onPressed: (){
+                                    if(_formKey.currentState.validate() == true){
+                                      _formKey.currentState.save();
 
-                                    ownData["icon1"] = 1.0;
-                                    print("OWN DATA tshirt: " + ownData.toString());
+                                      ownData["icon1"] = 1.0;
+                                      print("OWN DATA tshirt: " + ownData.toString());
 
 
-                                    //set issetTshirt = true
+                                      //set issetTshirt = true
 
-                                    widget.controller.add(ownData);
-                                  }
-                                  else{
+                                      widget.controller.add(ownData);
+                                    }
+                                    else{
 
-                                  }
-                                },
-                                color: Colors.grey[300],
-                                child: Text("SAVE"))
-                          ],
+                                    }
+                                  },
+                                  color: Colors.grey[300],
+                                  child: Text("SAVE"))
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
