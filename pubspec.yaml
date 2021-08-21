@@ -46,6 +46,7 @@ dev_dependencies:
   cached_network_image: ^3.0.0
   google_fonts: ^2.1.0
   snapping_sheet: ^3.1.0
+  percent_indicator: ^3.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

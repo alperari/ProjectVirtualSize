@@ -165,7 +165,7 @@ Future<Map> getHumanVirtualSizes(
 
 Map<String,List<String>> dictionary = {};
 
-Future<Map<String,List<String>>> getTshirts(
+Future<Map> getTshirts(
     {@required String chest,
     @required String waist,
     @required String neck,
@@ -264,12 +264,17 @@ Future<Map<String,List<String>>> getTshirts(
 
 
   //NECK TSHIRTS
+  var NM = neckTshirts.get("NM");
   FM = neckTshirts.get("FM");
   PM = neckTshirts.get("PM");
   LM = neckTshirts.get("LM");
+  XLM = neckTshirts.get("XLM");
 
   Map<String,String> neckDict = {};
 
+  for(String tshirt in NM){
+    neckDict[tshirt] = "NM";
+  }
   for(String tshirt in FM){
     neckDict[tshirt] = "FM";
   }
@@ -279,7 +284,9 @@ Future<Map<String,List<String>>> getTshirts(
   for(String tshirt in LM){
     neckDict[tshirt] = "LM";
   }
-
+  for(String tshirt in XLM){
+    neckDict[tshirt] = "XLM";
+  }
 
   //print(neckDict);
 
@@ -292,11 +299,11 @@ Future<Map<String,List<String>>> getTshirts(
       dictionary[tshirtName].add(neckDict[tshirtName]);
     }
     else{
-      dictionary[tshirtName].add("XFM");
+      toDelete.add(tshirtName);
     }
   });
 
-  //dictionary.removeWhere((key, value) => toDelete.contains(key));
+  dictionary.removeWhere((key, value) => toDelete.contains(key));
   //print("LAST: " + dictionary.toString());
 
   print("");
@@ -563,7 +570,93 @@ Future<Map<String,List<String>>> getTshirts(
   });
 
 
-  return dictionary;
+  List<SortItem> sortItems = [];
+  dictionary.forEach((String tshirtName, List<String> matches) {
+    sortItems.add(SortItem(tshirtName, matches));
+  });
 
 
+  print("----");
+  for(SortItem element in sortItems){
+    print(element.name + " ----  "+ element.total.toString() + "   " + element.matches.toString());
+  }
+
+  Map returnValue = {"asMap" : dictionary, "asList" : sortItems};
+
+  return returnValue;
+
+
+}
+
+
+class SortItem {
+  final String name;
+  final List<String> matches;
+
+  int total;
+
+
+  int getTotal() {
+    int sum = 0;
+
+    //CHEST
+    if (this.matches[0] == "PM")
+      sum += 700 + 100 + 35+100+100;
+    else if (this.matches[0] == "FM" || this.matches[0] == "LM")
+      sum += 627 + 100 + 35+97+50;
+    else if (this.matches[0] == "XLM") sum += 552 + 100 + 35+93+25;
+
+    //WAIST
+    if (this.matches[1] == "PM")
+      sum += 585 + 80 + 80 + 25+88+100;
+    else if (this.matches[1] == "FM" || this.matches[1] == "LM")
+      sum += 512 + 80 + 80 + 25+86+50;
+    else if (this.matches[1] == "XLM") sum += 437 + 80 + 80 + 25+85+25;
+
+
+    //NECK
+    if (this.matches[2] == "PM")
+      sum += 505 + 60 + 60 +80;
+    else if (this.matches[2] == "FM" || this.matches[2] == "LM")
+      sum += 432 + 60 + 60 +75;
+    else if (this.matches[2] == "XLM") sum += 357 + 60 + 60 +74;
+    else if(this.matches[2] == "NM")sum += 357 + 60 + 60 +70;
+
+
+    //SHOULDER
+    if (this.matches[3] == "PM")
+      sum += 479 + 40 + 40+68;
+    else if (this.matches[3] == "LM")
+      sum += 406 + 40 + 40+66;
+    else if (this.matches[3] == "XLM" || this.matches[3] == "UM")
+      sum += 331 + 40 + 40+60;
+    else if (this.matches[3] == "XUM")
+      sum += 234 + 40 + 40+57;
+
+    //BICEPS
+    if (this.matches[4] == "PM")
+      sum += 463 + 20+49;
+    else if (this.matches[4] == "FM" || this.matches[4] == "LM")
+      sum += 390 + 20+40;
+    else if (this.matches[4] == "XLM") sum += 315 + 20+38;
+
+    //LENGTH
+    if (this.matches[5] == "PM")
+      sum += 371 - 40+30;
+    else if (this.matches[5] == "LM")
+      sum += 298 - 40+28;
+    else if (this.matches[5] == "XLM")
+      sum += 223 - 40+20;
+    else if (this.matches[5] == "H")
+      sum += 126 - 40+18;
+    else if (this.matches[5] == "AH") sum += 0 - 40+15;
+
+    return sum;
+  }
+
+  SortItem(String name, List<String> matches)
+      : name = name,
+        matches = matches {
+    total = getTotal();
+  }
 }

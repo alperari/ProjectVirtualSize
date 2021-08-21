@@ -36,7 +36,8 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
   static const header_height = 32.0;
 
   bool isFiltered = false;
-  Map<String,List<String>> my_matched_tshirts = {};
+  Map<String,List<String>> my_matched_tshirts_asMap = {};
+  List<SortItem> my_matched_tshirts_asList = [];
   bool loading_filter_results = false;
 
 
@@ -53,10 +54,12 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
     }
 
 
+
   }
 
   Future<DocumentSnapshot> getProducts()async {
     snap = ProductsRef.doc("tshirt").collection("TshirtProducts").get();
+
   }
 
   bool get isPanelVisible {
@@ -287,7 +290,7 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
               print("");
               print("TSHIRTS I CAN WEAR:");
 
-              Map<String,List<String>> matches = await getTshirts(
+              Map matches = await getTshirts(
                 chest: myMatches["chest"],
                 shoulder: myMatches["shoulder"],
                 waist: myMatches["waist"],
@@ -296,9 +299,9 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
                 length: myMatches["length"],
               );
 
-
               setState(() {
-                my_matched_tshirts = matches;
+                my_matched_tshirts_asMap = matches["asMap"];
+                my_matched_tshirts_asList = matches["asList"];
                 isFiltered = true;
                 loading_filter_results= false;
               });
@@ -331,18 +334,23 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "FILTER",
-              style: GoogleFonts.staatliches(fontSize: 30, color: Colors.black),
-            ),
-            IconButton(
-              onPressed: () {
-                controller.fling(velocity: isPanelVisible ? -1 : 1);
-              },
-              icon: new AnimatedIcon(
-                icon: AnimatedIcons.arrow_menu,
-                progress: controller.view,
-              ),
+
+            Row(
+              children: [
+                Text(
+                  "FILTER",
+                  style: GoogleFonts.staatliches(fontSize: 30, color: Colors.black),
+                ),
+                IconButton(
+                  onPressed: () {
+                    controller.fling(velocity: isPanelVisible ? -1 : 1);
+                  },
+                  icon: new AnimatedIcon(
+                    icon: AnimatedIcons.arrow_menu,
+                    progress: controller.view,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -404,7 +412,13 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
                           future: snap,
                           builder: (context,snapshot){
 
+
                             if(snapshot.hasData){
+                              Map<String,DocumentSnapshot> collectionMap = {};
+                              for(DocumentSnapshot doc in snapshot.data.docs){
+                                collectionMap[doc.id] = doc;
+                              }
+
                               List<Widget> ProductsList = [];
 
 
@@ -428,17 +442,41 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
 
                                 //FILTER ON
                                 else{
-                                  snapshot.data.docs.forEach((DocumentSnapshot doc) {   //if any document that exists in our matched tshirts list, add it to ProductsList
-                                    if(my_matched_tshirts.keys.contains(doc.id)){
+                                  ProductsList.clear();
+                                  my_matched_tshirts_asList.sort((a, b) => b.total.compareTo(a.total));
 
-                                      List<String> matchData = my_matched_tshirts[doc.id];
 
-                                      TshirtProduct tshirt = TshirtProduct.fromDoc(doc);
+                                  print("----");
+                                  print("after sort");
+                                  for(SortItem element in my_matched_tshirts_asList){
+                                    print(element.name + " ----  "+ element.total.toString() + "   " + element.matches.toString());
+                                  }
 
-                                      ProductsList.add( tshirt.ReturnTshirtProductWidget_Filtered(context, matchData) );
 
-                                    }
-                                  });
+                                  QuerySnapshot querySnapshot = snapshot.data;
+
+
+                                  for(SortItem tshirtItem in my_matched_tshirts_asList){
+                                    double Rate = (tshirtItem.total/4218)*100;
+                                    List<String> matchData = tshirtItem.matches;
+                                    TshirtProduct tshirt = TshirtProduct.fromDoc(collectionMap[tshirtItem.name]);
+                                    ProductsList.add( tshirt.ReturnTshirtProductWidget_Filtered(context, matchData, Rate) );
+
+                                  }
+
+                                  // snapshot.data.docs.forEach((DocumentSnapshot doc) {   //if any document that exists in our matched tshirts list, add it to ProductsList
+                                  //   if(my_matched_tshirts_asMap.keys.contains(doc.id)){
+                                  //
+                                  //     List<String> matchData = my_matched_tshirts_asMap[doc.id];
+                                  //
+                                  //     TshirtProduct tshirt = TshirtProduct.fromDoc(doc);
+                                  //
+                                  //     ProductsList.add( tshirt.ReturnTshirtProductWidget_Filtered(context, matchData) );
+                                  //
+                                  //   }
+                                  // });
+
+                                  //now sort ProductsList
                                 }
                               }
 
