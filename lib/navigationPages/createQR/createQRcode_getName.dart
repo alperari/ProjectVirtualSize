@@ -10,7 +10,6 @@ class _createQRcode_getNameState extends State<createQRcode_getName> {
   String name;
   final _nameController = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,6 +41,7 @@ class _createQRcode_getNameState extends State<createQRcode_getName> {
         Container(
 
           decoration: BoxDecoration(
+            color: Colors.deepPurple,
               borderRadius: BorderRadius.all(Radius.circular(20),),
               boxShadow: [
                 BoxShadow(
@@ -51,10 +51,7 @@ class _createQRcode_getNameState extends State<createQRcode_getName> {
                   offset: Offset(0, 4), // changes position of shadow
                 ),
               ],
-              gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [Colors.purple, Colors.blue])
+
           ),
           width: MediaQuery.of(context).size.width*3/4,
           child: TextField(
@@ -71,6 +68,11 @@ class _createQRcode_getNameState extends State<createQRcode_getName> {
               errorBorder: InputBorder.none,
               disabledBorder: InputBorder.none,
             ),
+            onChanged: (String value){
+              setState(() {
+                name = value;
+              });
+            },
 
 
           ),
@@ -90,7 +92,7 @@ class _createQRcode_getNameState extends State<createQRcode_getName> {
                 ),
               ],
               borderRadius: BorderRadius.all(Radius.circular(7),),
-              color: Colors.grey
+              color: (name == "" || name==null) ? Colors.grey[700] : Colors.deepPurple
           ),
 
           child: IconButton(

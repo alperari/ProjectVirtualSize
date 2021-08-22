@@ -341,7 +341,7 @@ class _createQRcodeState extends State<createQRcode> with TickerProviderStateMix
           data: data,
           version: QrVersions.auto,
           gapless: false,
-          color: Colors.black,
+          color: Colors.deepPurple,
           emptyColor: Colors.white
       ).toImage(600);
 

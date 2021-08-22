@@ -127,32 +127,32 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
 
             children: [
               FilterIcon(
-                icon: const Icon(CustomIcon.hat ,size: 28, ),
+                icon: const Icon(CustomIcon.hat ,size: 28, color: Colors.white,),
                 isSelected: isSelected[0],
                 bgColor: data["Hat"] == 1 ? Colors.deepPurple[400] : Colors.grey,
               ),
               FilterIcon(
-                icon: const Icon(CustomIcon.t_shirt_1,size: 28,),
+                icon: const Icon(CustomIcon.t_shirt_1,size: 28, color: Colors.white,),
                 isSelected: isSelected[1],
                 bgColor: data["Tshirt"] == 1 ? Colors.deepPurple[400] : Colors.grey,
               ),
               FilterIcon(
-                icon: const Icon(CustomIcon.black__1_,size: 28,),
+                icon: const Icon(CustomIcon.black__1_,size: 28, color: Colors.white,),
                 isSelected: isSelected[2],
                 bgColor: data["Pants"] == 1 ? Colors.deepPurple[400] : Colors.grey,
               ),
               FilterIcon(
-                icon: const Icon(CustomIcon.necklace,size: 28,),
+                icon: const Icon(CustomIcon.necklace,size: 28, color: Colors.white,),
                 isSelected: isSelected[3],
                 bgColor: data["Necklace"] == 1 ? Colors.deepPurple[400] : Colors.grey,
               ),
               FilterIcon(
-                icon: const Icon(Icons.add),
+                icon: const Icon(Icons.add, color: Colors.white,),
                 isSelected: isSelected[4],
                 bgColor: Colors.grey,
               ),
               FilterIcon(
-                icon: const Icon(Icons.add),
+                icon: const Icon(Icons.add, color: Colors.white,),
                 isSelected: isSelected[5],
                 bgColor: Colors.grey,
               ),
@@ -195,7 +195,7 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.qr_code,size: 35,),
+                Icon(Icons.qr_code,size: 35,color: Colors.grey[700],),
                 SizedBox(width: 8,),
                 DropdownButton<String>(
                   value: dropdownValue,
@@ -210,7 +210,7 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
                   onChanged: (String newValue) {
                     setState(() {
                       dropdownValue = newValue;
-                      print(QRcodes.indexOf(dropdownValue));
+                      //print(QRcodes.indexOf(dropdownValue));
                       selectedQRcode_index = QRcodes.indexOf(dropdownValue);
                     });
                   },
@@ -218,7 +218,7 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value, style: GoogleFonts.titilliumWeb(fontSize: 20, color: value == 'SELECT QR CODE' ? Colors.grey[700] : Colors.black),),
+                      child: Text(value, style: GoogleFonts.righteous(fontSize: 20, color: value == 'SELECT QR CODE' ? Colors.grey[600] : Colors.grey[700]),),
                     );
                   }).toList(),
                 )
@@ -244,9 +244,7 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
               padding: const EdgeInsets.symmetric(vertical: 12.0),
               child: Text(
                 'RESET',
-                style: TextStyle(
-                    color: Colors.black
-                ),
+                style: GoogleFonts.righteous(color: Colors.white,fontSize: 18),
               ),
             ),
           style: OutlinedButton.styleFrom(
@@ -282,13 +280,13 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
                 length: length,
               );
 
-              print("MY VIRTUAL SIZE:");
-              myMatches.forEach((key, value) {
-                print(key +" " +  value);
-              });
-
-              print("");
-              print("TSHIRTS I CAN WEAR:");
+              // print("MY VIRTUAL SIZE:");
+              // myMatches.forEach((key, value) {
+              //   print(key +" " +  value);
+              // });
+              //
+              // print("");
+              // print("TSHIRTS I CAN WEAR:");
 
               Map matches = await getTshirts(
                 chest: myMatches["chest"],
@@ -313,10 +311,9 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12.0),
             child: Text(
-              'SUBMIT',
-              style: TextStyle(
-                  color: Colors.black
-              ),
+              'FILTER',
+              style: GoogleFonts.righteous(color: Colors.white,fontSize: 18),
+
             ),
           ),
           style: OutlinedButton.styleFrom(
@@ -339,7 +336,7 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
               children: [
                 Text(
                   "FILTER",
-                  style: GoogleFonts.staatliches(fontSize: 30, color: Colors.black),
+                  style: GoogleFonts.righteous(fontSize: 30, color: Colors.grey[700]),
                 ),
                 IconButton(
                   onPressed: () {
@@ -355,8 +352,8 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
           ],
         ),
         new Container(
-          height: 5,
-          color: Colors.grey[800],
+          height: 1,
+          color: Colors.grey[700],
 
         ),
         new Container(
@@ -403,8 +400,8 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
                   child: new Column(
                     children: <Widget>[
                       new Container(
-                        height: 5,
-                        color: Colors.grey[800],
+                        height: 1,
+                        color: Colors.grey[700],
 
                       ),
                       Container(
@@ -435,7 +432,9 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
                                   ProductsList.clear();
 
                                   ProductsList = snapshot.data.docs.map<Widget>((DocumentSnapshot doc){
-                                    TshirtProduct tshirt = TshirtProduct.fromDoc(doc);
+                                    GlobalKey myKey = GlobalKey();
+
+                                    TshirtProduct tshirt = TshirtProduct.fromDoc(doc, myKey);
                                     return tshirt.ReturnTshirtProductWidget_UnFiltered(context);
                                   }).toList();
                                 }
@@ -446,20 +445,22 @@ class _MarketState extends State<Market> with SingleTickerProviderStateMixin {
                                   my_matched_tshirts_asList.sort((a, b) => b.total.compareTo(a.total));
 
 
-                                  print("----");
-                                  print("after sort");
-                                  for(SortItem element in my_matched_tshirts_asList){
-                                    print(element.name + " ----  "+ element.total.toString() + "   " + element.matches.toString());
-                                  }
-
+                                  // print("----");
+                                  // print("after sort");
+                                  // for(SortItem element in my_matched_tshirts_asList){
+                                  //   print(element.name + " ----  "+ element.total.toString() + "   " + element.matches.toString());
+                                  // }
+                                  //
 
                                   QuerySnapshot querySnapshot = snapshot.data;
 
 
                                   for(SortItem tshirtItem in my_matched_tshirts_asList){
+                                    GlobalKey myKey = GlobalKey();
+
                                     double Rate = (tshirtItem.total/4218)*100;
                                     List<String> matchData = tshirtItem.matches;
-                                    TshirtProduct tshirt = TshirtProduct.fromDoc(collectionMap[tshirtItem.name]);
+                                    TshirtProduct tshirt = TshirtProduct.fromDoc(collectionMap[tshirtItem.name], myKey);
                                     ProductsList.add( tshirt.ReturnTshirtProductWidget_Filtered(context, matchData, Rate) );
 
                                   }

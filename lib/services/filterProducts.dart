@@ -576,10 +576,10 @@ Future<Map> getTshirts(
   });
 
 
-  print("----");
-  for(SortItem element in sortItems){
-    print(element.name + " ----  "+ element.total.toString() + "   " + element.matches.toString());
-  }
+  // print("----");
+  // for(SortItem element in sortItems){
+  //   print(element.name + " ----  "+ element.total.toString() + "   " + element.matches.toString());
+  // }
 
   Map returnValue = {"asMap" : dictionary, "asList" : sortItems};
 

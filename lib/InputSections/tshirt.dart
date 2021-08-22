@@ -79,12 +79,12 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
     );
   }
 
-  Widget customTextFormField(String name, int min, int max){
+  Widget customTextFormField(String name, int min, int max, Color mycolor){
 
     return Row(
       children: [
         GestureDetector(
-          child: Icon(Icons.info_sharp, color: Colors.white,),
+          child: Icon(Icons.info_sharp, color: mycolor,),
           onTapDown: (_){
             onPressShowDialog(context, name, min, max);
           },
@@ -108,7 +108,7 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
                   borderSide: BorderSide(color: Colors.blue, width: 1.0),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white, width: 1.0),
+                  borderSide: BorderSide(color: mycolor, width: 1.0),
                 ),
                 disabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 1.0),
@@ -196,19 +196,19 @@ class _TshirtState extends State<Tshirt> with AutomaticKeepAliveClientMixin<Tshi
                             children: [
 
 
-                              customTextFormField("Neck", 30, 87),
+                              customTextFormField("Neck", 30, 87, Colors.lightBlueAccent),
                               SizedBox(height: 12,),
-                              customTextFormField("Chest", 55,155),
+                              customTextFormField("Chest", 55,155, Colors.redAccent),
                               SizedBox(height: 12,),
-                              customTextFormField("Shoulder", 21,72),
+                              customTextFormField("Shoulder", 21,72, Colors.greenAccent),
                               SizedBox(height: 12,),
-                              customTextFormField("Length", 45,110),
+                              customTextFormField("Length", 45,110, Colors.yellow),
                               SizedBox(height: 12,),
-                              customTextFormField("Sleeve", 0,70),
+                              customTextFormField("Sleeve", 0,70, Colors.purple[300]),
                               SizedBox(height: 12,),
-                              customTextFormField("Biceps", 12,63),
+                              customTextFormField("Biceps", 12,63, Colors.pinkAccent),
                               SizedBox(height: 12,),
-                              customTextFormField("Waist", 55,161),
+                              customTextFormField("Waist", 55,161, Colors.orangeAccent),
 
                               FlatButton(
                                   onPressed: (){

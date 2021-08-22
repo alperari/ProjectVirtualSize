@@ -7,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class Product{
+  final GlobalKey key;
+
   final String id;
 
   final String Company;
@@ -15,6 +17,7 @@ class Product{
   final String mediaUrl;
   //Constructor
   Product({
+    this.key,
     this.id,
     this.Company,
     this.Price,
@@ -30,6 +33,7 @@ class TshirtProduct extends Product{
   final String Size;
 
   TshirtProduct({
+    GlobalKey key,
     String id,
 
     String Company,
@@ -38,9 +42,9 @@ class TshirtProduct extends Product{
     String mediaUrl,
     this.Size
   })
-  : super(id: id,Company: Company, Price: Price, measureData: measureData, mediaUrl: mediaUrl);
+  : super(key:key, id: id,Company: Company, Price: Price, measureData: measureData, mediaUrl: mediaUrl);
 
-  factory TshirtProduct.fromDoc(DocumentSnapshot doc){
+  factory TshirtProduct.fromDoc(DocumentSnapshot doc, GlobalKey mykey){
     var id = doc.id;
     var company = doc.get("Company");
     var price = doc.get("Price");
@@ -50,6 +54,7 @@ class TshirtProduct extends Product{
 
     //print(company.toString() + price.toString() + measures.toString() + mediaUrl.toString());
     return TshirtProduct(
+      key: mykey,
       id: id,
       Company: company,
       Price: price,
@@ -417,6 +422,233 @@ class TshirtProduct extends Product{
     return Expanded(
       child: ListView(
         children: [
+          //CHEST
+          GestureDetector(
+            onTap: (){
+              onPressShowDialog(context, info_chest, "Chest");
+            },
+            child: Column(
+              children: [
+                Text("Chest", style: GoogleFonts.righteous(fontSize: 20),),
+                Container(
+
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                          ),
+                          color: info_chest == "FM" ? activeColor : inactiveColor,
+                          boxShadow: info_chest == "FM" ? [activeBowShadow] : [inactiveBoxShadow],
+
+                        ),
+                        width: 74,
+                        height: 25,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("FM",style: info_chest == "FM" ? activeTextStyle : inactiveTextStyle,),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                        color: Colors.black,
+                        width: 1,
+                        height: 25,
+                      ),
+
+                      Container(
+                        width: 74,
+                        height: 25,
+                        decoration: BoxDecoration(
+                          color: info_chest == "PM" ? activeColor : inactiveColor,
+                          boxShadow: info_chest == "PM" ? [activeBowShadow] : [inactiveBoxShadow],
+
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("PM",style: info_chest == "PM" ? activeTextStyle : inactiveTextStyle,),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                        color: Colors.black,
+                        width: 1,
+                        height: 25,
+                      ),
+
+                      Container(
+                        width: 74,
+                        height: 25,
+                        decoration: BoxDecoration(
+                          color: info_chest == "LM" ? activeColor : inactiveColor,
+                          boxShadow: info_chest == "LM" ? [activeBowShadow] : [inactiveBoxShadow],
+
+
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("LM",style: info_chest == "LM" ? activeTextStyle : inactiveTextStyle,),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                        color: Colors.black,
+                        width: 1,
+                        height: 25,
+                      ),
+
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+
+                          ),
+                          color: info_chest == "XLM" ? activeColor : inactiveColor,
+                          boxShadow: info_chest == "XLM" ? [activeBowShadow] : [inactiveBoxShadow],
+
+
+                        ),
+                        width: 74,
+                        height: 25,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("XLM",style: info_chest == "XLM" ? activeTextStyle : inactiveTextStyle,),
+                          ],
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 12,),
+
+          //WAIST
+          GestureDetector(
+            onTap: (){
+              onPressShowDialog(context, info_waist, "Waist");
+            },
+            child: Column(
+              children: [
+                Text("Waist", style: GoogleFonts.righteous(fontSize: 20),),
+                Container(
+
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                          ),
+                          color: info_waist == "FM" ? activeColor : inactiveColor,
+                          boxShadow: info_waist == "FM" ? [activeBowShadow] : [inactiveBoxShadow],
+
+                        ),
+                        width: 74,
+                        height: 25,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("FM",style: info_waist == "FM" ? activeTextStyle : inactiveTextStyle,),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                        color: Colors.black,
+                        width: 1,
+                        height: 25,
+                      ),
+
+                      Container(
+                        width: 74,
+                        height: 25,
+                        decoration: BoxDecoration(
+                          color: info_waist == "PM" ? activeColor : inactiveColor,
+                          boxShadow: info_waist == "PM" ? [activeBowShadow] : [inactiveBoxShadow],
+
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("PM",style: info_waist == "PM" ? activeTextStyle : inactiveTextStyle,),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                        color: Colors.black,
+                        width: 1,
+                        height: 25,
+                      ),
+
+                      Container(
+                        width: 74,
+                        height: 25,
+                        decoration: BoxDecoration(
+                          color: info_waist == "LM" ? activeColor : inactiveColor,
+                          boxShadow: info_waist == "LM" ? [activeBowShadow] : [inactiveBoxShadow],
+
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("LM",style: info_waist == "LM" ? activeTextStyle : inactiveTextStyle,),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                        color: Colors.black,
+                        width: 1,
+                        height: 25,
+                      ),
+
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+
+                          ),
+                          color: info_waist == "XLM" ? activeColor : inactiveColor,
+                          boxShadow: info_waist == "XLM" ? [activeBowShadow] : [inactiveBoxShadow],
+
+
+                        ),
+                        width: 74,
+                        height: 25,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("XLM",style: info_waist == "XLM" ? activeTextStyle : inactiveTextStyle,),
+                          ],
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 12,),
+
           //NECK
           GestureDetector(
             onTap: (){
@@ -562,120 +794,6 @@ class TshirtProduct extends Product{
           ),
           SizedBox(height: 12,),
 
-          //CHEST
-          GestureDetector(
-            onTap: (){
-              onPressShowDialog(context, info_chest, "Chest");
-            },
-            child: Column(
-              children: [
-                Text("Chest", style: GoogleFonts.righteous(fontSize: 20),),
-                Container(
-
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
-                          ),
-                          color: info_chest == "FM" ? activeColor : inactiveColor,
-                          boxShadow: info_chest == "FM" ? [activeBowShadow] : [inactiveBoxShadow],
-
-                        ),
-                        width: 74,
-                        height: 25,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("FM",style: info_chest == "FM" ? activeTextStyle : inactiveTextStyle,),
-                          ],
-                        ),
-                      ),
-
-                      Container(
-                        color: Colors.black,
-                        width: 1,
-                        height: 25,
-                      ),
-
-                      Container(
-                        width: 74,
-                        height: 25,
-                        decoration: BoxDecoration(
-                          color: info_chest == "PM" ? activeColor : inactiveColor,
-                          boxShadow: info_chest == "PM" ? [activeBowShadow] : [inactiveBoxShadow],
-
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("PM",style: info_chest == "PM" ? activeTextStyle : inactiveTextStyle,),
-                          ],
-                        ),
-                      ),
-
-                      Container(
-                        color: Colors.black,
-                        width: 1,
-                        height: 25,
-                      ),
-
-                      Container(
-                        width: 74,
-                        height: 25,
-                        decoration: BoxDecoration(
-                          color: info_chest == "LM" ? activeColor : inactiveColor,
-                          boxShadow: info_chest == "LM" ? [activeBowShadow] : [inactiveBoxShadow],
-
-
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("LM",style: info_chest == "LM" ? activeTextStyle : inactiveTextStyle,),
-                          ],
-                        ),
-                      ),
-
-                      Container(
-                        color: Colors.black,
-                        width: 1,
-                        height: 25,
-                      ),
-
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-
-                          ),
-                          color: info_chest == "XLM" ? activeColor : inactiveColor,
-                          boxShadow: info_chest == "XLM" ? [activeBowShadow] : [inactiveBoxShadow],
-
-
-                        ),
-                        width: 74,
-                        height: 25,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("XLM",style: info_chest == "XLM" ? activeTextStyle : inactiveTextStyle,),
-                          ],
-                        ),
-                      ),
-
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 12,),
-
           //SHOULDER
           GestureDetector(
             onTap: (){
@@ -797,119 +915,6 @@ class TshirtProduct extends Product{
                         ),
                       ),
 
-
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 12,),
-
-          //WAIST
-          GestureDetector(
-            onTap: (){
-              onPressShowDialog(context, info_waist, "Waist");
-            },
-            child: Column(
-              children: [
-                Text("Waist", style: GoogleFonts.righteous(fontSize: 20),),
-                Container(
-
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
-                          ),
-                          color: info_waist == "FM" ? activeColor : inactiveColor,
-                          boxShadow: info_waist == "FM" ? [activeBowShadow] : [inactiveBoxShadow],
-
-                        ),
-                        width: 74,
-                        height: 25,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("FM",style: info_waist == "FM" ? activeTextStyle : inactiveTextStyle,),
-                          ],
-                        ),
-                      ),
-
-                      Container(
-                        color: Colors.black,
-                        width: 1,
-                        height: 25,
-                      ),
-
-                      Container(
-                        width: 74,
-                        height: 25,
-                        decoration: BoxDecoration(
-                          color: info_waist == "PM" ? activeColor : inactiveColor,
-                          boxShadow: info_waist == "PM" ? [activeBowShadow] : [inactiveBoxShadow],
-
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("PM",style: info_waist == "PM" ? activeTextStyle : inactiveTextStyle,),
-                          ],
-                        ),
-                      ),
-
-                      Container(
-                        color: Colors.black,
-                        width: 1,
-                        height: 25,
-                      ),
-
-                      Container(
-                        width: 74,
-                        height: 25,
-                        decoration: BoxDecoration(
-                          color: info_waist == "LM" ? activeColor : inactiveColor,
-                          boxShadow: info_waist == "LM" ? [activeBowShadow] : [inactiveBoxShadow],
-
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("LM",style: info_waist == "LM" ? activeTextStyle : inactiveTextStyle,),
-                          ],
-                        ),
-                      ),
-
-                      Container(
-                        color: Colors.black,
-                        width: 1,
-                        height: 25,
-                      ),
-
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-
-                          ),
-                          color: info_waist == "XLM" ? activeColor : inactiveColor,
-                          boxShadow: info_waist == "XLM" ? [activeBowShadow] : [inactiveBoxShadow],
-
-
-                        ),
-                        width: 74,
-                        height: 25,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("XLM",style: info_waist == "XLM" ? activeTextStyle : inactiveTextStyle,),
-                          ],
-                        ),
-                      ),
 
                     ],
                   ),
@@ -1261,7 +1266,7 @@ class TshirtProduct extends Product{
   Widget ReturnTshirtProductWidget_Filtered(BuildContext context, List<String> matchData, double Rate){
     return Container(
       margin: EdgeInsets.only(left: 30, top: 30, right: 30, bottom: 30),
-      height: 570,
+      height: 600,
       width: 400,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -1282,7 +1287,7 @@ class TshirtProduct extends Product{
       ),
 
       child: Padding(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.fromLTRB(15,15,15,0),
         child: Column(
 
           children: [
@@ -1292,16 +1297,7 @@ class TshirtProduct extends Product{
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    LinearPercentIndicator(
-                      width: 100,
-                      animation: true,
-                      lineHeight: 20.0,
-                      animationDuration: 2000,
-                      percent: (Rate/100),
-                      center: Text(Rate.toStringAsFixed(1)+ "%", style: GoogleFonts.ruda(color: Colors.white, fontSize: 18),),
-                      linearStrokeCap: LinearStrokeCap.roundAll,
-                      progressColor: Colors.deepPurple,
-                    ),
+
                   ],
                 ),
                 Row(
@@ -1312,9 +1308,108 @@ class TshirtProduct extends Product{
                   ],
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        SizedBox(height: 10,),
+                        Text("\$ " + this.Price.toString(), style: GoogleFonts.ruda(color: Colors.deepPurple, fontSize: 22, fontWeight: FontWeight.bold)),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text("\$ " + this.Price.toString(), style: GoogleFonts.ruda(color: Colors.deepPurple, fontSize: 20)),
+                    PopupMenuButton(
+                        icon: Icon(Icons.more_vert, color: Colors.grey,),
+                        key: this.key,
+                        itemBuilder: (_) => <PopupMenuItem<String>>[
+                          new PopupMenuItem<String>(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.all(15),
+                                      width: 230,
+                                      height: 300,
+                                      //color: Colors.red,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("Size", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                                              Text(this.Size, style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400]))
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("Chest", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                                              Text(this.measureData["chest"].toString(), style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400]))
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("Waist", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                                              Text(this.measureData["waist"].toString(), style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400]))
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("Neck", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                                              Text(((double.parse(this.measureData["neck_x"]) + double.parse(this.measureData["neck_y"]))*pi/2).toStringAsFixed(2)
+                                                  , style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400]))
+                                            ],
+                                          ),
+
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("Shoulder", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                                              Text(this.measureData["shoulder"].toString(), style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400]))
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("Biceps", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                                              Text((double.parse(this.measureData["arm"])*2).toString(), style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400]))
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("Length", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                                              Text(this.measureData["length"].toString(), style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400]))
+                                            ],
+                                          ),
+
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("Sleeve", style: GoogleFonts.righteous(fontSize: 20,color: Colors.grey[800])),
+                                              Text(this.measureData["sleeve"].toString(), style: GoogleFonts.righteous(fontSize: 24,color: Colors.deepPurple[400]))
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+
+                        ],
+                        onSelected: (_) {}
+                    ),
                   ],
                 ),
               ],
@@ -1330,7 +1425,7 @@ class TshirtProduct extends Product{
                   height: 280,
                   child: Container(
                     child: ClipRRect(
-                      child: Image.network(this.mediaUrl),
+                      child: Image.network(this.mediaUrl, fit: BoxFit.cover,),
                       borderRadius: BorderRadius.all(
                           Radius.circular(10)
                       ),
@@ -1340,7 +1435,24 @@ class TshirtProduct extends Product{
               ],
             ),
             SizedBox(height: 15,),
+            LinearPercentIndicator(
+              width: 300,
+              animation: true,
+              lineHeight: 24.0,
+              animationDuration: 2000,
+              percent: (Rate/100),
+              center: Text(Rate.toStringAsFixed(1)+ "%", style: GoogleFonts.ruda(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),),
+              linearStrokeCap: LinearStrokeCap.roundAll,
+              progressColor: Colors.deepOrange,
+            ),
+            SizedBox(height: 8,),
             buildtBottom_Filtered(context: context, matchData: matchData),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.arrow_drop_down_rounded,color: Colors.grey,size:35),
+              ],
+            ),
           ],
         ),
       )

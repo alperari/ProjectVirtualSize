@@ -27,7 +27,7 @@ class _PantsState extends State<Pants> with AutomaticKeepAliveClientMixin<Pants>
   };
 
 
-  TextFormField customTextFormField(String name,double myVar){
+  TextFormField customTextFormField(String name,double myVar, Color mycolor ){
     return TextFormField(
       style: TextStyle(
           color: Colors.white
@@ -42,7 +42,7 @@ class _PantsState extends State<Pants> with AutomaticKeepAliveClientMixin<Pants>
           borderSide: BorderSide(color: Colors.blue, width: 1.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white, width: 1.0),
+          borderSide: BorderSide(color: mycolor, width: 1.0),
         ),
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.black, width: 1.0),
@@ -125,11 +125,11 @@ class _PantsState extends State<Pants> with AutomaticKeepAliveClientMixin<Pants>
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              customTextFormField("hip", hip),
+                              customTextFormField("hip", hip, Colors.orange),
                               SizedBox(height: 12,),
-                              customTextFormField("inLeg", inLeg),
+                              customTextFormField("inLeg", inLeg, Colors.blue),
                               SizedBox(height: 12,),
-                              customTextFormField("outLeg", outLeg),
+                              customTextFormField("outLeg", outLeg, Colors.red[300]),
                               SizedBox(height: 10,),
                               FlatButton(
                                   onPressed: (){

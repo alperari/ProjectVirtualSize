@@ -24,7 +24,8 @@ class _FilterIconState extends State<FilterIcon> {
       decoration: BoxDecoration(
         border: widget.isSelected
             ? Border.all(
-          color: const Color(0xffC5CAE9),
+          color: Colors.grey,
+          width: 2
         )
             : null,
         borderRadius: const BorderRadius.all(

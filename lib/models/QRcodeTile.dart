@@ -283,11 +283,12 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                     fontSize: 26,
+                    color: Colors.deepPurple,
                     fontWeight: FontWeight.bold
                 ),
               ),
             ),
-            Text("Created " + timeago.format(myQRcodeTile.time.toDate()), style: TextStyle(fontSize:15 ,color: Colors.deepPurple, fontWeight: FontWeight.bold),
+            Text("Created " + timeago.format(myQRcodeTile.time.toDate()), style: TextStyle(fontSize:15 ,color: Colors.grey[600], fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -303,7 +304,7 @@ Widget ReturnQRcodeTileWidget(QRcodeTile myQRcodeTile, BuildContext context){
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
+                      color: Colors.deepPurple.withOpacity(0.4),
                       spreadRadius: 5,
                       blurRadius: 7,
                       offset: Offset(0, 3), // changes position of shadow
