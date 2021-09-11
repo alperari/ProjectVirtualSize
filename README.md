@@ -28,7 +28,7 @@ Users can see all products on the market and filter by their previously created 
 
 Each filtered item will show its components according to suitability to your body.
 
-<img src="https://user-images.githubusercontent.com/68128434/132946374-e7922538-d6eb-4230-a1ab-bab01dffc619.png" alt="Screenshot_1629719655" style="zoom: 25%;" />
+<img src="https://user-images.githubusercontent.com/68128434/132946374-e7922538-d6eb-4230-a1ab-bab01dffc619.png" width="400" height="800"  />
 
 
 
@@ -132,43 +132,43 @@ Screenshots from app:
 
 
 
-<img src="https://user-images.githubusercontent.com/68128434/132946868-fcfb6ddf-d0e9-41bb-bf74-4dd56a5c6ed3.png" alt="Screenshot_1629719514" style="zoom:33%;" />
+<img src="https://user-images.githubusercontent.com/68128434/132946868-fcfb6ddf-d0e9-41bb-bf74-4dd56a5c6ed3.png" alt="Screenshot_1629719514" width="400" height="800"  />
 
  
 
 
 
-<img src="https://user-images.githubusercontent.com/68128434/132946870-82569fae-55d5-4444-bbe5-35e0d315a5bb.png" alt="Screenshot_1629719541" style="zoom:33%;" />
+<img src="https://user-images.githubusercontent.com/68128434/132946870-82569fae-55d5-4444-bbe5-35e0d315a5bb.png" width="400" height="800"  />
 
 
 
-<img src="https://user-images.githubusercontent.com/68128434/132946871-6605f9fb-dfdf-4a6d-8ff8-1dcfcb9f26b6.png" alt="Screenshot_1629719583" style="zoom:33%;" />
+<img src="https://user-images.githubusercontent.com/68128434/132946871-6605f9fb-dfdf-4a6d-8ff8-1dcfcb9f26b6.png" width="400" height="800"  />
 
 
 
-<img src="https://user-images.githubusercontent.com/68128434/132946873-3b4f7f8a-6764-4363-b222-9fb7b0711f1e.png" alt="Screenshot_1629719611" style="zoom:33%;" />
+<img src="https://user-images.githubusercontent.com/68128434/132946873-3b4f7f8a-6764-4363-b222-9fb7b0711f1e.png" width="400" height="800"  />
 
-<img src="https://user-images.githubusercontent.com/68128434/132946877-8ffaf751-d710-475f-a429-abb29c63b8f8.png" alt="Screenshot_1629719615" style="zoom:33%;" />
-
-
-
-<img src="https://user-images.githubusercontent.com/68128434/132946878-5f8f25d4-25d9-4f80-8a59-3069d723264c.png" alt="Screenshot_1629719646" style="zoom:33%;" />
+<img src="https://user-images.githubusercontent.com/68128434/132946877-8ffaf751-d710-475f-a429-abb29c63b8f8.png" width="400" height="800"  />
 
 
+
+<img src="https://user-images.githubusercontent.com/68128434/132946878-5f8f25d4-25d9-4f80-8a59-3069d723264c.png" width="400" height="800"  />
 
 
 
 
 
-<img src="https://user-images.githubusercontent.com/68128434/132946880-555296c1-63aa-4d20-bc1d-e42a934383f6.png" alt="Screenshot_1629719655" style="zoom:33%;" />
+
+
+<img src="https://user-images.githubusercontent.com/68128434/132946880-555296c1-63aa-4d20-bc1d-e42a934383f6.png" width="400" height="800"  />
 
 
 
-<img src="https://user-images.githubusercontent.com/68128434/132946862-732f569c-1dfd-4fd5-8601-b896b75e5941.png" alt="Screenshot_1629719663" style="zoom:33%;" />
+<img src="https://user-images.githubusercontent.com/68128434/132946862-732f569c-1dfd-4fd5-8601-b896b75e5941.png" width="400" height="800"  />
 
 
 
-<img src="https://user-images.githubusercontent.com/68128434/132946855-19819bbe-1d54-4859-a271-ca02e85c3b3d.png" alt="Screenshot_1629719660" style="zoom:33%;" />
+<img src="https://user-images.githubusercontent.com/68128434/132946855-19819bbe-1d54-4859-a271-ca02e85c3b3d.png" width="400" height="800"  />
 
 
 
